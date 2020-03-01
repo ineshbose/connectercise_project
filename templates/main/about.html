@@ -4,10 +4,23 @@
 {% block title_block %}
 About
 {% endblock %}
+{% block head_block %}
+<script src="{% static 'jQuery/jQuery.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var width = $('body').width();
+    $('p').mouseover(function(){
+        $(this).animate({ paddingTop: "15px" }, 100);
+    },);
+    $('p').mouseout(function(){
+        $(this).animate({ paddingTop: "5px" }, 100);
+    });
+    });
+</script>
+{% endblock %}
 {% block body_block %}
 <h1>{{ message }}</h1>
 <hr>
-<br>
     <p class="about">
         Welcome to Connectercise's About page. I'm glad you're interested to read more about us!
         Sports is an important aspect in all of our lives. Or at least it should be. There's no question
@@ -18,9 +31,15 @@ About
         feet, and start exercising in a way that works for you!
         Connectercise offers you the following:
         <ul class="about">
-            <li> A simple to use web application which allows athletes to meet other athletes who intend on doing sporting
+            <li>A simple to use web application which allows athletes to meet other athletes who intend on doing sporting
             activities in the same area with similar sporting specifications.</li>
-            <li> A way to quickly find sporting activities near you by filtering through location.</li>
+            <li>Users can make requests to find other users by specifying sport type, number of participants, date and 
+            location</li>
+            <li>Once users have matched they can chat directly over Connectercise</li>
+            <li>A way to quickly find sporting activities near you by filtering through location.</li>
+            <li>Users can rate and comment on pictures from other users.</li>
+            <li>Connect to your Strava account for full functionality. See other users in action. Share your workouts!</li>
+        </ul>
 
     </p>
 {% endblock %}
