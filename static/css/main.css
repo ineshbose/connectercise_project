@@ -4,4 +4,17 @@ h1 {text-decoration:bold; color:#d6008c; font-family:Verdana; }
 h2 {color:#650042; font-family:Verdana; }
 h3 {color:#C8bdbd; font-family:Verdana; }
 
-body {background-color:#121212 ; float: center; text-align:left; margin-left:20%; margin-right:20%; overflow-wrap: normal;}
+body {background-color:#121212 ;   
+     background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+    float: center; text-align:left; 
+    margin-left:20%; margin-right:20%; 
+    overflow-wrap: normal;
+}
+
+.content {background-color:#15202B ;   
+    background-repeat: no-repeat;
+   background-attachment: fixed;
+   background-position: center; 
+}
