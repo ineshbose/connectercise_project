@@ -1,0 +1,51 @@
+{
+  "name": "ez-plus",
+  "main": "src/jquery.ez-plus.js",
+  "title": "EZ Plus",
+  "version": "1.2.4",
+  "description": "A jQuery image zoom plug-in, with tints, easing and gallery integration.",
+  "keywords": [
+    "zoom",
+    "effects",
+    "elements",
+    "zooming"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/igorlino/elevatezoom-plus.git"
+  },
+  "author": {
+    "name": "Andy Eades",
+    "url": "http://www.elevateweb.co.uk"
+  },
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Igor Lino",
+      "email": "igorlino@github.com",
+      "url": "https://github.com/igorlino"
+    }
+  ],
+  "bugs": "https://github.com/igorlino/elevatezoom-plus/issues",
+  "homepage": "http://igorlino.github.io/elevatezoom-plus/",
+  "docs": "http://igorlino.github.io/elevatezoom-plus/examples",
+  "demo": "http://igorlino.github.io/elevatezoom-plus/examples",
+  "peerDependencies": {
+    "jquery": ">=2.1.4"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-cli": "~1.2.0",
+    "grunt-contrib-coffee": "^1.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-uglify": "^2.2.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-jscs": "^3.0.1",
+    "jquery": "^2.1.4"
+  },
+  "scripts": {
+    "test": "grunt travis --verbose"
+  },
+  "readmeFilename": "README.md"
+}

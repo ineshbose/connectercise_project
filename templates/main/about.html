@@ -6,19 +6,38 @@ About
 {% endblock %}
 {% block head_block %}
 <script src="{% static 'jQuery/jQuery.js' %}"></script>
+<script src="{% static 'jQuery/jquery.ez-plus.js' %}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        var width = $('body').width();
-    $('p').mouseover(function(){
-        $(this).animate({ paddingTop: "15px" }, 100);
-    },);
-    $('p').mouseout(function(){
-        $(this).animate({ paddingTop: "5px" }, 100);
-    });
+        $("#1").click(function(){
+            $(this).ezPlus();
+        })
+        $("#2").click(function(){
+            $(this).ezPlus();
+        })
+        $("#3").click(function(){
+            $(this).ezPlus();
+        })
+        $("#4").click(function(){
+            $(this).ezPlus();
+        })
+        $('p').mouseover(function(){
+            $(this).animate({ paddingTop: "15px" }, 100);
+        },);
+        $('p').mouseout(function(){
+            $(this).animate({ paddingTop: "5px" }, 100);
+        });
+        $('img').mouseover(function(){
+            $(this).animate({ paddingTop: "15px" }, 100);
+        },);
+        $('img').mouseout(function(){
+            $(this).animate({ paddingTop: "5px" }, 100);
+        });
     });
 </script>
 {% endblock %}
 {% block body_block %}
+<br>
 <h1>{{ message }}</h1>
 <hr>
     <p class="about">
@@ -30,6 +49,7 @@ About
         So, we at Connectercise want to help make this hurdle go POOF for you, so that you can get back on your 
         feet, and start exercising in a way that works for you!
         Connectercise offers you the following:
+    </p>
         <ul class="about">
             <li>A simple to use web application which allows athletes to meet other athletes who intend on doing sporting
             activities in the same area with similar sporting specifications.</li>
@@ -40,6 +60,29 @@ About
             <li>Users can rate and comment on pictures from other users.</li>
             <li>Connect to your Strava account for full functionality. See other users in action. Share your workouts!</li>
         </ul>
-
+    <p class="about">
+        At Connectercise we are dedicated to delivering the cleanest possible user experience, so that you don't have to worry
+        about the how, only about the when! You tell us when you're free and we'll take care of the rest. 
+        <br>
+        Our matching algorithm is simplistic and efficient, and will directly link you with any suitable candidates it can
+        find in our database!<br>
+        Check out some of the many satisfied users who've been getting their connectercise on because of us! Getting out there has
+        never been easier! So don't waste away!<br>
     </p>
+    <p class="instructions"> Click on the images to zoom in!</p>
+        <img id="1" class="about" src="{% static 'images/about.jpg' %}"alt= "That little kid just wanting to play ball lives in all of us!" />
+        <br>
+        <p class="about">That little kid just wanting to play ball lives in all of us!</p>
+        <br>
+        <img id="2" class="about" src="{% static 'images/about2.jpg' %}"alt= "That little kid just wanting to play ball lives in all of us!" />
+        <br>
+        <p class="about">Stop hiding from something you know is inevitable. Connecercise!</p>
+        <br>
+        <img id="3" class="about" src="{% static 'images/about4.jpg' %}"alt= "That little kid just wanting to play ball lives in all of us!" />
+        <br>
+        <p class="about">You're never too old. Just ask Paul and Katrina!</p>
+        <img id="4" class="about" src="{% static 'images/about3.jpg' %}"alt= "That little kid just wanting to play ball lives in all of us!" />
+        <br>
+        <p class="about">Don't let your dreams be dreams!</p>
+        <br>
 {% endblock %}
