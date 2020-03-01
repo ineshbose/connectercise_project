@@ -18,3 +18,10 @@ body {background-color:#121212 ;
    background-attachment: fixed;
    background-position: center; 
 }
+
+.about {color:#f7f0f0; 
+    font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-weight: 300;
+    line-height: 1.5;
+    text-align: justify;
+}
