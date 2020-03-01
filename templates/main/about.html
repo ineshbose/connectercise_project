@@ -1,9 +1,9 @@
-<html>
-    <head>
-        <title>Hello World!</title>
-    </head>
+{% extends 'main/master.html' %}
+{% load static %}
 
-    <body>  
-
-    </body>
-</html>
+{% block title_block %}
+About
+{% endblock %}
+{% block body_block %}
+{{ message }}
+{% endblock %}

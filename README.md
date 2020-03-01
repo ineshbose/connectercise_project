@@ -32,7 +32,7 @@ and then use a browser to go to http://127.0.0.1:8000/
 
 ## Team Members
 The following are the members of Lab 13 (Team B):
-* Marc Auf der Heyde
-* Inesh Bose
-* Andrea Diaz Aguiar
-* Lok Hang Toby Lee
+* [Marc Auf der Heyde](https://github.com/marcaufderheyde)
+* [Inesh Bose](https://github.com/ineshbose)
+* [Andrea Diaz Aguiar](https://github.com/2396765d)
+* [Lok Hang Toby Lee](https://github.com/llhtoby)
