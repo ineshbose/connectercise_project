@@ -4,6 +4,12 @@
 {% block title_block %}
 Home
 {% endblock %}
+
 {% block body_block %}
+{% if user.is_authenticated %}
+  <p> Oh hello {{ user.username }}!</p>
+{% endif %}
 <h1>{{ message }}</h1>
 {% endblock %}
+
+//-----------------------
