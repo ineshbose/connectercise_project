@@ -9,14 +9,42 @@
 {% block title_block %}
 About
 {% endblock %}
+{% block head_block %}
+<script src="{% static 'jQuery/jQuery.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var width = $('body').width();
+    $('p').mouseover(function(){
+        $(this).animate({ paddingTop: "15px" }, 100);
+    },);
+    $('p').mouseout(function(){
+        $(this).animate({ paddingTop: "5px" }, 100);
+    });
+    });
+</script>
+{% endblock %}
 {% block body_block %}
 <h1>{{ message }}</h1>
-<br>
 <hr>
-<br>
     <p class="about">
         Welcome to Connectercise's About page. I'm glad you're interested to read more about us!
-        Sports is an important aspect of al of our lives. Or at least it should be. There's no question
+        Sports is an important aspect in all of our lives. Or at least it should be. There's no question
+        that being active leads to countless health benefits and a better life, but with this fast paced
+        life we lead now a days, finding the time to exercise and exercise in a way that's fun and beneficial
+        for you, has become yet another hurdle in our journey towards self improvement. 
+        So, we at Connectercise want to help make this hurdle go POOF for you, so that you can get back on your 
+        feet, and start exercising in a way that works for you!
+        Connectercise offers you the following:
+        <ul class="about">
+            <li>A simple to use web application which allows athletes to meet other athletes who intend on doing sporting
+            activities in the same area with similar sporting specifications.</li>
+            <li>Users can make requests to find other users by specifying sport type, number of participants, date and 
+            location</li>
+            <li>Once users have matched they can chat directly over Connectercise</li>
+            <li>A way to quickly find sporting activities near you by filtering through location.</li>
+            <li>Users can rate and comment on pictures from other users.</li>
+            <li>Connect to your Strava account for full functionality. See other users in action. Share your workouts!</li>
+        </ul>
 
     </p>
 {% endblock %}
