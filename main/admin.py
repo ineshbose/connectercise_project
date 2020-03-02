@@ -2,5 +2,10 @@ from django.contrib import admin
 from main.models import UserProfile, SportingRequest
 
 # Register your models here.
-admin.site.register(UserProfile)
-admin.site.register(SportingRequest)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('username', 'email', 'sport', 'location', 'socialMedia')
+
+class SportingRequestAdmin(admin.ModelAdmin):
+    list_display = ('time', 'location', 'sessionID', 'sport')
+admin.site.register(UserProfile, UserAdmin)
+admin.site.register(SportingRequest, SportingRequestAdmin)
