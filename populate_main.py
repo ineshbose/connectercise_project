@@ -1,10 +1,11 @@
 import os
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'connectercise.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'connectercise_project.settings')
 
 import django
 django.setup()
 from main.models import UserProfile, SportingRequest
+from django.utils import timezone
 
 def populate():
     users = [{'username': 'alemon1', 
@@ -68,17 +69,62 @@ def populate():
                         'location': 'edinburgh',
                         'socialMedia':'user10@strava'},]
 
+    requests = [{'time': timezone.now(),
+                'location': 'glasgow',
+                'sessionID': '1',
+                'sport':'hiking'},
+                {'time': timezone.now(),
+                'location': 'edinburgh',
+                'sessionID': '2',
+                'sport':'swimming'},
+                {'time': timezone.now(),
+                'location': 'glasgow',
+                'sessionID': '3',
+                'sport':'hiking'},
+                {'time': timezone.now(),
+                'location': 'edinburgh',
+                'sessionID': '4',
+                'sport':'swimming'},
+                {'time': timezone.now(),
+                'location': 'glasgow',
+                'sessionID': '5',
+                'sport':'hiking'},
+                {'time': timezone.now(),
+                'location': 'edinburgh',
+                'sessionID': '6',
+                'sport':'swimming'},
+                {'time': timezone.now(),
+                'location': 'glasgow',
+                'sessionID': '7',
+                'sport':'hiking'},
+                {'time': timezone.now(),
+                'location': 'edinburgh',
+                'sessionID': '8',
+                'sport':'swimming'},
+                ]
+
     for user in users:
         u = add_user(user['username'],user['password'],user['email'],user['sport'],user['location'],user['socialMedia'])
 
     for u in UserProfile.objects.all():
         print(f'-{u}')
 
-def add_user(username,password,email,sport,location,socialMedia):
-    u = UserProfile.objects.get_or_create(username=username,password=password,email=email,sport=sport,location=location,socialMedia=socialMedia) [0]
+    for req in requests:
+        r = add_request(req['time'], req['location'], req['sessionID'], req['sport'])
+    
+    for r in SportingRequest.objects.all():
+        print(f'-{r}')
+
+def add_user(username,password,email,sport,location,socialMedia, pageURL='www.connectercise.com/'):
+    u = UserProfile.objects.get_or_create(username=username,password=password,email=email,pageURL=pageURL, sport=sport,location=location,socialMedia=socialMedia) [0]
     u.save()
     return u
 
+def add_request(time, location, sessionID, sport):
+    r = SportingRequest.objects.get_or_create(time=time, location=location, sessionID=sessionID, sport=sport)[0]
+    r.save()
+    return r
+
 if __name__ == '__main__':
-    print('Starting Rango population script...')
+    print('Starting Main population script...')
     populate()
