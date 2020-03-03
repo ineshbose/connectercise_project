@@ -116,7 +116,7 @@ def populate():
         print(f'-{r}')
 
 def add_user(username,password,email,sport,location,socialMedia, pageURL='www.connectercise.com/'):
-    u = UserProfile.objects.get_or_create(username=username,password=password,email=email,pageURL=pageURL, sport=sport,location=location,socialMedia=socialMedia) [0]
+    u = UserProfile.objects.get_or_create(user_id=username,password=password,email=email,pageURL=pageURL, sport=sport,location=location,socialMedia=socialMedia) [0]
     u.save()
     return u
 

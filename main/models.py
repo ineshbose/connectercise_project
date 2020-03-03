@@ -7,7 +7,10 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     
     # The additional attributes we wish to include
+    username = models.CharField(max_length=128, default='connectercise')
+    password = models.CharField(max_length=128, default='password')
     pageURL = models.URLField(blank=True)
+    email = models.CharField(max_length=128, blank=True)
     sport = models.CharField(max_length=128)
     location = models.CharField(max_length=128)
     socialMedia = models.CharField(max_length=128, unique=True)
