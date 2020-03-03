@@ -3,7 +3,7 @@ from main.models import UserProfile, SportingRequest
 
 # Register your models here.
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('sport', 'location', 'socialMedia')
+    list_display = ('username','pageURL','email','sport', 'location', 'socialMedia')
 
 class SportingRequestAdmin(admin.ModelAdmin):
     list_display = ('time', 'location', 'sessionID', 'sport')
