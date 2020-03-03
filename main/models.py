@@ -3,16 +3,17 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class UserProfile(models.Model):
-    username = models.CharField(max_length=128, primary_key=True)
-    password = models.CharField(max_length=64)
-    email = models.CharField(max_length=64,unique=True)
-    pageURL = models.CharField(max_length=128)
+    # This line is required. Links UserProfile to a User model instance.
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    
+    # The additional attributes we wish to include
+    pageURL = models.URLField(blank=True)
     sport = models.CharField(max_length=128)
     location = models.CharField(max_length=128)
     socialMedia = models.CharField(max_length=128, unique=True)
 
     def __str__(self):
-        return self.username
+        return self.user.username
         
 class SportingRequest(models.Model):
     time = models.DateTimeField(auto_now=True)

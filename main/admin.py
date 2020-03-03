@@ -3,9 +3,10 @@ from main.models import UserProfile, SportingRequest
 
 # Register your models here.
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'sport', 'location', 'socialMedia')
+    list_display = ('sport', 'location', 'socialMedia')
 
 class SportingRequestAdmin(admin.ModelAdmin):
     list_display = ('time', 'location', 'sessionID', 'sport')
+
 admin.site.register(UserProfile, UserAdmin)
 admin.site.register(SportingRequest, SportingRequestAdmin)
