@@ -13,7 +13,7 @@ class UserProfile(models.Model):
     email = models.CharField(max_length=128, blank=True)
     sport = models.CharField(max_length=128)
     location = models.CharField(max_length=128)
-    socialMedia = models.CharField(max_length=128, unique=True)
+    socialMedia = models.CharField(max_length=128)
 
     def __str__(self):
         return self.user.username
@@ -21,7 +21,7 @@ class UserProfile(models.Model):
 class SportingRequest(models.Model):
     time = models.DateTimeField(auto_now=True)
     location = models.CharField(max_length=128)
-    sessionID = models.CharField(max_length=16,primary_key=True)
+    sessionID = models.CharField(max_length=16)
     sport = models.CharField(max_length=128)
 
     def __str__(self):
