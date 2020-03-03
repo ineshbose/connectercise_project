@@ -12,7 +12,11 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.username
-        
+
+    class Meta:
+        verbose_name_plural = 'users'
+
+
 class SportingRequest(models.Model):
     time = models.DateTimeField(auto_now=True)
     location = models.CharField(max_length=128)
@@ -21,3 +25,6 @@ class SportingRequest(models.Model):
 
     def __str__(self):
         return self.sessionID
+
+    class Meta:
+        verbose_name_plural = 'requests'

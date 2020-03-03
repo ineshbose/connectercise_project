@@ -5,6 +5,9 @@
 Home
 {% endblock %}
 
+{% block head_block %} 
+{% endblock %}
+
 {% block body_block %}
 {% if user.is_authenticated %}
   <p> Oh hello {{ user.username }}!</p>
