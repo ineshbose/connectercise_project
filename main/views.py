@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from main.models import UserProfile, SportingRequest
 
 def index(request):
     context_dict = {'message': 'Index'}
     return render(request, 'main/index.html', context=context_dict)
 
 def about(request):
-    context_dict = {'message': 'About'}
+    request_list = SportingRequest.objects.all()
+    context_dict = {'message': 'About', 'requests':request_list}
     return render(request, 'main/about.html', context=context_dict)
 
 def userpage(request):
