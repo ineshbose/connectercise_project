@@ -20,4 +20,5 @@ from main import views
 urlpatterns = [
     path('', include('main.urls')),
     path('admin/', admin.site.urls),
+    path('accounts/', include('registration.backends.simple.urls')),
 ]
