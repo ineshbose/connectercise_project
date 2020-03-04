@@ -3,7 +3,8 @@ from django.http import HttpResponse
 from main.models import UserProfile, SportingRequest
 
 def index(request):
-    context_dict = {'message': 'Index'}
+    request_list = SportingRequest.objects.all()
+    context_dict = {'message': 'Index', 'requests':request_list}
     return render(request, 'main/index.html', context=context_dict)
 
 def about(request):
