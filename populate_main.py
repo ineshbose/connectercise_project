@@ -1,11 +1,16 @@
 import os
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'connectercise_project.settings')
 
 import django
 django.setup()
 from main.models import UserProfile, SportingRequest
+from django.contrib.auth.models import User
 from django.utils import timezone
+import string
+import datetime
+import os
+import sys
+import random
 
 def populate():
     users = [{'username': 'alemon1', 
@@ -103,28 +108,64 @@ def populate():
                 'sport':'swimming'},
                 ]
 
-    for user in users:
-        u = add_user(user['username'],user['password'],user['email'],user['sport'],user['location'],user['socialMedia'])
-
-    for u in UserProfile.objects.all():
-        print(f'-{u}')
-
     for req in requests:
         r = add_request(req['time'], req['location'], req['sessionID'], req['sport'])
     
     for r in SportingRequest.objects.all():
         print(f'-{r}')
 
-def add_user(username,password,email,sport,location,socialMedia, pageURL='www.connectercise.com/'):
-    u = UserProfile.objects.get_or_create(username=username,password=password,email=email,pageURL=pageURL, sport=sport,location=location,socialMedia=socialMedia) [0]
-    u.save()
-    return u
-
 def add_request(time, location, sessionID, sport):
     r = SportingRequest.objects.get_or_create(time=time, location=location, sessionID=sessionID, sport=sport)[0]
     r.save()
     return r
 
+def get_random_string(length, stringset=string.ascii_letters):
+    return ''.join([random.choice(string.ascii_letters + string.digits) for n in range(length)])
+
+def get_random_name(case):
+    if case == "first":
+        fnames = ['Marc','Martin','Marvin','Peter','Angela','Clive','Megan','Fiona','Sky','Randy','Miranda','Gemma','Andrew']
+        return random.choice(fnames)
+    if case == "last":
+        lnames = ['Smith','Doe','Murphy','Jacobs','Steinwien','Galoppa']
+        return random.choice(lnames)
+
+def get_random_sport():
+    sports = ['Tennis', 'Cycling', 'Running', 'Hiking', 'Football', 'Boxing', 'Climbing', 'Skiing', 'Walking', 'Darts']
+    return random.choice(sports)
+
+def get_random_location():
+    locations = ['Glasgow', 'Edinburgh', 'Aberdeen', 'Dumfries', 'St. Andrews', 'Dunbarr']
+    return random.choice(locations)
+
+def generate_users(n):    
+    print("Generating %s user(s)..." % n)
+    print("%s\t%s\t%s\t%s\t%s\t%s\t%s" % ("#", "username", "firstname", "lastname", "title", "company", "work_email"))
+
+    for user_index in range(n):
+        # create user
+        name = get_random_name("first")
+        new_user = User.objects.create(
+            first_name=name,
+            username="{0}{1}".format(name,get_random_string(4)),
+            last_name=get_random_name("last"),
+        )
+        new_user.save()
+
+        # create profile for user
+        p = UserProfile.objects.create(user=new_user)
+        p.pageURL = "www.%s.com" % new_user.username
+        p.email = "%s@random.com" % new_user.username
+        p.sport = get_random_sport()
+        p.socialMedia = "%s@strava.com" % new_user.username
+        p.location = get_random_location()
+        p.save()
+
+        print("'{0}'\t'{1}'\t'{2}'\t'{3}'\t'{4}'\t'{5}'\t'{6}'\t'{7}'\t'{8}'".format(str(user_index+1),new_user.username, new_user.first_name, new_user.last_name,str(p.pageURL),p.email,p.sport,p.socialMedia,p.location))
+
+        print("")
+
 if __name__ == '__main__':
     print('Starting Main population script...')
     populate()
+    generate_users(10)
