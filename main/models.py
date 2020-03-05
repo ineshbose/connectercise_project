@@ -1,8 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
-import datetime
 
 # Create your models here.
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    dateOfBirth = models.DateField(null=True, blank=True)
+    profilePhoto = models.ImageField(null=True, blank=True, upload_to='static')
+    sex = models.CharField(null=True, choices=[('F','Female'),('M','Male')], max_length=1)
+
+'''
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -30,5 +36,11 @@ class SportingRequest(models.Model):
     status = models.BooleanField(default=True) # To see if request has been completed. True = Request open, False = Request closed
     start_user = models.ForeignKey(UserProfile, on_delete = models.CASCADE, related_name="start_user", default=None)
     involved_users = models.ForeignKey(UserProfile, blank=True, on_delete = models.DO_NOTHING, related_name="involved_users", default=None)
+    def __str__(self):
+        return self.sessionID
+'''
+class SportingRequest(models.Model):
+    sessionID = models.CharField(max_length=16, primary_key=True)
+
     def __str__(self):
         return self.sessionID
