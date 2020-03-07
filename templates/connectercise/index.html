@@ -12,6 +12,34 @@
             person!<br />
             <strong>{{ boldmessage }}</strong><br />
         </div>
+        <h2>Most Popular Sports</h2>
+        <div>
+            {% if sports %}
+            <ul>
+                {% for sport in sports %}
+                <li>
+                    <a href = "/sport/{{ sport.slug }}/">{{ sport.name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <strong>There are no sports present.</strong>
+            {% endif %}
+        </div>
+        <h2>Most Viewed Requests</h2>
+        <div>
+            {% if requests %}
+            <ul>
+                {% for request in requests %}
+                <li>
+                    <a href= "{{ request.url }}">{{ request.title }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <strong>There are no requests present.</strong>
+            {% endif %}
+        </div>
         <div>
             <a href="/about">About</a><br />
         </div>

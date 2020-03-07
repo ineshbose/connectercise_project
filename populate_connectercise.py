@@ -8,27 +8,35 @@ from connectercise.models import Sport, SportRequest
 def populate():
     hike_requests = [
         {'title': 'HIKING BUDDY NEEDED!!',
-        'url': 'https://inesh.xyz/'},
+        'url': 'https://inesh.xyz/',
+        'views': 128},
         {'title': 'A Hike Across The Country',
-        'url': 'https://inesh.xyz/'},
+        'url': 'https://inesh.xyz/',
+        'views': 64},
         {'title': 'The Highland Hike',
-        'url': 'https://inesh.xyz/'},
+        'url': 'https://inesh.xyz/',
+        'views': 32},
     ]
 
     cycling_requests = [
         {'title': 'Looking to start a club!',
-        'url': 'https://inesh.xyz/'},
+        'url': 'https://inesh.xyz/',
+        'views': 64},
         {'title': 'Glasgow - Dumfries Ride',
-        'url': 'https://inesh.xyz/'},
+        'url': 'https://inesh.xyz/',
+        'views': 32},
         {'title': 'Edinburgh Cyclothon Buddies?',
-        'url': 'https://inesh.xyz/'},
+        'url': 'https://inesh.xyz/',
+        'views': 16},
     ]
 
     other_requests = [
         {'title': 'Online Chess?',
-        'url': 'https://inesh.xyz/'},
+        'url': 'https://inesh.xyz/',
+        'views': 32},
         {'title': 'C***fighting!!! ^_^ ',
-        'url': 'https://inesh.xyz/'},
+        'url': 'https://inesh.xyz/',
+        'views': 16},
     ]
 
     sports = {'Hiking': {'requests': hike_requests, 'views': 128, 'likes': 64},
@@ -38,7 +46,7 @@ def populate():
     for sport, sport_data in sports.items():
         s = add_sport(sport, sport_data['views'], sport_data['likes'])
         for r in sport_data['requests']:
-            add_request(s, r['title'], r['url'])
+            add_request(s, r['title'], r['url'], r['views'])
     
     for s in Sport.objects.all():
         for r in SportRequest.objects.filter(sport=s):
