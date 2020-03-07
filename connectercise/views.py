@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse
@@ -14,10 +15,13 @@ def index(request):
     context_dict['boldmessage'] = 'lorem ipsum?'
     context_dict['sports'] = sport_list
     context_dict['requests'] = request_list
+    visitor_cookie_handler(request)
     return render(request, 'connectercise/index.html', context=context_dict)
 
 def about(request):
     context_dict = {'boldmessage': 'This tutorial has been put together by Team Connectercise!'}
+    visitor_cookie_handler(request)
+    context_dict['visits'] = request.session['visits']
     return render(request, 'connectercise/about.html', context=context_dict)
 
 def show_sport(request, sport_name_slug):

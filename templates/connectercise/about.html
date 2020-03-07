@@ -2,12 +2,10 @@
 {% load static %}
 
 {% block title_block %}
-    Dashboard
+    About
 {% endblock %}
 {% block body_block %}
-    <h1>Oh hello..</h1>
-    <div>
-        person! Here is the about page.<br />
         <strong>{{ boldmessage }}</strong><br />
+        <p>Visits: {{ visits }}</p>
     </div>
 {% endblock %}
