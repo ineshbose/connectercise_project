@@ -6,8 +6,9 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     dateOfBirth = models.DateField(null=True, blank=True)
     profilePhoto = models.ImageField(null=True, blank=True, upload_to='static')
-    sex = models.CharField(null=True, choices=[('F','Female'),('M','Male')], max_length=1)
-    sport_choices = [('HIKE', 'Hiking'),('FB','Football'),('BB','Basketball'),('CYC','CYCLING')]
+    SEX = [('F','Female'),('M','Male')]
+    sex = models.CharField(null=True, choices=SEX, max_length=1)
+    sport_choices = [('HIKE', 'Hiking'),('FB','Football'),('BB','Basketball'),('CYC','Cycling')]
     sport_preference = models.CharField(max_length=4, choices=sport_choices)
 
     def __str__(self):
