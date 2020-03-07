@@ -21,6 +21,13 @@
         <hr />
         <div>
             <ul>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'connectercise:restricted' %}">Restricted Page</a></li>
+                <li><a href="{% url 'connectercise:logout' %}">Logout</a></li>
+                {% else %}
+                <li><a href="{% url 'connectercise:register' %}">Sign Up</a></li>
+                <li><a href="{% url 'connectercise:login' %}">Login</a></li>
+                {% endif %}
                 <li><a href="{% url 'connectercise:add_sport' %}">Add a New Sport</a></li>
                 <li><a href="{% url 'connectercise:about' %}">About</a></li>
                 <li><a href="{% url 'connectercise:index' %}">Index</a></li>

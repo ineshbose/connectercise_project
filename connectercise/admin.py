@@ -1,5 +1,5 @@
 from django.contrib import admin
-from connectercise.models import Sport, SportRequest
+from connectercise.models import Sport, SportRequest, UserProfile
 
 # Register your models here.
 
@@ -11,3 +11,4 @@ class RequestAdmin(admin.ModelAdmin):
 
 admin.site.register(Sport, SportAdmin)
 admin.site.register(SportRequest, RequestAdmin)
+admin.site.register(UserProfile)

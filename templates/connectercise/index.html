@@ -5,9 +5,10 @@
     Dashboard
 {% endblock %}
 {% block body_block %}
-    <h1>Oh hello..</h1>
+    <h1>
+        Oh hello{% if user.is_authenticated %}, {{ user.username }}.{% else %}!{% endif %}
+    </h1>
     <div>
-        person!<br />
         <strong>{{ boldmessage }}</strong><br />
     </div>
     <h2>Most Popular Sports</h2>
