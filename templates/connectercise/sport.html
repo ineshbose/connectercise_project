@@ -18,9 +18,11 @@
             </ul>
             {% else %}
             <strong>No requests currently in sport.</strong>
+            <a href="/sport/{{ sport.slug }}/add_request/">Add Request</a><br />
             {% endif %}
             {% else %}
             The specified sport does not exist.
+            <a href="/add_sport/">Add Sport</a><br />
             {% endif %}
         </div>
     </body>
