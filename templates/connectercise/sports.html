@@ -1,0 +1,13 @@
+<ul>
+    {% if sports %}
+        {% for s in sports %}
+            {% if s == current_sport %}
+                <li><strong><a href = "{% url 'connectercise:show_sport' s.slug %}">{{ s.name }}</a></strong></li>
+            {% else %}
+                <li><a href = "{% url 'connectercise:show_sport' s.slug %}">{{ s.name }}</a></li>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <li><strong>There are no sports present.</strong></li>
+    {% endif %}
+</ul>

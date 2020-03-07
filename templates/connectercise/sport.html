@@ -1,29 +1,30 @@
-<!DOCTYPE html>
+{% extends 'connectercise/base.html' %}
+{% load static %}
 
-<html>
-    <head>
-        <title>Connectercise</title>
-    </head>
-    <body>
-        <div>
-            {% if sport %}
-            <h1>
-                {{ sport.name }}
-            </h1>
-            {% if requests %}
-            <ul>
-                {% for request in requests %}
-                <li><a href="{{ request.url }}">{{ request.title }}</a></li>
-                {% endfor %}
-            </ul>
-            {% else %}
-            <strong>No requests currently in sport.</strong>
-            <a href="/sport/{{ sport.slug }}/add_request/">Add Request</a><br />
-            {% endif %}
-            {% else %}
-            The specified sport does not exist.
-            <a href="/add_sport/">Add Sport</a><br />
-            {% endif %}
-        </div>
-    </body>
-</html>
+{% block title_block %}
+    {% if sport %}
+        {{ sport.name }}
+    {% else %}
+        Unknown Category
+    {% endif %}
+{% endblock %}
+{% block body_block %}
+    {% if sport %}
+    <h1>
+        {{ sport.name }}
+    </h1>
+    {% if requests %}
+    <ul>
+        {% for request in requests %}
+        <li><a href="{{ request.url }}">{{ request.title }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <strong>No requests currently in sport.</strong>
+    <a href="/sport/{{ sport.slug }}/add_request/">Add Request</a><br />
+    {% endif %}
+    {% else %}
+    The specified sport does not exist.
+    <a href="/add_sport/">Add Sport</a><br />
+    {% endif %}
+{% endblock %}

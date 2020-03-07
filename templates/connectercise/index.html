@@ -1,48 +1,41 @@
-<!DOCTYPE html>
+{% extends 'connectercise/base.html' %}
 {% load static %}
-<html>
-    <head lang="en">
-        <meta charset="UTF-8" />
-        <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
-        <title>Connectercise</title>
-    </head>
-    <body>
-        <h1>Oh hello..</h1>
-        <div>
-            person!<br />
-            <strong>{{ boldmessage }}</strong><br />
-        </div>
-        <h2>Most Popular Sports</h2>
-        <div>
-            {% if sports %}
-            <ul>
-                {% for sport in sports %}
-                <li>
-                    <a href = "/sport/{{ sport.slug }}/">{{ sport.name }}</a>
-                </li>
-                {% endfor %}
-            </ul>
-            {% else %}
-            <strong>There are no sports present.</strong>
-            {% endif %}
-        </div>
-        <h2>Most Viewed Requests</h2>
-        <div>
-            {% if requests %}
-            <ul>
-                {% for request in requests %}
-                <li>
-                    <a href= "{{ request.url }}">{{ request.title }}</a>
-                </li>
-                {% endfor %}
-            </ul>
-            {% else %}
-            <strong>There are no requests present.</strong>
-            {% endif %}
-        </div>
-        <div>
-            <a href="/about">About</a><br />
-            <a href="/add_sport/">Add a New Sport</a><br />
-        </div>
-    </body>
-</html>
+
+{% block title_block %}
+    Dashboard
+{% endblock %}
+{% block body_block %}
+    <h1>Oh hello..</h1>
+    <div>
+        person!<br />
+        <strong>{{ boldmessage }}</strong><br />
+    </div>
+    <h2>Most Popular Sports</h2>
+    <div>
+        {% if sports %}
+        <ul>
+            {% for sport in sports %}
+            <li>
+                <a href = "{% url 'connectercise:show_sport' sport.slug %}">{{ sport.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <strong>There are no sports present.</strong>
+        {% endif %}
+    </div>
+    <h2>Most Viewed Requests</h2>
+    <div>
+        {% if requests %}
+        <ul>
+            {% for request in requests %}
+            <li>
+                <a href= "{{ request.url }}">{{ request.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <strong>There are no requests present.</strong>
+        {% endif %}
+    </div>
+{% endblock %}

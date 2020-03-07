@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+{% load connectercise_template_tags %}
+<html>
+    <head lang="en">
+        <meta charset="UTF-8" />
+        <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
+        <title>Connectercise | {% block title_block %} {% endblock %}</title>
+    </head>
+    <body>
+        <div>
+            {% block body_block %}
+            {% endblock %}
+        </div>
+        <hr />
+        <div>
+            {% block sidebar_block %}
+            {% get_sport_list sport %}
+            {% endblock %}
+        </div>
+        <hr />
+        <div>
+            <ul>
+                <li><a href="{% url 'connectercise:add_sport' %}">Add a New Sport</a></li>
+                <li><a href="{% url 'connectercise:about' %}">About</a></li>
+                <li><a href="{% url 'connectercise:index' %}">Index</a></li>
+            </ul>
+        </div>
+    </body>
+</html>
