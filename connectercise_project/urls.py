@@ -23,4 +23,6 @@ urlpatterns = [
     #path('connect/', include('connect.urls')),
     path('', include('connectercise.urls')),
     path('admin/', admin.site.urls),
+    path('accounts/', include('registration.backends.simple.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

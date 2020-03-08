@@ -23,10 +23,11 @@
             <ul>
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'connectercise:restricted' %}">Restricted Page</a></li>
-                <li><a href="{% url 'connectercise:logout' %}">Logout</a></li>
+                <li><a href="{% url 'auth_password_change' %}">Change Password</a></li>
+                <li><a href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">Logout</a></li>
                 {% else %}
-                <li><a href="{% url 'connectercise:register' %}">Sign Up</a></li>
-                <li><a href="{% url 'connectercise:login' %}">Login</a></li>
+                <li><a href="{% url 'registration_register' %}">Sign Up</a></li>
+                <li><a href="{% url 'auth_login' %}">Login</a></li>
                 {% endif %}
                 <li><a href="{% url 'connectercise:add_sport' %}">Add a New Sport</a></li>
                 <li><a href="{% url 'connectercise:about' %}">About</a></li>
