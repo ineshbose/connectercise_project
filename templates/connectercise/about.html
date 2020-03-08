@@ -5,7 +5,12 @@
     About
 {% endblock %}
 {% block body_block %}
-        <strong>{{ boldmessage }}</strong><br />
+<div class="jumbotron p-4">
+    <div class="container">
+        <strong>{{ boldmessage }}</strong>
+    </div>
+</div>
+    <div>
         <p>Visits: {{ visits }}</p>
     </div>
 {% endblock %}

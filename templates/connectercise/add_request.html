@@ -5,19 +5,30 @@
     Add A Request
 {% endblock %}
 {% block body_block %}
-    <h1>Add a Sport Request</h1>
-    <div>
-        <form id="request_form" method="post" action="/sport/{{ sport.slug }}/add_request/">
-            {% csrf_token %}
-            {% for hidden in form.hidden_fields %}
-                {{ hidden }}
-            {% endfor %}
-            {% for field in form.visible_fields %}
-                {{ field.errors }}
-                {{ field.help_text }}
-                {{ field }}
-            {% endfor %}
-            <input type="submit" name="submit" value="Create Request" />
-        </form>
+    <div class="jumbotron p-4">
+        <div class="container">
+            <h1 class="jumbotron-heading">Add a Sport Request</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+        <form role="form" id="request_form" method="post" action="{% url 'connectercise:add_request' sport.slug %}">
+        {% csrf_token %}
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+        {% for field in form.visible_fields %}
+            {{ field.errors }}
+            {{ field.help_text }}<br />
+            {{ field }}<br />
+            <div class="p-2"></div>
+        {% endfor %}
+            <br />
+            <button class="btn btn-primary" type="submit" name="submit">
+            Add Request
+            </button>
+            <div class="p-5"></div>
+            </form>
+        </div>
     </div>
 {% endblock %}
