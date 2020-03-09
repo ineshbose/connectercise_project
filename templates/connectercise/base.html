@@ -12,7 +12,7 @@
     <title>
         connectercise - {% block title_block %}Connecting People Through Sports{% endblock %}
     </title>
-    
+    <link href={% static 'css/main.css' %}
     <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/docs/4.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     
@@ -34,7 +34,7 @@
                         <li class="nav-item "><a class="nav-link" href="{% url 'connectercise:about' %}">About</a></li>
                         {% if user.is_authenticated %}
                         <li class="nav-item "><a class="nav-link" href="{% url 'connectercise:restricted' %}">Restricted</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next=/connectercise/">Logout</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">Logout</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'connectercise:add_sport' %}">Add Sport</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a></li>
                         {% else %}
