@@ -1,0 +1,29 @@
+{% extends 'connectercise/base.html' %}
+{% block title_block %}
+Login
+{% endblock %}
+{% block body_block %}
+    <div class="jumbotron p-4">
+        <div class="container">
+             <h1 class="jumbotron-heading">Login</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <form class="form-signin" role="form" method="post" action=".">
+        {% csrf_token %}
+            <label for="inputUsername" class="sr-only">Username</label>
+            <input type="text" name="username" id="id_username" class="form-control"
+            placeholder="Username" required autofocus>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" name="password" id="id_password" class="form-control"
+            placeholder="Password" required>
+            <button class="btn btn-lg btn-primary btn-block" type="submit"
+            value="Submit">Sign in</button>
+        </form>
+    </div>
+<p>
+Not registered?
+<a href="{% url 'registration_register' %}">Register here!</a>
+</p>
+{% endblock %}
