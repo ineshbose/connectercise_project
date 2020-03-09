@@ -36,6 +36,18 @@ def show_sport(request, sport_name_slug):
         context_dict['requests'] = None
     return render(request, 'connectercise/sport.html', context=context_dict)
 
+def show_request(request, sport_name_slug, request_name_slug):
+    context_dict = {}
+    try:
+        s_request = SportRequest.objects.get(slug=request_name_slug)
+        #requests = SportRequest.objects.filter(sport=sport)
+        context_dict['request'] = s_request
+        #context_dict['sport'] = sport
+    except SportRequest.DoesNotExist:
+        #context_dict['sport'] = None
+        context_dict['request'] = None
+    return render(request, 'connectercise/request.html', context=context_dict)
+
 @login_required
 def add_sport(request):
     form = SportForm()

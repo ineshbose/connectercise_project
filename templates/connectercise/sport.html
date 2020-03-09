@@ -22,7 +22,8 @@
     <ul>
     {% if requests %}
         {% for request in requests %}
-            <li><a href="{{ request.url }}">{{ request.title }}</a></li>
+            <li><a href="{% url 'connectercise:show_request' request.sport.slug request.slug %}">{{ request.title }}</a>
+                <br />{{ request.desc }}</li><br />
         {% endfor %}
     </ul>
     {% else %}

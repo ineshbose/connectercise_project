@@ -18,9 +18,16 @@ class Sport(models.Model):
 
 class SportRequest(models.Model):
     sport = models.ForeignKey(Sport, on_delete=models.CASCADE)
-    title = models.CharField(max_length=128)
-    url = models.URLField() # Will be changed
+    title = models.CharField(max_length=128, unique=True)
+    #url = models.URLField()
     views = models.IntegerField(default=0)
+    slug = models.SlugField(unique=True)
+    #creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    desc = models.CharField(max_length=1024, default='Enter description')
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(SportRequest, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title

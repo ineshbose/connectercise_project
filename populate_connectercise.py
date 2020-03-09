@@ -8,34 +8,34 @@ from connectercise.models import Sport, SportRequest
 def populate():
     hike_requests = [
         {'title': 'HIKING BUDDY NEEDED!!',
-        'url': 'https://inesh.xyz/',
+        'desc': 'I am going on a hike. Join me',
         'views': 128},
         {'title': 'A Hike Across The Country',
-        'url': 'https://inesh.xyz/',
+        'desc': 'Lets travel the country :)',
         'views': 64},
         {'title': 'The Highland Hike',
-        'url': 'https://inesh.xyz/',
+        'desc': 'Going up north',
         'views': 32},
     ]
 
     cycling_requests = [
         {'title': 'Looking to start a club!',
-        'url': 'https://inesh.xyz/',
+        'desc': 'Based in Glasgow West End',
         'views': 64},
         {'title': 'Glasgow - Dumfries Ride',
-        'url': 'https://inesh.xyz/',
+        'desc': '200km ride, anyone?',
         'views': 32},
         {'title': 'Edinburgh Cyclothon Buddies?',
-        'url': 'https://inesh.xyz/',
+        'desc': 'Pres at my place lol',
         'views': 16},
     ]
 
     other_requests = [
         {'title': 'Online Chess?',
-        'url': 'https://inesh.xyz/',
+        'desc': 'fast af boi',
         'views': 32},
         {'title': 'C***fighting!!! ^_^ ',
-        'url': 'https://inesh.xyz/',
+        'desc': 'winner takes all',
         'views': 16},
     ]
 
@@ -46,15 +46,15 @@ def populate():
     for sport, sport_data in sports.items():
         s = add_sport(sport, sport_data['views'], sport_data['likes'])
         for r in sport_data['requests']:
-            add_request(s, r['title'], r['url'], r['views'])
+            add_request(s, r['title'], r['desc'], r['views'])
     
     for s in Sport.objects.all():
         for r in SportRequest.objects.filter(sport=s):
             print(f'- {s}: {r}')
 
-def add_request(sport, title, url, views=0):
+def add_request(sport, title, desc, views=0):
     r = SportRequest.objects.get_or_create(sport=sport, title=title)[0]
-    r.url = url
+    r.desc = desc
     r.views = views
     r.save()
     return r
