@@ -22,7 +22,7 @@
     <ul>
     {% if request %}
         <h6>{{ request.desc }}</h6>
-        <h5>Created by {{ request.creator.user.username }}</h5>
+        <h5>Created by {{ request.creator.username }}</h5>
     </ul>
     {% else %}
         <strong>404</strong>
