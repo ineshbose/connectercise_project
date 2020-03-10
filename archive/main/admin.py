@@ -8,5 +8,7 @@ class UserAdmin(admin.ModelAdmin):
 class SportingRequestAdmin(admin.ModelAdmin):
     list_display = ('time', 'location', 'sessionID', 'sport')
 
-admin.site.register(UserProfile, UserAdmin)
-admin.site.register(SportingRequest, SportingRequestAdmin)
+#admin.site.register(UserProfile, UserAdmin)
+#admin.site.register(SportingRequest, SportingRequestAdmin)
+admin.site.register(UserProfile)
+admin.site.register(SportingRequest)

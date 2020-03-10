@@ -1,0 +1,16 @@
+{% extends 'connectercise/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    About
+{% endblock %}
+{% block body_block %}
+<div class="jumbotron p-4">
+    <div class="container">
+        <strong>{{ boldmessage }}</strong>
+    </div>
+</div>
+    <div>
+        <p>Visits: {{ visits }}</p>
+    </div>
+{% endblock %}

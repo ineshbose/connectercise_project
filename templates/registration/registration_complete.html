@@ -1,0 +1,16 @@
+{% extends 'connectercise/base.html' %}
+{% block title_block %}
+Register
+{% endblock %}
+{% block body_block %}
+    <div class="jumbotron p-4">
+        <div class="container">
+             <h1 class="jumbotron-heading">Register Here</h1>
+        </div>
+    </div>
+<form method="post" action=".">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Register" />
+</form>
+{% endblock %}
