@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     #'connect',
     'connectercise',
     'registration',
+    'django_google_maps',
 ]
 
 RGISTRATION_OPEN = True
@@ -156,3 +157,5 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 ]
+
+GOOGLE_MAPS_API_KEY = 'AIzaSyBAr4rBDcBTX9AuOS0psmJdcsShDVFp-U4'

@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from django_google_maps.fields import AddressField, GeoLocationField 
 
 # Create your models here.
 class Sport(models.Model):
@@ -24,6 +25,8 @@ class SportRequest(models.Model):
     slug = models.SlugField(unique=True)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     desc = models.CharField(max_length=1024, default='Enter description')
+    address = AddressField(max_length=100, null=True)
+    geolocation = GeoLocationField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)

@@ -22,6 +22,8 @@
     <ul>
     {% if request %}
         <h6>{{ request.desc }}</h6>
+        <h6>{{ request.address }}</h6>
+        <h6>{{ request.geolocation }}</h6>
         <h5>Created by {{ request.creator.username }}</h5>
     </ul>
     {% else %}

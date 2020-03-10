@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from connectercise.models import SportRequest, Sport, UserProfile
+from django_google_maps.widgets import GoogleMapsAddressWidget
 
 class SportForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Please enter the sport name.")
@@ -20,6 +21,9 @@ class RequestForm(forms.ModelForm):
     class Meta:
         model = SportRequest
         exclude = ('sport',)
+        widgets = {
+            "address": GoogleMapsAddressWidget,
+        }
 
     def clean(self):
         cleaned_data = self.cleaned_data
