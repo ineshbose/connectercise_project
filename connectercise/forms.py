@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 from connectercise.models import SportRequest, Sport, UserProfile
 from django_google_maps.widgets import GoogleMapsAddressWidget
+from django_google_maps.fields import AddressField, GeoLocationField
+from django.forms.widgets import TextInput
 
 class SportForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Please enter the sport name.")
@@ -17,7 +19,16 @@ class RequestForm(forms.ModelForm):
     title = forms.CharField(max_length=128, help_text="Please enter the title.")
     url = forms.URLField(max_length=200, help_text="Please enter the URL.")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-
+    formfield_overrides = {
+        AddressField: {
+            'widget': GoogleMapsAddressWidget
+        },
+        GeoLocationField: {
+            'widget': TextInput(attrs={
+                'readonly': 'readonly'
+            })
+        },
+    }
     class Meta:
         model = SportRequest
         exclude = ('sport',)
