@@ -19,22 +19,10 @@ class RequestForm(forms.ModelForm):
     title = forms.CharField(max_length=128, help_text="Please enter the title.")
     url = forms.URLField(max_length=200, help_text="Please enter the URL.")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    formfield_overrides = {
-        AddressField: {
-            'widget': GoogleMapsAddressWidget
-        },
-        GeoLocationField: {
-            'widget': TextInput(attrs={
-                'readonly': 'readonly'
-            })
-        },
-    }
+
     class Meta:
         model = SportRequest
         exclude = ('sport',)
-        widgets = {
-            "address": GoogleMapsAddressWidget,
-        }
 
     def clean(self):
         cleaned_data = self.cleaned_data

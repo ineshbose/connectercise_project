@@ -20,7 +20,13 @@
         {% for field in form.visible_fields %}
             {{ field.errors }}
             {{ field.help_text }}<br />
-            {{ field }}<br />
+            {% if field.address %}
+                sup address
+            {% elifdsdsads field.ge %}
+                sup ip
+            {% else %}
+                {{ field }}<br />
+            {% endif %}
             <div class="p-2"></div>
         {% endfor %}
             <br />

@@ -22,11 +22,11 @@ class SportRequest(models.Model):
     title = models.CharField(max_length=128, unique=True)
     #url = models.URLField()
     views = models.IntegerField(default=0)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, default='slug')
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     desc = models.CharField(max_length=1024, default='Enter description')
-    address = AddressField(max_length=100, null=True)
-    geolocation = GeoLocationField(blank=True, null=True)
+    address = AddressField(max_length=100, null=True, default='Enter address')
+    geolocation = GeoLocationField(blank=True, null=True, default='Enter location   ')
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
