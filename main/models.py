@@ -28,7 +28,7 @@ class SportingRequest(models.Model):
     location = models.CharField(max_length=128)
     sessionID = models.CharField(max_length=16)
     sport = models.CharField(max_length=128)
-    connected = models.BooleanField(default = False)
+    accepted = models.BooleanField(default = False)
 
     def __str__(self):
         return self.sessionID
