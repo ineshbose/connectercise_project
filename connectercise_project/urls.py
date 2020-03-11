@@ -24,9 +24,5 @@ urlpatterns = [
     path('', include('connectercise.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),
-<<<<<<< HEAD
-]
-=======
     path('accounts/', include('django.contrib.auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
->>>>>>> 4e66c3aed19ad74fa03912ec3a6cb7d96fdd20de
