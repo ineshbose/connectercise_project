@@ -24,6 +24,12 @@ def about(request):
     context_dict['visits'] = request.session['visits']
     return render(request, 'connectercise/about.html', context=context_dict)
 
+def sports(request):
+    sport_list = Sport.objects.order_by('-likes')[:5]
+    context_dict = {'boldmessage': 'This tutorial has been put together by Team Connectercise!'}
+    context_dict['sports'] = sport_list
+    return render(request, 'connectercise/sports.html', context=context_dict)
+
 def show_sport(request, sport_name_slug):
     context_dict = {}
     try:
