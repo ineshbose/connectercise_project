@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'connectercise',
     'registration',
-    'registration_bootstrap',
-    'crispy_forms',
 ]
 
 RGISTRATION_OPEN = True
