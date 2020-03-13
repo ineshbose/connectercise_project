@@ -45,7 +45,7 @@
       </div>
     </div>
   </nav>
-
+<section id="login">
  <div class="container">
     <div class="row">
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
@@ -77,6 +77,7 @@
       </div>
     </div>
  </div>
+</section>
 
   <section id="about">
     <div class="container">
@@ -104,19 +105,14 @@
           <ul class="nav flex-column">
             {% if sports %}
                 {% for s in sports %}
-                    {% if s == current_sport %}
-                        <li class="nav-item">
-                        <a class="nav-link active" href = "{% url 'connectercise:show_sport' s.slug %}">
-                            <span data-feather="archive"></span>{{ s.name }}
-                        </a>
+                    <ul>
+                        <li>
+                        <img src="{% static 'images/about4.jpg' %}" />
+                        <h3><a class="nav-link active" href = "{% url 'connectercise:show_sport' s.slug %}">
+                        <span data-feather="archive"></span>{{ s.name }}</a></h3>
+                        <p>Lorem ipsum dolor sit amet...</p>
                         </li>
-                    {% else %}
-                        <li class="nav-item">
-                        <a class="nav-link" href = "{% url 'connectercise:show_sport' s.slug %}">
-                            <span data-feather="archive"></span>{{ s.name }}
-                        </a>
-                        </li>
-                    {% endif %}
+                    </ul>
                 {% endfor %}
             {% else %}
                 <li class="nav-item">There are no sports present.</li>
@@ -133,7 +129,22 @@
         <div class="col-lg-8 mx-auto">
           <h2>Check out some of the most recent sporting requests our users hae made:</h2>
           <p class="lead">What's a sports request? Why do I need to make one? Check out some of the most popular sporting requests which have been made recently. Eager to get out and about in your town? Sick and tired of sitting at home and making way too much use of that Netflix subscription? Get some inspiration right here!</p>
-          
+                    <ul class="nav flex-column">
+            {% if requests %}
+                {% for r in requests %}
+                    <ul>
+                        <li>
+                        <img src="{% static 'images/about4.jpg' %}" />
+                        <h3><a href="{% url 'connectercise:show_request' r.sport.slug r.slug %}">
+                        <span data-feather="archive"></span>{{ r.title }}</a></h3>
+                        <p>{{ r.desc }}</p>
+                        </li>
+                    </ul>
+                {% endfor %}
+            {% else %}
+                <li class="nav-item">There are no requests present.</li>
+            {% endif %}
+        </ul>
         </div>
       </div>
     </div>
@@ -142,7 +153,7 @@
   <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+      <p class="m-0 text-center text-white">Copyright &copy; Connectercise 2020</p>
     </div>
     <!-- /.container -->
   </footer>
