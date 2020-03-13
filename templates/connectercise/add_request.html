@@ -1,33 +1,24 @@
 {% extends 'connectercise/base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
+
 
 {% block title_block %}
     Add A Request
 {% endblock %}
+{% block head_block %}
+      <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <script src="{% static 'vendor/bootstrap/css/bootstrap.min.js' %}"></script>
+{% endblock %}
 {% block body_block %}
+<h1>Add a Request</h1>
     <div class="jumbotron p-4">
         <div class="container">
-            <h1 class="jumbotron-heading">Add a Sport Request</h1>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-        <form role="form" id="request_form" method="post" action="{% url 'connectercise:add_request' sport.slug %}">
-        {% csrf_token %}
-        {% for hidden in form.hidden_fields %}
-            {{ hidden }}
-        {% endfor %}
-        {% for field in form.visible_fields %}
-            {{ field.errors }}
-            {{ field.help_text }}<br />
-            {{ field }}<br />
-            <div class="p-2"></div>
-        {% endfor %}
-            <br />
-            <button class="btn btn-primary" type="submit" name="submit">
-            Add Request
-            </button>
-            <div class="p-5"></div>
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-success">Save Request</button>
             </form>
         </div>
     </div>
