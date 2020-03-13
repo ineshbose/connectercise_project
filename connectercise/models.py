@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+import uuid
 
 # Create your models here.
 class Sport(models.Model):
@@ -26,7 +27,7 @@ class SportRequest(models.Model):
     #location_choices = [('Finnieston'),('Kelvinhaugh'),('Maryhill'),('City Centre'),('Govan'),]
     #location = models.CharField(blank=True, choices=location_choices)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
-    desc = models.CharField(max_length=1024, default='Enter description')
+    desc = models.CharField(max_length=1024)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.request_id)
