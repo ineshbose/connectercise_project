@@ -22,7 +22,7 @@
     <ul>
     {% if userp %}
         <h6>{{ userp.user.username }}</h6>
-        <img src="{% userp.picture %}" />
+        {{ userp.picture }}
     </ul>
     {% else %}
         <strong>404</strong>

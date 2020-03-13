@@ -76,6 +76,7 @@ def add_request(request, sport_name_slug):
                 s_request = form.save(commit=False)
                 s_request.sport = sport
                 s_request.views = 0
+                s_request.creator = request.user
                 s_request.save()
                 return redirect(reverse('connectercise:show_sport', kwargs={'sport_name_slug': sport_name_slug}))
         else:
@@ -110,6 +111,6 @@ def show_user(request, user_profile_slug):
     try:
         user = UserProfile.objects.get(slug=user_profile_slug)
         context_dict['userp'] = user
-    except SportRequest.DoesNotExist:
+    except UserProfile.DoesNotExist:
         context_dict['userp'] = None
     return render(request, 'connectercise/user.html', context=context_dict)

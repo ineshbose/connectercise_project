@@ -1,7 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
-import uuid
 
 # Create your models here.
 class Sport(models.Model):
@@ -22,8 +21,8 @@ class SportRequest(models.Model):
     title = models.CharField(max_length=128, unique=True)
     views = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
-    request_id = models.IntegerField(primary_key=True)
-    suggested_time = models.DateTimeField(blank=True)
+    request_id = models.CharField(max_length=128,primary_key=True)
+    #suggested_time = models.DateTimeField(blank=True)
     #location_choices = [('Finnieston'),('Kelvinhaugh'),('Maryhill'),('City Centre'),('Govan'),]
     #location = models.CharField(blank=True, choices=location_choices)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
