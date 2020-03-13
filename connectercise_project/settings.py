@@ -41,13 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
-    'main',
-=======
     #'main',
     #'connect',
     'connectercise',
->>>>>>> 4e66c3aed19ad74fa03912ec3a6cb7d96fdd20de
     'registration',
 ]
 
