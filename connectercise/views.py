@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse
 from connectercise.models import Sport, SportRequest, UserProfile
+from django.contrib.auth.models import User
 from connectercise.forms import SportForm, RequestForm, UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -109,7 +110,7 @@ def visitor_cookie_handler(request):
 def show_user(request, user_profile_slug):
     context_dict = {}
     try:
-        user = UserProfile.objects.get(slug=user_profile_slug)
+        user = User.objects.get(username=user_profile_slug)
         context_dict['userp'] = user
     except UserProfile.DoesNotExist:
         context_dict['userp'] = None

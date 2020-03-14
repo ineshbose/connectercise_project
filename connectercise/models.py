@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+import uuid
 
 # Create your models here.
 class Sport(models.Model):
@@ -18,7 +19,7 @@ class Sport(models.Model):
 
 class SportRequest(models.Model):
     sport = models.ForeignKey(Sport, on_delete=models.CASCADE)
-    title = models.CharField(max_length=128, unique=True)
+    title = models.CharField(max_length=128)
     views = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
     request_id = models.CharField(max_length=128,primary_key=True)
@@ -27,8 +28,10 @@ class SportRequest(models.Model):
     #location = models.CharField(blank=True, choices=location_choices)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     desc = models.CharField(max_length=1024)
+    completed = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
+        self.request_id = str(uuid.uuid4().int)
         self.slug = slugify(self.request_id)
         super(SportRequest, self).save(*args, **kwargs)
 

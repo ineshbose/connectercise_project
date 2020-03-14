@@ -13,7 +13,7 @@
     <div class="jumbotron p-4">
         <div class="container">
         {% if userp %}
-             <h1 class="jumbotron-heading">{{ userp.user.first_name }} {{ userp.user.last_name }}</h1>
+             <h1 class="jumbotron-heading">{{ userp.first_name }} {{ userp.last_name }}</h1>
         {% else %}
             The specified user does not exist.
         {% endif %}

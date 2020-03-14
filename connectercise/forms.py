@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
 from connectercise.models import SportRequest, Sport, UserProfile
-import uuid
 
 class SportForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Please enter the sport name.")
@@ -18,11 +17,11 @@ class RequestForm(forms.ModelForm):
     desc = forms.CharField(help_text="Please enter a description.")
     #suggested_time = forms.DateTimeField(help_text="Enter a suggested time (optional).", required=False)
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    request_id = forms.CharField(widget=forms.HiddenInput(), initial=uuid.uuid4().int)
+    completed = forms.BooleanField(widget=forms.HiddenInput(), initial=False)
 
     class Meta:
         model = SportRequest
-        exclude = ('creator','slug','sport',)
+        exclude = ('creator','slug','sport','request_id')
     
     def clean(self):
         cleaned_data = self.cleaned_data
