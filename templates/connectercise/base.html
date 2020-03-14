@@ -51,19 +51,7 @@
                 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                     <div class="sidebar-sticky">
                     {% block sidebar_block %}
-                            <div class="container">
-                            <ul class="nav flex-column">
-                                {% if sports %}
-                                    {% for s in sports %}
-                                        </a>
-                                        <li><a href="{% url 'connectercise:show_sport' s.slug %}">{{ s.name }}</a>
-                                        </li>
-                                    {% endfor %}
-                                {% else %}
-                                    <li class="nav-item">There are no sports present.</li>
-                                {% endif %}
-                            </ul>
-                            </div>
+                        {% get_sport_list sports %}
                     {% endblock %}
                     </div>
                 </nav>

@@ -41,6 +41,11 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#requests">Sporting Requests</a>
           </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{% url 'connectercise:show_user' user.username %}">{{ user.username }}</a>
+          </li>
+          {% endif %}
         </ul>
       </div>
     </div>
@@ -50,7 +55,11 @@
     <div class="container text-center">
       <h1>Welcome to Connectercise</h1>
       <br>
-      <a href="{% url 'auth_login' %}" class="action-button shadow animate green">Login or Register Here</a>
+      {% if user.is_authenticated %}
+        <p>You are logged in. Your username is: <br> {{ user.username }}</p>
+      {% else %}
+        <a href="{% url 'auth_login' %}" class="action-button shadow animate green">Login or Register Here</a>
+      {% endif %}
     </div>
   </header>
 
