@@ -20,6 +20,8 @@ def index(request):
 
 def about(request):
     context_dict = {'boldmessage': 'This tutorial has been put together by Team Connectercise!'}
+    sport_list = Sport.objects.order_by('-likes')[:5]
+    context_dict['sports'] = sport_list
     visitor_cookie_handler(request)
     context_dict['visits'] = request.session['visits']
     return render(request, 'connectercise/about.html', context=context_dict)
@@ -94,7 +96,10 @@ def add_request(request, sport_name_slug):
 
 @login_required
 def restricted(request):
-    return render(request, 'connectercise/restricted.html')
+    context_dict = {}
+    sport_list = Sport.objects.order_by('-likes')[:5]
+    context_dict['sports'] = sport_list
+    return render(request, 'connectercise/restricted.html', context=context_dict)
 
 def get_server_side_cookie(request, cookie, default_val=None):
     val = request.session.get(cookie)

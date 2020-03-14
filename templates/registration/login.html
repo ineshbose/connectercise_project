@@ -15,15 +15,16 @@ Login
             <label for="inputUsername" class="sr-only">Username</label>
             <input type="text" name="username" id="id_username" class="form-control"
             placeholder="Username" required autofocus>
+            <br>
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" name="password" id="id_password" class="form-control"
             placeholder="Password" required>
+            <br>
             <button class="btn btn-lg btn-primary btn-block" type="submit"
             value="Submit">Sign in</button>
+            <br>
         </form>
+        <a class="btn btn-lg btn-primary btn-block" href="{% url 'registration_register' %}">Register Here</a>
+        <br>
     </div>
-<p>
-Not registered?
-<a href="{% url 'registration_register' %}">Register here!</a>
-</p>
 {% endblock %}
