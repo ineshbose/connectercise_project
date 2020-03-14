@@ -1,10 +1,10 @@
 from datetime import datetime
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.urls import reverse
 from connectercise.models import Sport, SportRequest, UserProfile
 from django.contrib.auth.models import User
-from connectercise.forms import SportForm, RequestForm, UserForm, UserProfileForm
+from connectercise.forms import SportForm, RequestForm, UserForm, UserProfileForm, CommentForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
@@ -48,8 +48,27 @@ def show_sport(request, sport_name_slug):
 def show_request(request, sport_name_slug, request_name_slug):
     context_dict = {}
     try:
-        s_request = SportRequest.objects.get(slug=request_name_slug)
+        s_request = get_object_or_404(SportRequest,slug=request_name_slug)
         context_dict['request'] = s_request
+        comments = s_request.comments.filter(active=True)
+        new_comment = None
+        # Comment posted
+        if request.method == 'POST':
+            comment_form = CommentForm(data=request.POST)
+            if comment_form.is_valid():
+                # Create Comment object but don't save to database yet
+                new_comment = comment_form.save(commit=False)
+                # Assign the current request to the comment
+                new_comment.request = s_request
+                # Save the comment to the database
+                new_comment.save()
+                context_dict['new_comment'] = new_comment
+            else:
+                comment_form = CommentForm()
+                context_dict['comment_form'] = comment_form
+            
+            context_dict['comment_form'] = comment_form
+        context_dict['comments'] = comments
     except SportRequest.DoesNotExist:
         context_dict['request'] = None
     return render(request, 'connectercise/request.html', context=context_dict)

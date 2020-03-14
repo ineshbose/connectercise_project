@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from connectercise.models import SportRequest, Sport, UserProfile
+from connectercise.models import SportRequest, Sport, UserProfile, Comment
 
 class SportForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Please enter the sport name.")
@@ -38,3 +38,8 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('picture',)
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('name', 'body')
