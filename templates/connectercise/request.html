@@ -22,7 +22,8 @@
     <ul>
     {% if request %}
         <h6>{{ request.desc }}</h6>
-        <h5>Created by {{ request.creator.username }}</h5>
+        <h6>Views: {{ request.views }}</h6>
+        <h5>Created by <a href = "{% url 'connectercise:show_user' request.creator.username %}">{{ request.creator.username }}</a></h5>
     </ul>
     {% else %}
         <strong>404</strong>

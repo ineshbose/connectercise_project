@@ -2,7 +2,8 @@ from datetime import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse
-from connectercise.models import Sport, SportRequest
+from connectercise.models import Sport, SportRequest, UserProfile
+from django.contrib.auth.models import User
 from connectercise.forms import SportForm, RequestForm, UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -48,11 +49,8 @@ def show_request(request, sport_name_slug, request_name_slug):
     context_dict = {}
     try:
         s_request = SportRequest.objects.get(slug=request_name_slug)
-        #requests = SportRequest.objects.filter(sport=sport)
         context_dict['request'] = s_request
-        #context_dict['sport'] = sport
     except SportRequest.DoesNotExist:
-        #context_dict['sport'] = None
         context_dict['request'] = None
     return render(request, 'connectercise/request.html', context=context_dict)
 
@@ -87,6 +85,7 @@ def add_request(request, sport_name_slug):
                 s_request = form.save(commit=False)
                 s_request.sport = sport
                 s_request.views = 0
+                s_request.creator = request.user
                 s_request.save()
                 return redirect(reverse('connectercise:show_sport', kwargs={'sport_name_slug': sport_name_slug}))
         else:
@@ -118,3 +117,12 @@ def visitor_cookie_handler(request):
     else:
         request.session['last_visit'] = last_visit_cookie
     request.session['visits'] = visits
+
+def show_user(request, user_profile_slug):
+    context_dict = {}
+    try:
+        user = User.objects.get(username=user_profile_slug)
+        context_dict['userp'] = user
+    except UserProfile.DoesNotExist:
+        context_dict['userp'] = None
+    return render(request, 'connectercise/user.html', context=context_dict)
