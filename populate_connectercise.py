@@ -5,6 +5,7 @@ import django
 django.setup()
 from connectercise.models import Sport, SportRequest, UserProfile
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import BCryptPasswordHasher, BCryptSHA256PasswordHasher, PBKDF2PasswordHasher, PBKDF2SHA1PasswordHasher
 import random
 
 def populate():
@@ -26,41 +27,33 @@ def populate():
     hike_requests = [
         {'title': 'HIKING BUDDY NEEDED!!',
         'desc': 'I am going on a hike. Join me',
-        #'creator': 'helloworld',
         'views': 128},
         {'title': 'A Hike Across The Country',
         'desc': 'Lets travel the country :)',
-        #'creator': 'helloworld2',
         'views': 64},
         {'title': 'The Highland Hike',
         'desc': 'Going up north',
-        #'creator': 'helloworld3',
         'views': 32},
     ]
 
     cycling_requests = [
         {'title': 'Looking to start a club!',
         'desc': 'Based in Glasgow West End',
-        #'creator': 'helloworld2',
         'views': 64},
         {'title': 'Glasgow - Dumfries Ride',
         'desc': '200km ride, anyone?',
-        #'creator': 'helloworld3',
         'views': 32},
         {'title': 'Edinburgh Cyclothon Buddies?',
         'desc': 'Pres at my place lol',
-        #'creator': 'helloworld4',
         'views': 16},
     ]
 
     other_requests = [
         {'title': 'Online Chess?',
         'desc': 'fast af boi',
-        #'creator': 'helloworld3',
         'views': 32},
         {'title': 'C***fighting!!! ^_^ ',
         'desc': 'winner takes all',
-        #'creator': 'helloworld4',
         'views': 16},
     ]
 

@@ -1,0 +1,69 @@
+{% extends 'connectercise/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Dashboard
+{% endblock %}
+{% block body_block %}
+    <div class="jumbotron p-4">
+        <div class="container">
+            <h1 class="jumbotron-heading">Connectercise says...</h1>
+            <div>
+                <h2 class="h2">
+                {% if user.is_authenticated %}
+                    howdy {{ user.username }}!
+                {% else %}
+                    hey there partner!
+                {% endif %}
+                </h2>
+            <strong>{{ boldmessage }}</strong>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-6">
+                    <div class="card-body">
+                        <h2>Most Popular Sports</h2>
+                        <p class="card-text">
+                        {% if sports %}
+                        <ul class="list-group">
+                            {% for sport in sports %}
+                                <li class="list-group-item">
+                                    <a href = "{% url 'connectercise:show_sport' sport.slug %}">
+                                    {{ sport.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <strong>There are no sports present.</strong>
+                        {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card mb-6">
+                    <div class="card-body">
+                        <h2>Most Viewed Requests</h2>
+                        <p class="card-text">
+                        {% if requests %}
+                        <ul class="list-group">
+                            {% for request in requests %}
+                            <li class="list-group-item">
+                                <a href= "{{ request.url }}">{{ request.title }}</a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                        {% else %}
+                        <strong>There are no requests present.</strong>
+                        {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
