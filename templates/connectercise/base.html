@@ -20,7 +20,9 @@
     <link href="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.css" rel="stylesheet">
     </head>
     
-    <body style="background-color: #007bff; p.color: #f7f0f0">        
+    <body style="background-color: #007bff; p.color: #f7f0f0">    
+    <br>
+    <br>
         <div class="container-fluid">
             <div class="row">
                 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -41,7 +43,19 @@
                         About
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'connectercise:activity' %}">
+                        <span data-feather="file"></span>
+                        Activities
+                        </a>
+                    </li>
                     {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'connectercise:show_user' user.username %}">
+                        <span data-feather="shopping-cart"></span>
+                        {{ user.username }}'s activities
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'connectercise:restricted' %}">
                         <span data-feather="shopping-cart"></span>

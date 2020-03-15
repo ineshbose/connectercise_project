@@ -6,6 +6,7 @@ app_name = 'connectercise'
 urlpatterns = [
     path('', views.index, name='index'),
     path('about/', views.about, name='about'),
+    path('activity/', views.activity, name='activity'),
     path('sports/', views.sports, name='sports'),
     path('sport/<slug:sport_name_slug>/', views.show_sport, name='show_sport'),
     path('sport/<slug:sport_name_slug>/<slug:request_name_slug>', views.show_request, name='show_request'),
