@@ -29,7 +29,7 @@
     {% else %}
         <strong>No requests currently in sport.</strong>
     {% endif %}
-    <! {% if user.is_authenticated %}>
+    {% if user.is_authenticated %}
         <a href ="{% url 'connectercise:add_request' sport.slug %}">Add Request</a><br />
-    <! {% endif %} >
+    {% endif %}
 {% endblock %}
