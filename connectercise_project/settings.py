@@ -166,6 +166,6 @@ REGISTRATION_OPEN = True
 #If true, user will be automatically logged in after registration
 REGISTRATION_AUTO_LOGIN = True
 #The URL that Django redirects the users to after logging in
-LOGIN_REDIRECT_URL = 'main:index'
+LOGIN_REDIRECT_URL = 'connectercise:index'
 #The page users are directed to if they are not logged in
 LOGIN_URL = 'auth_login'
