@@ -32,27 +32,27 @@
                     <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{% url 'connectercise:index' %}">
+                        <a class="nav-link" href="{% url 'connectercise:index' %}">
                         <span data-feather="home"></span>
                         Home <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'connectercise:about' %}">
-                        <span data-feather="file"></span>
+                        <span data-feather="aperture"></span>
                         About
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'connectercise:activity' %}">
-                        <span data-feather="file"></span>
+                        <span data-feather="activity"></span>
                         Activities
                         </a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'connectercise:show_user' user.username %}">
-                        <span data-feather="shopping-cart"></span>
+                        <span data-feather="eye"></span>
                         {{ user.username }}'s activities
                         </a>
                     </li>
@@ -102,7 +102,7 @@
                     {% block body_block %}{% endblock %}
                     
                     <!-- FOOTER -->
-                    <footer>
+                    <footer style="position:fixed; bottom:0; width:100%; height: auto;">
                         <p class="float-right"><a href="#">Back to top</a></p>
                         <p>&copy; 2020 Connectercise &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
                     </footer>
