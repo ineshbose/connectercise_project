@@ -66,16 +66,9 @@
 {% block body_block %}
     <div class="jumbotron p-4">
         <div class="container">
-            <h1 class="jumbotron-heading">Connectercise says...</h1>
+            <h1 class="activity">Welcome to the activity feed!</h1>
             <div>
-                <h2 class="h2">
-                {% if user.is_authenticated %}
-                    howdy {{ user.username }}!
-                {% else %}
-                    hey there partner!
-                {% endif %}
-                </h2>
-            <strong>{{ boldmessage }}</strong>
+            <strong class="activity">Here you can see our most popular sports and our most viewed requests!</strong>
             </div>
         </div>
     </div>
