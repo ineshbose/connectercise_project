@@ -111,7 +111,8 @@ def show_user(request, user_profile_slug):
     context_dict = {}
     try:
         user = User.objects.get(username=user_profile_slug)
-        context_dict['userp'] = user
-    except UserProfile.DoesNotExist:
+        userp = UserProfile.objects.get(user=user)
+        context_dict['userp'] = userp
+    except User.DoesNotExist:
         context_dict['userp'] = None
     return render(request, 'connectercise/user.html', context=context_dict)

@@ -29,6 +29,11 @@
         <strong>404</strong>
     {% endif %}
     {% if user.is_authenticated %}
-        <a href ="{% url 'connectercise:index' %}">MATCH! (Button by Andrea)</a><br />
+        <a onclick="accept()" href="{% url 'connectercise:show_user' request.creator.username %}">MATCH! (Button by Andrea)</a><br />
+        <script>
+            function accept(){
+              request.completed = True;
+            }
+        </script>
     {% endif %}
 {% endblock %}
