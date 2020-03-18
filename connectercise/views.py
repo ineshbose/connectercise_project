@@ -155,3 +155,8 @@ def show_user(request, user_profile_slug):
     except UserProfile.DoesNotExist:
         context_dict['userp'] = None
     return render(request, 'connectercise/user.html', context=context_dict)
+
+def accept_request(request):
+    RequestForm.completed = True
+    return HttpResponse('Request has been accepted')
+    
