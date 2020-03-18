@@ -74,22 +74,37 @@
         <div class="container">
         {% if sport %}
              <h1 class="jumbotron-heading">{{ sport.name }}</h1>
+             <strong class="activity">Check out some of the latest requests for {{ sport.name }}</strong>
         {% else %}
             The specified sport does not exist.
         {% endif %}
         </div>
     </div>
-    <ul>
-    {% if requests %}
-        {% for request in requests %}
-            <li><a href="{% url 'connectercise:show_request' request.sport.slug request.slug %}">{{ request.title }}</a>
-                <br />{{ request.desc }}</li><br />
-        {% endfor %}
-    </ul>
-    {% else %}
-        <strong>No requests currently in sport.</strong>
-    {% endif %}
-    {% if user.is_authenticated %}
-        <a href ="{% url 'connectercise:add_request' sport.slug %}">Add Request</a><br />
-    {% endif %}
+    <section>
+        <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <ul class="nav flex-column">
+            {% if requests %}
+                {% for request in requests %}
+                    <ul class="list">
+                        <li class="list">
+                        <img class="list" src="{% static 'images/about4.jpg' %}" />
+                        <h3 class="list"><a class="nav-link active" href = "{% url 'connectercise:show_request' request.sport.slug request.slug %}">
+                        <span data-feather="archive"></span> {{ request.title }}</a></h3>
+                        <p class="list">{{ request.desc }}</p>
+                        </li>
+                    </ul>
+                {% endfor %}
+                {% if user.is_authenticated %}
+                    <a href ="{% url 'connectercise:add_request' sport.slug %}">Add Request</a><br />
+                {% endif %}
+            {% else %}
+                <li class="nav-item">There are no requests present.</li>
+            {% endif %}
+        </ul>
+        </div>
+      </div>
+    </div>
+    </section>
 {% endblock %}

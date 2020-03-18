@@ -22,11 +22,50 @@ h1.activity {
 strong.activity {
     color:hsl(233, 100%, 7%); 
     font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 15px;
 }
 
 p.activity {
     color:hsl(233, 100%, 7%); 
     font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+* {margin: 0; padding: 0;}
+ 
+div.list {
+  margin: 20px;
+  background: #eee;
+}
+ 
+ul.list {
+  list-style-type: none;
+  background: #eee;
+  width: 500px;
+}
+ 
+h3.list {
+  font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+}
+ 
+li img.list {
+  float: left;
+  margin: 0 15px 0 0;
+  background: #eee;
+  max-height: 200px;
+}
+ 
+li p.list {
+  font: 200 12px/1.5 Georgia, Times New Roman, serif;
+}
+ 
+li.list {
+  padding: 10px;
+  overflow: auto;
+}
+ 
+li:hover.list {
+  background: hsl(233, 100%, 7%);
+  cursor: pointer;
 }
 
 body.connect {
