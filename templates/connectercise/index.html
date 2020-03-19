@@ -45,6 +45,9 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="{% url 'connectercise:show_user' user.username %}">{{ user.username }}</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">Logout</a>
+          </li>
           {% endif %}
         </ul>
       </div>
