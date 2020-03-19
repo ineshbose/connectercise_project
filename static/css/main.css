@@ -13,6 +13,14 @@ body {background-color: #608AF8;
     overflow-wrap: normal;
 }
 
+footer {
+    position:relative; 
+    bottom:0; 
+    width:100%; 
+    height: auto;
+}
+
+a.
 
 h1.activity {
     color:hsl(233, 100%, 7%); 
@@ -68,9 +76,6 @@ li:hover.list {
   cursor: pointer;
 }
 
-body.connect {
-    color: #608AF8;
-}
 html{
     height: 100%;
     margin: 0px;

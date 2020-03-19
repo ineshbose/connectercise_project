@@ -74,44 +74,57 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-lg-8 mx-auto">
                 <div class="card mb-6">
                     <div class="card-body">
                         <h2>Most Popular Sports</h2>
                         <p class="card-text">
                         {% if sports %}
-                        <ul class="list-group">
-                            {% for sport in sports %}
-                                <li class="list-group-item">
-                                    <a href = "{% url 'connectercise:show_sport' sport.slug %}">
-                                    {{ sport.name }}</a>
+                        <ul class="nav flex-column">
+                        {% for s in sports %}
+                            <ul class="list">
+                                <li class="list">
+                                <img class="list" src="{% static 'images/about4.jpg' %}" />
+                                <h3 class="list"><a class="nav-link active" href = "{% url 'connectercise:show_sport' s.slug %}">
+                                <span data-feather="archive"></span> {{ s.name }}</a></h3>
+                                <p class="list">Check out the latest {{ s.name }} requests!</p>
                                 </li>
-                            {% endfor %}
-                        </ul>
-                        {% else %}
-                        <strong>There are no sports present.</strong>
-                        {% endif %}
+                            </ul>
+                        {% endfor %}
+                    {% else %}
+                        <li class="nav-item">There are no sports present.</li>
+                    {% endif %}
+                    </ul>
                         </p>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-6">
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
                 <div class="card mb-6">
                     <div class="card-body">
                         <h2>Most Viewed Requests</h2>
                         <p class="card-text">
                         {% if requests %}
-                        <ul class="list-group">
-                            {% for request in requests %}
-                            <li class="list-group-item">
-                                <a href= "{{ request.url }}">{{ request.title }}</a>
-                            </li>
-                        {% endfor %}
-                        </ul>
+                        <ul class="nav flex-column">
+                            {% for r in requests %}
+                                <ul class="list">
+                                    <li class="list">
+                                    <img class="list" src="{% static 'images/about4.jpg' %}" />
+                                    <h3 class="list"><a href="{% url 'connectercise:show_request' r.sport.slug r.slug %}">
+                                    <span data-feather="archive"></span> {{ r.title }}</a></h3>
+                                    <p class="list">{{ r.desc }}</p>
+                                    </li>
+                                </ul>
+                            {% endfor %}
                         {% else %}
-                        <strong>There are no requests present.</strong>
+                            <li class="nav-item">There are no requests present.</li>
                         {% endif %}
+                        </ul>
                         </p>
                     </div>
                 </div>

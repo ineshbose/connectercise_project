@@ -12,15 +12,14 @@
     <title>
         connectercise - {% block title_block %}Connecting People Through Sports{% endblock %}
     </title>
-    <link href={% static 'css/main.css' %} rel="stylesheet">
     <!-- Bootstrap core CSS -->
-    <link href="https://getbootstrap.com/docs/4.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     
     <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.css" rel="stylesheet">
+    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
     </head>
     
-    <body style="background-color: #608AF8; p.color: #f7f0f0">    
+    <body>    
         <div class="container-fluid">
             <div class="row">
                 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -42,9 +41,11 @@
                     {% block body_block %}{% endblock %}
                     
                     <!-- FOOTER -->
-                    <footer style="position:relative; bottom:0; width:100%; height: auto;">
-                        <p class="float-right"><a href="#">Back to top</a></p>
-                        <p>&copy; 2020 Connectercise &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+                    <br>
+                    <br>
+                    <footer>
+                        <p class="float-right"><a class="footer" href="#">Back to top</a></p>
+                        <p class="footer">&copy; 2020 Connectercise &middot; <a class="footer" href="#">Privacy</a> &middot; <a class="footer" href="#">Terms</a></p>
                     </footer>
                 </main>
             </div>
