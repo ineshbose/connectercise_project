@@ -1,0 +1,102 @@
+/*!
+ * Start Bootstrap - Scrolling Nav (https://startbootstrap.com/template-overviews/scrolling-nav)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-scrolling-nav/blob/master/LICENSE)
+ */
+header {
+  padding: 156px 0 100px;
+}
+
+section {
+  padding: 150px 0;
+}
+
+* {margin: 0; padding: 0;}
+ 
+div.list {
+  margin: 20px;
+}
+ 
+ul.list {
+  list-style-type: none;
+  width: 500px;
+}
+ 
+h3.list {
+  font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+}
+ 
+li img.list {
+  float: left;
+  margin: 0 15px 0 0;
+  max-height: 200px;
+}
+ 
+li p.list {
+  font: 200 12px/1.5 Georgia, Times New Roman, serif;
+}
+ 
+li.list {
+  padding: 10px;
+  overflow: auto;
+}
+ 
+li:hover.list {
+  background: #eee;
+  cursor: pointer;
+}
+
+.animate
+{
+	transition: all 0.1s;
+	-webkit-transition: all 0.1s;
+}
+
+.action-button
+{
+	position: relative;
+	padding: 10px 40px;
+  margin: 0px 10px 10px 0px;
+  float: inherit;
+	border-radius: 10px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", 
+  Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-size: 25px;
+	color: #FFF;
+	text-decoration: none;	
+}
+
+.blue
+{
+	background-color: #608AF8;
+	border-bottom: 5px solid #608AF8;
+	text-shadow: 0px -2px #608AF8;
+}
+
+.red
+{
+	background-color: #E74C3C;
+	border-bottom: 5px solid #BD3E31;
+	text-shadow: 0px -2px #BD3E31;
+}
+
+.green
+{
+	background-color: #82BF56;
+	border-bottom: 5px solid #669644;
+	text-shadow: 0px -2px #669644;
+}
+
+.yellow
+{
+	background-color: #F2CF66;
+	border-bottom: 5px solid #D1B358;
+	text-shadow: 0px -2px #D1B358;
+}
+
+.action-button:active
+{
+	transform: translate(0px,5px);
+  -webkit-transform: translate(0px,5px);
+	border-bottom: 1px solid;
+}

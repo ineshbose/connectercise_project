@@ -1,0 +1,109 @@
+{% extends 'connectercise/base.html' %}
+{% block title_block %}
+Register
+{% endblock %}
+        {% block sidebar_block %}
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:index' %}">
+            <span data-feather="home"></span>
+            Home <span class="sr-only">(current)</span>
+            </a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:show_user' user.username %}">
+            <span data-feather="eye"></span>
+            {{ user.username }}'s activities
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:add_sport' %}">
+            <span data-feather="plus"></span>
+            Add Sport
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:restricted' %}">
+            <span data-feather="lock"></span>
+            Restricted
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">
+            <span data-feather="log-out"></span>
+            Logout
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'auth_password_change' %}">
+            <span data-feather="lock"></span>
+            Change Password
+            </a>
+        </li>
+        {% else %}   
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'auth_login' %}">
+            <span data-feather="log-in"></span>
+            Login
+            </a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:about' %}">
+            <span data-feather="aperture"></span>
+            About
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:activity' %}">
+            <span data-feather="activity"></span>
+            Activities
+            </a>
+        </li>
+    </ul>
+    {% endblock %}
+{% block body_block %}
+    <div class="jumbotron p-4">
+        <div class="container">
+             <h1 class="jumbotron-heading">Register Here</h1>
+        </div>
+    </div>
+
+<div class="container">
+    <div class="row">
+    <div class="form-group" >
+    <form role="form" method="post" action=".">
+        {% csrf_token %}
+        <div class="form-group">
+        <p class="required"><label class="required" for="id_username">
+            Username:</label>
+        <input class="form-control" id="id_username" maxlength="30" name="username" type="text" />
+        <span class="helptext">
+            Required. 30 characters or fewer.
+            Letters, digits and @/./+/-/_ only.
+        </span>
+        </p>
+        <p class="required"><label class="required" for="id_email">
+            E-mail:</label>
+        <input class="form-control" id="id_email" name="email" type="email" />
+        </p>
+        <p class="required"><label class="required" for="id_password1">
+            Password:</label>
+        <input class="form-control" id="id_password1" name="password1" type="password" />
+        </p>
+        <p class="required">
+        <label class="required" for="id_password2">
+            Password confirmation:</label>
+        <input class="form-control" id="id_password2" name="password2" type="password" />
+        <span class="helptext">
+            Enter the same password as before, for verification.
+        </span>
+        </p>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    </div>
+</div>
+</div>
+{% endblock %}

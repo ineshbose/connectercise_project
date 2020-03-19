@@ -1,0 +1,105 @@
+{% extends 'connectercise/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block title_block %}
+    Add A Sport
+{% endblock %}
+        {% block sidebar_block %}
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:index' %}">
+            <span data-feather="home"></span>
+            Home <span class="sr-only">(current)</span>
+            </a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:show_user' user.username %}">
+            <span data-feather="eye"></span>
+            {{ user.username }}'s activities
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="{% url 'connectercise:add_sport' %}">
+            <span data-feather="plus"></span>
+            Add Sport
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:restricted' %}">
+            <span data-feather="lock"></span>
+            Restricted
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">
+            <span data-feather="log-out"></span>
+            Logout
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'auth_password_change' %}">
+            <span data-feather="lock"></span>
+            Change Password
+            </a>
+        </li>
+        {% else %}   
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'auth_login' %}">
+            <span data-feather="log-in"></span>
+            Login
+            </a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:about' %}">
+            <span data-feather="aperture"></span>
+            About
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="{% url 'connectercise:activity' %}">
+            <span data-feather="activity"></span>
+            Activities
+            </a>
+        </li>
+    </ul>
+        {% endblock %}
+{% block body_block %}
+<h1>Add a Sport</h1>
+    <div class="jumbotron p-4">
+        <div class="container">
+<<<<<<< HEAD
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-success">Create Sport</button>
+=======
+            <h1 class="jumbotron-heading">Add a Sport</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+        <form role="form" id="sport_form" method="post" action="{% url 'connectercise:add_sport' %}">
+        {% csrf_token %}
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+        {% for field in form.visible_fields %}
+            {{ field.errors }}
+            {{ field.help_text }}<br />
+            {{ field }}<br />
+            <div class="p-2"></div>
+        {% endfor %}
+            <br />
+            <button class="btn btn-primary" type="submit" name="submit">
+            Create Sport
+            </button>
+            <div class="p-5"></div>
+>>>>>>> 5bf5a02ba87a667cb8a20720b7a375700be6d9c4
+            </form>
+        </div>
+    </div>
+{% endblock %}

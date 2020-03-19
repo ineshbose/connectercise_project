@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Welcome to Connectercise - find your new sporting mate!</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/scrolling-nav.css' %}" rel="stylesheet">
+
+  <link rel="icon" href="{% static 'images/favicon.ico' %}">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">Login to Connectercise</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#sports">Sports</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#requests">Sporting Requests</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{% url 'connectercise:show_user' user.username %}">{{ user.username }}</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="bg-primary text-white">
+    <div class="container text-center">
+      <h1>Welcome to Connectercise</h1>
+      <br>
+      {% if user.is_authenticated %}
+        <p>You are logged in. Your username is: <br> {{ user.username }}</p>
+      {% else %}
+        <a href="{% url 'auth_login' %}" class="action-button shadow animate green">Login or Register Here</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2>About Connectercise</h2>
+          <p class="lead">Here at Connectercise we are dedicated to bringing you a new and unimagined experience, that involved a whole lot of burning calories and a whole lot more of making friends! Connectercise features exclusively:</p>
+          <ul>
+            <li>A web application which allows users to meet each other and do sporting activities together</li>
+            <li>Users can create sporting requests which are categorized by sport and location</li>
+            <li>Users can fulfill the sporting requests of other users</li>
+            <li>Users can view the past sporting activity of other users, utilizing the Strava API</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sports" class="bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+        <h2>Check out some of the sports we support, below:</h2>
+        <p class="lead">Here at Connectercise we support a wide range of different sporting activites. If it's a sport, and it's been done before, we'll support it! Just make an account and add the sport to our list of sports! In no time at all, the requests will start streaming in!</p> 
+          <ul class="nav flex-column">
+            {% if sports %}
+                {% for s in sports %}
+                    <ul class="list">
+                        <li class="list">
+                        <img class="list" src="{% static 'images/about4.jpg' %}" />
+                        <h3 class="list"><a class="nav-link active" href = "{% url 'connectercise:show_sport' s.slug %}">
+                        <span data-feather="archive"></span>{{ s.name }}</a></h3>
+                        <p class="list">Lorem ipsum dolor sit amet...</p>
+                        </li>
+                    </ul>
+                {% endfor %}
+            {% else %}
+                <li class="nav-item">There are no sports present.</li>
+            {% endif %}
+        </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="requests">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2>Check out some of the most recent sporting requests our users hae made:</h2>
+          <p class="lead">What's a sports request? Why do I need to make one? Check out some of the most popular sporting requests which have been made recently. Eager to get out and about in your town? Sick and tired of sitting at home and making way too much use of that Netflix subscription? Get some inspiration right here!</p>
+                    <ul class="nav flex-column">
+            {% if requests %}
+                {% for r in requests %}
+                    <ul class="list">
+                        <li class="list">
+                        <img class="list" src="{% static 'images/about4.jpg' %}" />
+                        <h3 class="list"><a href="{% url 'connectercise:show_request' r.sport.slug r.slug %}">
+                        <span data-feather="archive"></span>{{ r.title }}</a></h3>
+                        <p class="list">{{ r.desc }}</p>
+                        </li>
+                    </ul>
+                {% endfor %}
+            {% else %}
+                <li class="nav-item">There are no requests present.</li>
+            {% endif %}
+        </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Connectercise 2020</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom JavaScript for this theme -->
+  <script src="{% static 'js/scrolling-nav.js' %}"></script>
+
+</body>
+
+</html>

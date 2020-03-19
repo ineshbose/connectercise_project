@@ -1,0 +1,145 @@
+{% extends 'connectercise/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    {% if request %}
+        {{ request.title }}
+    {% else %}
+        Unknown Request
+    {% endif %}
+{% endblock %}
+        {% block sidebar_block %}
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:index' %}">
+            <span data-feather="home"></span>
+            Home <span class="sr-only">(current)</span>
+            </a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:show_user' user.username %}">
+            <span data-feather="eye"></span>
+            {{ user.username }}'s activities
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:add_sport' %}">
+            <span data-feather="plus"></span>
+            Add Sport
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:restricted' %}">
+            <span data-feather="lock"></span>
+            Restricted
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">
+            <span data-feather="log-out"></span>
+            Logout
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'auth_password_change' %}">
+            <span data-feather="lock"></span>
+            Change Password
+            </a>
+        </li>
+        {% else %}   
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'auth_login' %}">
+            <span data-feather="log-in"></span>
+            Login
+            </a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:about' %}">
+            <span data-feather="aperture"></span>
+            About
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:activity' %}">
+            <span data-feather="activity"></span>
+            Activities
+            </a>
+        </li>
+    </ul>
+        {% endblock %}
+{% block body_block %}
+    <div class="jumbotron p-4">
+        <div class="container">
+        {% if request %}
+             <h1 class="jumbotron-heading">{{ request.title }}</h1>
+        {% else %}
+            The specified sporting request does not exist.
+        {% endif %}
+        </div>
+    </div>
+    <ul>
+    {% if request %}
+        <h6>{{ request.desc }}</h6>
+        <h6>Views: {{ request.views }}</h6>
+        <h5>Created by <a href = "{% url 'connectercise:show_user' request.creator.username %}">{{ request.creator.username }}</a></h5>
+    </ul>
+    {% else %}
+        <strong>404</strong>
+    {% endif %}
+    {% if user.is_authenticated %}
+        <button onclick="accept()"> Accept Request </button>
+        <script type = "text/javascript">
+          $.ajax({
+            url: '/accept_request/',
+            method: 'POST',
+            success: function(respose){
+              alert('Request has been accepted')
+            }
+          });
+        </script>
+        <script>
+            function accept(){
+              request.completed = True;
+            }
+        </script>
+    {% endif %}
+<div class="container">
+    <div class="col-md-8 card mb-4  mt-3 ">
+      <div class="card-body">
+        <!-- comments -->
+        <h2>{{ comments.count }} comments</h2>
+
+        {% for comment in comments %}
+        <div class="comments" style="padding: 10px;">
+          <p class="font-weight-bold">
+            {{ comment.name }}
+            <span class=" text-muted font-weight-normal">
+              {{ comment.created_on }}
+            </span>
+          </p>
+          {{ comment.body | linebreaks }}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-md-8 card mb-4  mt-3 ">
+      <div class="card-body">
+        {% if new_comment %}
+        <div class="alert alert-success" role="alert">
+          Your comment is awaiting moderation
+        </div>
+        {% else %}
+        <h3>Leave a comment</h3>
+        <form method="post" style="margin-top: 1.3em;">
+          {{ comment_form.as_p }}
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary  btn-lg">Click Here</button>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
