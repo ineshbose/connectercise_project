@@ -4,62 +4,127 @@
 {% block title_block %}
     Dashboard
 {% endblock %}
+{% block sidebar_block %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'connectercise:index' %}">
+        <span data-feather="home"></span>
+        Home <span class="sr-only">(current)</span>
+        </a>
+    </li>
+    {% if user.is_authenticated %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'connectercise:show_user' user.username %}">
+        <span data-feather="eye"></span>
+        {{ user.username }}'s activities
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'connectercise:add_sport' %}">
+        <span data-feather="plus"></span>
+        Add Sport
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'connectercise:restricted' %}">
+        <span data-feather="lock"></span>
+        Restricted
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">
+        <span data-feather="log-out"></span>
+        Logout
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'auth_password_change' %}">
+        <span data-feather="lock"></span>
+        Change Password
+        </a>
+    </li>
+    {% else %}   
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'auth_login' %}">
+        <span data-feather="log-in"></span>
+        Login
+        </a>
+    </li>
+    {% endif %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'connectercise:about' %}">
+        <span data-feather="aperture"></span>
+        About
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'connectercise:activity' %}">
+        <span data-feather="activity"></span>
+        Activities
+        </a>
+    </li>
+{% endblock %}
 {% block body_block %}
     <div class="jumbotron p-4">
         <div class="container">
-            <h1 class="jumbotron-heading">Connectercise says...</h1>
+            <h1 class="activity">Welcome to the activity feed!</h1>
             <div>
-                <h2 class="h2">
-                {% if user.is_authenticated %}
-                    howdy {{ user.username }}!
-                {% else %}
-                    hey there partner!
-                {% endif %}
-                </h2>
-            <strong>{{ boldmessage }}</strong>
+            <strong class="activity">Here you can see our most popular sports and our most viewed requests!</strong>
             </div>
         </div>
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-lg-8 mx-auto">
                 <div class="card mb-6">
                     <div class="card-body">
                         <h2>Most Popular Sports</h2>
                         <p class="card-text">
                         {% if sports %}
-                        <ul class="list-group">
-                            {% for sport in sports %}
-                                <li class="list-group-item">
-                                    <a href = "{% url 'connectercise:show_sport' sport.slug %}">
-                                    {{ sport.name }}</a>
+                        <ul class="nav flex-column">
+                        {% for s in sports %}
+                            <ul class="list">
+                                <li class="list">
+                                <img class="list" src="{% static 'images/about4.jpg' %}" />
+                                <h3 class="list"><a class="nav-link active" href = "{% url 'connectercise:show_sport' s.slug %}">
+                                <span data-feather="archive"></span> {{ s.name }}</a></h3>
+                                <p class="list">Check out the latest {{ s.name }} requests!</p>
                                 </li>
-                            {% endfor %}
-                        </ul>
-                        {% else %}
-                        <strong>There are no sports present.</strong>
-                        {% endif %}
+                            </ul>
+                        {% endfor %}
+                    {% else %}
+                        <li class="nav-item">There are no sports present.</li>
+                    {% endif %}
+                    </ul>
                         </p>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-6">
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
                 <div class="card mb-6">
                     <div class="card-body">
                         <h2>Most Viewed Requests</h2>
                         <p class="card-text">
                         {% if requests %}
-                        <ul class="list-group">
-                            {% for request in requests %}
-                            <li class="list-group-item">
-                                <a href= "{{ request.url }}">{{ request.title }}</a>
-                            </li>
-                        {% endfor %}
-                        </ul>
+                        <ul class="nav flex-column">
+                            {% for r in requests %}
+                                <ul class="list">
+                                    <li class="list">
+                                    <img class="list" src="{% static 'images/about4.jpg' %}" />
+                                    <h3 class="list"><a href="{% url 'connectercise:show_request' r.sport.slug r.slug %}">
+                                    <span data-feather="archive"></span> {{ r.title }}</a></h3>
+                                    <p class="list">{{ r.desc }}</p>
+                                    </li>
+                                </ul>
+                            {% endfor %}
                         {% else %}
-                        <strong>There are no requests present.</strong>
+                            <li class="nav-item">There are no requests present.</li>
                         {% endif %}
+                        </ul>
                         </p>
                     </div>
                 </div>
