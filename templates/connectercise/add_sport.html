@@ -4,7 +4,7 @@
 {% block title_block %}
     Add A Sport
 {% endblock %}
-        {% block sidebar_block %}
+{% block sidebar_block %}
     <ul class="nav flex-column">
         <li class="nav-item">
             <a class="nav-link" href="{% url 'connectercise:index' %}">
@@ -61,6 +61,12 @@
             <a class="nav-link " href="{% url 'connectercise:activity' %}">
             <span data-feather="activity"></span>
             Activities
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:search' %}">
+            <span data-feather="search"></span>
+            Search
             </a>
         </li>
     </ul>

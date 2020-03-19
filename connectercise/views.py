@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Q
 from django.http import HttpResponse
 from django.urls import reverse
 from connectercise.models import Sport, SportRequest, UserProfile
@@ -7,7 +8,7 @@ from django.contrib.auth.models import User
 from connectercise.forms import SportForm, RequestForm, UserForm, UserProfileForm, CommentForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from connectercise.bing_search import run_query
+from django.db.models import Q
 
 # Create your views here.
 def index(request):
@@ -158,11 +159,10 @@ def show_user(request, user_profile_slug):
     return render(request, 'connectercise/user.html', context=context_dict)
 
 def search(request):
-    result_list = []
-
-    if request.method == 'POST':
-        query = request.POST['query'].strip()
-        if query:
-            result_list = run_query(query)
+    query = request.GET.get('q')
+    request_list = None
+    if query != None:
+        request_list = SportRequest.objects.filter(Q(title__icontains=query) | Q(desc__icontains=query)) 
+        return render(request, 'connectercise/search.html', {'query': query,'requests': request_list}) 
     
-    return render(request, 'connectercise/search.html', {'result_list': result_list})
+    return render(request, 'connectercise/search.html', {'query': query, 'requests': request_list}) 

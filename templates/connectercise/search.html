@@ -63,43 +63,48 @@
             Activities
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="{% url 'connectercise:search' %}">
+            <span data-feather="search"></span>
+            Search
+            </a>
+        </li>
     </ul>
 {% endblock %}
 {% block body_block %}
 <div class="jumbotron p-4">
     <div class="container">
-        <h1 class="jumbotron-heading">Search Connectercise</h1>
+    <h1 class="jumbotron-heading">Search Connectercise</h1>
+    <h3>Welcome to Connectercise Search! Find requests near you, NOW!</h3>
+    <p>Type location names like 'glasgow', 'edinburgh' or sport names like 'hiking', 'swimming' or search for anything hopeful!</p>
     </div>
 </div>
-<div>
-    <form class="form-inline" id="user-form" method="post" action="{% url 'connectercise:search'%}">
-    {% csrf_token %}
-
-    <div class="form-group">
-        <input class="form-control" type="text" size="50" name="query" id="query" />
-    </div>
-
-    <button class="btn btn-primary" type="submit" name="submit">Search</button>
+<div class="container">
+    <form class='search' action="{% url 'connectercise:search' %}" method="get">
+        <input name="q" type="text" placeholder="Search...">
+        <button class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-search"></i></button>
     </form>
 </div>
+<br>
 <div>
-    {% if result_list %}
-        <h2>Results</h2>
-
-        <div class="list-group">
-            {% for result in result_list %}
+    {% if requests %}
+        <h2>Results for: {{ query }}</h2>
+        <br>
+        <div>
+            <ul>
+            {% for request in requests %}
                 <div class="list-group-item">
-                    <h3 class="list-group-item-heading">
-                        <a href="{{ result.link }}">
-                            {{ result.title|safe|escape }}
-                        </a>
-                    </h3>
-                    <p class="list-group-item-next">
-                        {{ result.summary|safe|escape }}
-                    </p>
+                    <li><h3 class="list-group-item-heading">
+                        <a href="{% url 'connectercise:show_request' request.sport.slug request.slug %}">{{ request.title }}</a>
+                    </h3></li>
                 </div>
             {% endfor %}
+            </ul>
         </div>
+    {% else %}
+        {% if query %}
+        <h3>We're sorry, we couldn't find any search results for: {{ query }}</h3>
+        {% endif %}
     {% endif %}
 </div>
 {% endblock %}
