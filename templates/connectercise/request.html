@@ -89,7 +89,7 @@
         <strong>404</strong>
     {% endif %}
     {% if user.is_authenticated %}
-        <button onclick="accept()"> Accept Request </button>
+        <button onclick="accept()" class="btn btn-primary  btn-lg"> Accept Request </button>
         <script type = "text/javascript">
           $.ajax({
             url: '/accept_request/',
