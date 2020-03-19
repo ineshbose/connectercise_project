@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from connectercise.forms import SportForm, RequestForm, UserForm, UserProfileForm, CommentForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from connectercise.bing_search import run_query
 
 # Create your views here.
 def index(request):
@@ -155,3 +156,13 @@ def show_user(request, user_profile_slug):
     except UserProfile.DoesNotExist:
         context_dict['userp'] = None
     return render(request, 'connectercise/user.html', context=context_dict)
+
+def search(request):
+    result_list = []
+
+    if request.method == 'POST':
+        query = request.POST['query'].strip()
+        if query:
+            result_list = run_query(query)
+    
+    return render(request, 'connectercise/search.html', {'result_list': result_list})
