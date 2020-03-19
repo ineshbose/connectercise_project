@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from registration.signals import *
 import uuid
 
 # Create your models here.
@@ -62,3 +63,8 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
+
+def createUserProfile(sender, user, request, **kwargs):
+    UserProfile.objects.get_or_create(user=user)
+
+user_registered.connect(createUserProfile)
