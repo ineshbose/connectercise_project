@@ -1,30 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'connectercise/base.html' %}
 {% load static %}
 
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Welcome to Connectercise - find your new sporting mate!</title>
-
-  <!-- Bootstrap core CSS -->
-  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
-  <link href="{% static 'css/scrolling-nav.css' %}" rel="stylesheet">
-
-  <link rel="icon" href="{% static 'images/favicon.ico' %}">
-
-</head>
-
-<body id="page-top">
-
+{% block title_block %}
+Home Page
+{% endblock %}
+{% load static %}
+        {% block sidebar_block %}
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link active" href="{% url 'connectercise:index' %}">
+            <span data-feather="home"></span>
+            Home <span class="sr-only">(current)</span>
+            </a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:show_user' user.username %}">
+            <span data-feather="eye"></span>
+            {{ user.username }}'s activities
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:add_sport' %}">
+            <span data-feather="plus"></span>
+            Add Sport
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="{% url 'connectercise:restricted' %}">
+            <span data-feather="lock"></span>
+            Restricted
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">
+            <span data-feather="log-out"></span>
+            Logout
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'auth_password_change' %}">
+            <span data-feather="lock"></span>
+            Change Password
+            </a>
+        </li>
+        {% else %}   
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'auth_login' %}">
+            <span data-feather="log-in"></span>
+            Login
+            </a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:about' %}">
+            <span data-feather="aperture"></span>
+            About
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:activity' %}">
+            <span data-feather="activity"></span>
+            Activities
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:search' %}">
+            <span data-feather="search"></span>
+            Search
+            </a>
+        </li>
+    </ul>
+{% endblock %}
+{% block body_block %}
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+  <nav class="navbar navbar-expand-md navbar-dark bg-primary" id="mainNav">
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="#page-top">Login to Connectercise</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -155,6 +205,4 @@
   <!-- Custom JavaScript for this theme -->
   <script src="{% static 'js/scrolling-nav.js' %}"></script>
 
-</body>
-
-</html>
+{% endblock %}
