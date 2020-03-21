@@ -73,38 +73,7 @@ Home Page
     </ul>
 {% endblock %}
 {% block body_block %}
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-md navbar-dark bg-primary" id="mainNav">
-    <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">Login to Connectercise</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#sports">Sports</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#requests">Sporting Requests</a>
-          </li>
-          {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="{% url 'connectercise:show_user' user.username %}">{{ user.username }}</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">Logout</a>
-          </li>
-          {% endif %}
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <header class="bg-primary text-white">
+  <section class="text-white">
     <div class="container text-center">
       <h1>Welcome to Connectercise</h1>
       <br>
@@ -113,10 +82,28 @@ Home Page
       {% else %}
         <a href="{% url 'auth_login' %}" class="action-button shadow animate green">Login or Register Here</a>
       {% endif %}
-    </div>
-  </header>
+      <br>
+      <br>
+      <hr>
+      <br>
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <a href="#about" class="action-button shadow animate yellow js-scroll-trigger">About</a>
+          </div>
+          <div class="col">
+            <a class="action-button shadow animate red js-scroll-trigger" href="#sports">Sports</a>
+          </div>
+          <div class="col">
+            <a class="action-button shadow animate yellow js-scroll-trigger" href="#requests">Requests</a>
+          </div>
+        </div>
+      </div>
 
-  <section id="about">
+    </div>
+  </section>
+
+  <section id="about" class="bg-light">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
@@ -133,7 +120,7 @@ Home Page
     </div>
   </section>
 
-  <section id="sports" class="bg-light">
+  <section id="sports">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
@@ -160,13 +147,13 @@ Home Page
     </div>
   </section>
 
-  <section id="requests">
+  <section id="requests" class="bg-light">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
           <h2>Check out some of the most recent sporting requests our users hae made:</h2>
           <p class="lead">What's a sports request? Why do I need to make one? Check out some of the most popular sporting requests which have been made recently. Eager to get out and about in your town? Sick and tired of sitting at home and making way too much use of that Netflix subscription? Get some inspiration right here!</p>
-                    <ul class="nav flex-column">
+            <ul class="nav flex-column">
             {% if requests %}
                 {% for r in requests %}
                     <ul class="list">
@@ -186,14 +173,6 @@ Home Page
       </div>
     </div>
   </section>
-
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Connectercise 2020</p>
-    </div>
-    <!-- /.container -->
-  </footer>
 
   <!-- Bootstrap core JavaScript -->
   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
