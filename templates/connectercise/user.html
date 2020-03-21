@@ -83,6 +83,17 @@
     {% if userp %}
         <h6>{{ userp.user.username }}</h6>
         <img src="{{ userp.picture.url }}" width="90" height="100">
+        <h2>User's requests</h2>
+        {% if requests %}
+            <ul>
+            {% for request in requests %}
+                <li><a href="{% url 'connectercise:show_request' request.sport.slug request.slug %}">{{ request.title }}</a>
+                    <br />{{ request.desc }}<br />Views: {{ request.views }}</li>    
+            {% endfor %}
+            </ul>
+        {% else %}
+        User has made no requests.<br />
+        {% endif %}
     </ul>
     {% if user.is_authenticated %}
         <a href ="{% url 'connectercise:index' %}">Message?</a><br />
