@@ -76,11 +76,28 @@ Home Page
   <section class="text-white">
     <div class="container text-center">
       <h1>Welcome to Connectercise</h1>
+      <p>Below you'll find some quick access links to help you get started right away:</p>
       <br>
       {% if user.is_authenticated %}
-        <p>You are logged in. Your username is: <br> {{ user.username }}</p>
+        <p>You are logged in. Your username is: <br> {{ user.username }}<br>Check out your recent activity below:</p>
+
       {% else %}
-        <a href="{% url 'auth_login' %}" class="action-button shadow animate green">Login or Register Here</a>
+      <div class="row">
+          <div style="padding: 0px 25px 25px 0px" class="col">
+            <a href="{% url 'auth_login' %}" class="action-button shadow animate green">Login</a>
+          </div>
+          <div class="colo">
+            <div class="container">
+                <form class='search' action="{% url 'connectercise:search' %}" method="get">
+                    <input name="q" type="text" placeholder="Search...">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+          </div>
+          <div class="col">
+            <a href="{% url 'registration_register' %}" class="action-button shadow animate green">Register</a>
+          </div>
+        </div>
       {% endif %}
       <br>
       <br>
