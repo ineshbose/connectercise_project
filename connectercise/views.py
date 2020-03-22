@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 from connectercise.models import Sport, SportRequest, UserProfile
 from django.contrib.auth.models import User
-from connectercise.forms import SportForm, RequestForm, UserForm, UserProfileForm, CommentForm
+from connectercise.forms import SportForm, RequestForm, UserForm, UserProfileForm, CommentForm, SportRequestForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -98,7 +98,7 @@ def add_sport(request):
     return render(request, 'connectercise/add_sport.html', {'form': form})
 
 @login_required
-def add_request(request, sport_name_slug):
+def add_sport_request(request, sport_name_slug):
     try:
         sport = Sport.objects.get(slug=sport_name_slug)
     except Sport.DoesNotExist:
@@ -107,21 +107,41 @@ def add_request(request, sport_name_slug):
     if sport is None:
         return redirect('/')
     
-    form = RequestForm()
+    form = SportRequestForm()
 
     if request.method == 'POST':
-        form = RequestForm(request.POST)
+        form = SportRequestForm(request.POST)
         if form.is_valid():
             if sport:
                 s_request = form.save(commit=False)
                 s_request.sport = sport
                 s_request.views = 0
                 s_request.creator = request.user
+                s_request.completed = False
                 s_request.save()
-                return redirect(reverse('connectercise:show_sport', kwargs={'sport_name_slug': sport_name_slug}))
+                return redirect(reverse('connectercise:show_request', kwargs={'sport_name_slug': sport_name_slug, 'request_name_slug': s_request.request_id}))
         else:
             print(form.errors)
     context_dict = {'form': form, 'sport': sport}
+    return render(request, 'connectercise/add_request.html', context=context_dict)
+
+@login_required
+def add_request(request):
+
+    form = RequestForm()
+
+    if request.method == 'POST':
+        form = RequestForm(request.POST)
+        if form.is_valid():
+            s_request = form.save(commit=False)
+            s_request.views = 0
+            s_request.creator = request.user
+            s_request.completed = False
+            s_request.save()
+            return redirect(reverse('connectercise:show_request', kwargs={'sport_name_slug': s_request.sport, 'request_name_slug': s_request.request_id}))
+        else:
+            print(form.errors)
+    context_dict = {'form': form}
     return render(request, 'connectercise/add_request.html', context=context_dict)
 
 @login_required
@@ -153,8 +173,14 @@ def show_user(request, user_profile_slug):
     context_dict = {}
     try:
         user = User.objects.get(username=user_profile_slug)
-        context_dict['userp'] = user
-    except UserProfile.DoesNotExist:
+        userp = UserProfile.objects.get(user=user)
+        context_dict['userp'] = userp
+        try:
+            user_requests = SportRequest.objects.filter(creator=user)
+            context_dict['requests'] = user_requests
+        except SportRequest.DoesNotExist:
+            context_dict['requests'] = None
+    except User.DoesNotExist:
         context_dict['userp'] = None
     return render(request, 'connectercise/user.html', context=context_dict)
 
@@ -166,3 +192,7 @@ def search(request):
         return render(request, 'connectercise/search.html', {'query': query,'requests': request_list}) 
     
     return render(request, 'connectercise/search.html', {'query': query, 'requests': request_list}) 
+def accept_request(request):
+    RequestForm.completed = True
+    return HttpResponse('Request has been accepted')
+    

@@ -95,7 +95,21 @@
         <strong>404</strong>
     {% endif %}
     {% if user.is_authenticated %}
-        <a href ="{% url 'connectercise:index' %}">MATCH! (Button by Andrea)</a><br />
+        <button onclick="accept()"> Accept Request </button>
+        <script type = "text/javascript">
+          $.ajax({
+            url: '/accept_request/',
+            method: 'POST',
+            success: function(respose){
+              alert('Request has been accepted')
+            }
+          });
+        </script>
+        <script>
+            function accept(){
+              request.completed = True;
+            }
+        </script>
     {% endif %}
 {% if user.is_authenticated %}
 <div class="container">

@@ -79,7 +79,7 @@
     <div class="jumbotron p-4">
         <div class="container">
         {% if userp %}
-             <h1 class="jumbotron-heading">{{ userp.first_name }} {{ userp.last_name }}</h1>
+             <h1 class="jumbotron-heading">{{ userp.user.first_name }} {{ userp.user.last_name }}</h1>
         {% else %}
             The specified user does not exist.
         {% endif %}
@@ -88,12 +88,23 @@
     <ul>
     {% if userp %}
         <h6>{{ userp.user.username }}</h6>
-        {{ userp.picture }}
+        <img src="{{ userp.picture.url }}" width="90" height="100">
+        <h2>User's requests</h2>
+        {% if requests %}
+            <ul>
+            {% for request in requests %}
+                <li><a href="{% url 'connectercise:show_request' request.sport.slug request.slug %}">{{ request.title }}</a>
+                    <br />{{ request.desc }}<br />Views: {{ request.views }}</li>    
+            {% endfor %}
+            </ul>
+        {% else %}
+        User has made no requests.<br />
+        {% endif %}
     </ul>
-    {% else %}
-        <strong>404</strong>
-    {% endif %}
     {% if user.is_authenticated %}
         <a href ="{% url 'connectercise:index' %}">Message?</a><br />
+    {% endif %}
+    {% else %}
+        <strong>404</strong>
     {% endif %}
 {% endblock %}

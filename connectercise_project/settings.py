@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'connectercise',
     'registration',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 RGISTRATION_OPEN = True
 
@@ -154,3 +157,15 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 ]
+
+
+# Registration package
+
+#If true, users can register
+REGISTRATION_OPEN = True
+#If true, user will be automatically logged in after registration
+REGISTRATION_AUTO_LOGIN = True
+#The URL that Django redirects the users to after logging in
+LOGIN_REDIRECT_URL = 'connectercise:index'
+#The page users are directed to if they are not logged in
+LOGIN_URL = 'auth_login'

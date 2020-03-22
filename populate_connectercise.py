@@ -5,23 +5,23 @@ import django
 django.setup()
 from connectercise.models import Sport, SportRequest, UserProfile
 from django.contrib.auth.models import User
-from django.contrib.auth.hashers import BCryptPasswordHasher, BCryptSHA256PasswordHasher, PBKDF2PasswordHasher, PBKDF2SHA1PasswordHasher
+from django.contrib.auth.hashers import make_password
 import random
 
 def populate():
     dummy_users = [
-        {'username': 'helloworld',
-        'password': 'hahahaha123',
-        'email': 'helloworld@wtforms.com'},
-        {'username': 'helloworld2',
-        'password': 'hahahaha1234',
-        'email': 'helloworld2@wtforms.com'},
-        {'username': 'helloworld3',
-        'password': 'hahahaha1231',
-        'email': 'helloworld3@wtforms.com'},
-        {'username': 'helloworld4',
-        'password': 'hahahaha12312',
-        'email': 'helloworld4@wtforms.com'},
+        {'username': 'testusername1',
+        'password': 'connectercise1',
+        'email': 'testuser1@connectercise.com'},
+        {'username': 'testusername2',
+        'password': 'connectercise2',
+        'email': 'testuser2@connectercise.com'},
+        {'username': 'testusername3',
+        'password': 'connectercise3',
+        'email': 'testuser3@connectercise.com'},
+        {'username': 'testusername4',
+        'password': 'connectercise4',
+        'email': 'testuser4@connectercise.com'},
     ]
 
     hike_requests = [
@@ -76,10 +76,16 @@ def populate():
         for r in SportRequest.objects.filter(sport=s):
             print(f'- {s}: {r}')
 
+def get_random_name(case):
+    if case == "first":
+        fnames = ['Marc','Martin','Marvin','Peter','Angela','Clive','Megan','Fiona','Sky','Randy','Miranda','Gemma','Andrew']
+        return random.choice(fnames)
+    if case == "last":
+        lnames = ['Smith','Doe','Murphy','Jacobs','Steinwien','Galoppa']
+        return random.choice(lnames)
+
 def add_request(sport, title, desc, creator, views=0):
-    r = SportRequest.objects.get_or_create(sport=sport, title=title, creator=creator)[0]
-    r.desc = desc
-    r.views = views
+    r = SportRequest.objects.get_or_create(sport=sport, title=title, creator=creator, desc=desc, views=views)[0]
     r.save()
     return r
 
@@ -89,7 +95,7 @@ def add_sport(name, views=0, likes=0):
     return s
 
 def add_user(username, password, email):
-    user_to_add = User(username=username, email=email, password=password)
+    user_to_add = User(username=username, email=email, password=make_password(password), first_name=get_random_name("first"), last_name=get_random_name("last"))
     user_to_add.save()
     up = UserProfile.objects.get_or_create(user=user_to_add)[0]
     up.save()

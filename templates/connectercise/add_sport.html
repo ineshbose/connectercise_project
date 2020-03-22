@@ -1,5 +1,7 @@
 {% extends 'connectercise/base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
+
 
 {% block title_block %}
     Add A Sport
@@ -72,6 +74,7 @@
     </ul>
         {% endblock %}
 {% block body_block %}
+<h1>Add a Sport</h1>
     <div class="jumbotron p-4">
         <div class="container">
             <h1 class="jumbotron-heading">Add a Sport</h1>
