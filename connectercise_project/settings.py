@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'connectercise',
     'registration',
     'crispy_forms',
+    'chat',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
