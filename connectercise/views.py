@@ -192,6 +192,7 @@ def search(request):
         return render(request, 'connectercise/search.html', {'query': query,'requests': request_list}) 
     
     return render(request, 'connectercise/search.html', {'query': query, 'requests': request_list}) 
+    
 def accept_request(request):
     RequestForm.completed = True
     return HttpResponse('Request has been accepted')

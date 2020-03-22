@@ -21,13 +21,13 @@ Home Page
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:add_sport' %}">
-            <span data-feather="plus"></span>
-            Add Sport
-            </a>
+          <a class="nav-link" href="{% url 'connectercise:add_request' %}">
+          <span data-feather="plus"></span>
+          Add a Request
+          </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="{% url 'connectercise:restricted' %}">
+            <a class="nav-link" href="{% url 'connectercise:restricted' %}">
             <span data-feather="lock"></span>
             Restricted
             </a>
@@ -150,7 +150,7 @@ Home Page
                         <li class="list">
                         <img class="list" src="{% static 'images/about4.jpg' %}" />
                         <h3 class="list"><a class="nav-link active" href = "{% url 'connectercise:show_sport' s.slug %}">
-                        <span data-feather="archive"></span>{{ s.name }}</a></h3>
+                        <span data-feather="archive"></span> {{ s.name }}</a></h3>
                         <p class="list">Lorem ipsum dolor sit amet...</p>
                         </li>
                     </ul>
@@ -177,7 +177,7 @@ Home Page
                         <li class="list">
                         <img class="list" src="{% static 'images/about4.jpg' %}" />
                         <h3 class="list"><a href="{% url 'connectercise:show_request' r.sport.slug r.slug %}">
-                        <span data-feather="archive"></span>{{ r.title }}</a></h3>
+                        <span data-feather="archive"></span> {{ r.title }}</a></h3>
                         <p class="list">{{ r.desc }}</p>
                         </li>
                     </ul>

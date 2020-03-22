@@ -24,9 +24,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:add_sport' %}">
+            <a class="nav-link" href="{% url 'connectercise:add_request' %}">
             <span data-feather="plus"></span>
-            Add Sport
+            Add a Request
             </a>
         </li>
         <li class="nav-item">
@@ -89,21 +89,35 @@
     {% if userp %}
         <h6>{{ userp.user.username }}</h6>
         <img src="{{ userp.picture.url }}" width="90" height="100">
-        <h2>User's requests</h2>
-        {% if requests %}
-            <ul>
-            {% for request in requests %}
-                <li><a href="{% url 'connectercise:show_request' request.sport.slug request.slug %}">{{ request.title }}</a>
-                    <br />{{ request.desc }}<br />Views: {{ request.views }}</li>    
-            {% endfor %}
-            </ul>
-        {% else %}
-        User has made no requests.<br />
-        {% endif %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                <h2>User's requests</h2>
+                <ul class="nav flex-column">
+                    {% if requests %}
+                        {% for request in requests %}
+                            <ul class="list">
+                                <li class="list">
+                                <img class="list" src="{% static 'images/about4.jpg' %}" />
+                                <h3 class="list"><a class="nav-link active" href = "{% url 'connectercise:show_request' request.sport.slug request.slug %}">
+                                <span data-feather="archive"></span> {{ request.title }}</a></h3>
+                                <p class="list">{{ request.desc }}<br>Views: {{ request.views }}</p>
+                                </li>
+                            </ul>
+                        {% endfor %}
+                    {% else %}
+                        <li class="nav-item">There are no requests present.</li>
+                    {% endif %}
+                </ul>
+                </div>
+            </div>
+        </div>
+    {% else %}
+    User has made no requests.<br />
+    {% endif %}
     </ul>
     {% if user.is_authenticated %}
-        <a href ="{% url 'connectercise:index' %}">Message?</a><br />
-    {% endif %}
+        <a class="footer" href ="{% url 'connectercise:index' %}">Message?</a><br />
     {% else %}
         <strong>404</strong>
     {% endif %}
