@@ -89,7 +89,7 @@
     {% if request %}
         <h6>{{ request.desc }}</h6>
         <h6>Views: {{ request.views }}</h6>
-        <h5>Created by <a href = "{% url 'connectercise:show_user' request.creator.username %}">{{ request.creator.username }}</a></h5>
+        <h5>Created by <a class="footer" href = "{% url 'connectercise:show_user' request.creator.username %}">{{ request.creator.username }}</a></h5>
     </ul>
     {% else %}
         <strong>404</strong>
@@ -97,6 +97,7 @@
     {% if user.is_authenticated %}
         <a href ="{% url 'connectercise:index' %}">MATCH! (Button by Andrea)</a><br />
     {% endif %}
+{% if user.is_authenticated %}
 <div class="container">
     <div class="col-md-8 card mb-4  mt-3 ">
       <div class="card-body">
@@ -134,4 +135,5 @@
     </div>
   </div>
 </div>
+{% endif %}
 {% endblock %}

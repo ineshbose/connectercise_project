@@ -81,13 +81,16 @@
         {% if sport %}
              <h1 class="jumbotron-heading">{{ sport.name }}</h1>
              <strong class="activity">Check out some of the latest requests for {{ sport.name }}</strong>
+             <br>
+             {% if user.is_authenticated %}
+             <a style="font-size:25px" href ="{% url 'connectercise:add_request' sport.slug %}">Add a request here</a><br />
+             {% endif %}
         {% else %}
             The specified sport does not exist.
         {% endif %}
         </div>
     </div>
-    <section>
-        <div class="container">
+    <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
           <ul class="nav flex-column">
@@ -102,15 +105,15 @@
                         </li>
                     </ul>
                 {% endfor %}
-                {% if user.is_authenticated %}
-                    <a href ="{% url 'connectercise:add_request' sport.slug %}">Add Request</a><br />
-                {% endif %}
             {% else %}
                 <li class="nav-item">There are no requests present.</li>
             {% endif %}
         </ul>
+        <br>
+        {% if user.is_authenticated %}
+            <a class="footer" href ="{% url 'connectercise:add_request' sport.slug %}">Add Request</a><br />
+        {% endif %}
         </div>
       </div>
     </div>
-    </section>
 {% endblock %}
