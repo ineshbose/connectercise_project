@@ -17,11 +17,24 @@ class RequestForm(forms.ModelForm):
     desc = forms.CharField(help_text="Please enter a description.", widget=forms.Textarea)
     #suggested_time = forms.DateTimeField(help_text="Enter a suggested time (optional).", required=False)
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    completed = forms.BooleanField(widget=forms.HiddenInput(), initial=False)
 
     class Meta:
         model = SportRequest
-        exclude = ('creator','slug','sport','request_id')
+        exclude = ('creator','slug','request_id','completed')
+    
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        return cleaned_data
+
+class SportRequestForm(forms.ModelForm):
+    title = forms.CharField(max_length=128, help_text="Please enter the title.")
+    desc = forms.CharField(help_text="Please enter a description.", widget=forms.Textarea)
+    #suggested_time = forms.DateTimeField(help_text="Enter a suggested time (optional).", required=False)
+    views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+
+    class Meta:
+        model = SportRequest
+        exclude = ('creator','slug','sport','request_id','completed')
     
     def clean(self):
         cleaned_data = self.cleaned_data
@@ -35,6 +48,9 @@ class UserForm(forms.ModelForm):
         fields = ('username', 'email', 'password', 'first_name', 'last_name')
 
 class UserProfileForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=128, help_text="First Name")
+    last_name = forms.CharField(max_length=128, help_text="Last Name")
+
     class Meta:
         model = UserProfile
         fields = ('picture',)

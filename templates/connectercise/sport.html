@@ -97,7 +97,7 @@
                     </ul>
                 {% endfor %}
                 {% if user.is_authenticated %}
-                    <a href ="{% url 'connectercise:add_request' sport.slug %}">Add Request</a><br />
+                    <a href ="{% url 'connectercise:add_sport_request' sport.slug %}">Add Request</a><br />
                 {% endif %}
             {% else %}
                 <li class="nav-item">There are no requests present.</li>
