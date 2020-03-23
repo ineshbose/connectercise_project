@@ -76,18 +76,6 @@ Register
     <form role="form" method="post" action=".">
         {% csrf_token %}
         <div class="form-group">
-        <p class="required"><label class="required" for="id_first_name">
-            First name:</label>
-        <input class="form-control" id="id_first_name" name="first_name" type="first_name" />
-        </p>
-        <p class="required"><label class="required" for="id_first_name">
-            Last name:</label>
-        <input class="form-control" id="id_last_name" name="last_name" type="last_name" />
-        </p>
-        <p><label for="id_picture">
-            Profile picture:</label>
-        <input class="form-control" id="id_picture" name="picture" type="file" accept = "image/*" />
-        </p> 
         <p class="required"><label class="required" for="id_username">
             Username:</label>
         <input class="form-control" id="id_username" maxlength="30" name="username" type="text" />
