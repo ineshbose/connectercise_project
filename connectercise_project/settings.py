@@ -158,3 +158,4 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 ]
 
+GOOGLE_MAPS_API_KEY='AIzaSyBAr4rBDcBTX9AuOS0psmJdcsShDVFp-U4'
