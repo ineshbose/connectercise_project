@@ -81,8 +81,12 @@
     </div>
     <ul>
     {% if request %}
+        <h6>{{ request.location }}</h6>
         <h6>{{ request.desc }}</h6>
         <h6>Views: {{ request.views }}</h6>
+        {% if request.suggested_date %}
+          <h6>Time: {{ request.suggested_date }}</h6>
+        {% endif %}
         <h5>Created by <a href = "{% url 'connectercise:show_user' request.creator.username %}">{{ request.creator.username }}</a></h5>
     </ul>
     {% else %}
