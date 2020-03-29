@@ -84,9 +84,23 @@
     <div class="jumbotron p-4">
         <div class="container">
         {% if userp %}
-             <h1 class="jumbotron-heading">{{ userp.user.first_name }} {{ userp.user.last_name }}</h1>
-             <h6>{{ userp.user.username }}</h6>
-            <img src="{{ userp.picture.url }}" width="90" height="100">
+        <style type="text/css">
+            .tg  {border-collapse:collapse;border-spacing:0;border:none;}
+            .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
+            .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
+            .tg .tg-cly1{text-align:left;vertical-align:middle}
+            </style>
+            <table class="tg">
+              <tr>
+                <th class="tg-cly1">
+                    <img src="{{ userp.picture.url }}" width="90" height="100">
+                </th>
+                <th class="tg-cly1">
+                    <h1 class="jumbotron-heading">{{ userp.user.first_name }} {{ userp.user.last_name }}</h1>
+                    <h6>{{ userp.user.username }}</h6>
+                </th>
+              </tr>
+            </table>
         {% else %}
             The specified user does not exist.
         {% endif %}
@@ -123,7 +137,5 @@
     </ul>
     {% if user.is_authenticated %}
         <a class="footer" href ="{% url 'connectercise:index' %}">Message?</a><br />
-    {% else %}
-        <strong>404</strong>
     {% endif %}
 {% endblock %}
