@@ -92,9 +92,13 @@
     </div>
     <ul>
     {% if request %}
+        <h6>{{ request.location }}</h6>
         <h6>{{ request.desc }}</h6>
         <h6>Views: {{ request.views }}</h6>
-        <h5>Created by <a class="footer" href = "{% url 'connectercise:show_user' request.creator.username %}">{{ request.creator.username }}</a></h5>
+        {% if request.suggested_date %}
+          <h6>Time: {{ request.suggested_date }}</h6>
+        {% endif %}
+        <h5>Created by <a href = "{% url 'connectercise:show_user' request.creator.username %}">{{ request.creator.username }}</a></h5>
     </ul>
     {% else %}
         <strong>404</strong>
@@ -126,7 +130,7 @@
         {% for comment in comments %}
         <div class="comments" style="padding: 10px;">
           <p class="font-weight-bold">
-            {{ comment.name }}
+            <a href = "{% url 'connectercise:show_user' comment.creator.username %}">{{ comment.creator.username }}</a>
             <span class=" text-muted font-weight-normal">
               {{ comment.created_on }}
             </span>
@@ -136,6 +140,7 @@
         {% endfor %}
       </div>
     </div>
+    {% if user.is_authenticated %}
     <div class="col-md-8 card mb-4  mt-3 ">
       <div class="card-body">
         {% if new_comment %}
@@ -152,6 +157,7 @@
         {% endif %}
       </div>
     </div>
+    {% endif %}
   </div>
 {% endif %}
 {% endblock %}
