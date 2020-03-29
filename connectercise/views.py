@@ -139,13 +139,6 @@ def add_request(request):
     context_dict = {'form': form}
     return render(request, 'connectercise/add_request.html', context=context_dict)
 
-@login_required
-def restricted(request):
-    context_dict = {}
-    sport_list = Sport.objects.order_by('-likes')[:5]
-    context_dict['sports'] = sport_list
-    return render(request, 'connectercise/restricted.html', context=context_dict)
-
 def show_user(request, user_profile_slug):
     context_dict = {}
     try:
