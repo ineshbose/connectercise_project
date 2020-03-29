@@ -69,7 +69,8 @@ def populate():
 
     for sport, sport_data in sports.items():
         s = add_sport(sport, sport_data['views'], sport_data['likes'])
-        add_request(s, r['title'], r['desc'], user_list[random.randint(0,3)], r['views'])
+        for r in sport_data['requests']:
+            add_request(s, r['title'], r['desc'], user_list[random.randint(0,3)], r['views'])
     
     for s in Sport.objects.all():
         for r in SportRequest.objects.filter(sport=s):
