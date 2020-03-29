@@ -69,11 +69,13 @@
         </ul>
     </div>
 </nav><!-- NavBar END -->
+        {% if user.is_authenticated %}
         <div class="container-fluid">
             <div class="row">
                 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                     <div class="wrapper">
                     <!-- Sidebar -->
+                    
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                         {% block sidebar_block %}     
@@ -88,13 +90,18 @@
                     </div>
                     </div>
                 </nav>
-
-    <main role="main" class="col-md-9  ml-sm-auto col-lg-10 px-4">		
-                    {% block body_block %}{% endblock %}
-            
-        </main>
-    </div>
-</div>
+                <main role="main" class="col-md-9  ml-sm-auto col-lg-10 px-4">		
+            {% else %}
+            <div class="container text-center">
+            <main role="main" class="col-lg-8 mx-auto">
+            {% endif %}
+                    {% block body_block %}
+                    {% endblock %}
+            </main>
+            {% if user.is_authenticated %}
+            </div>
+            {% endif %}
+        </div>
         
         <!-- Bootstrap core JavaScript -->
         <!-- Placed at the end of the document so the pages load faster -->
