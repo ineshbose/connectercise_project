@@ -1,111 +1,151 @@
-{% extends 'connectercise/base.html' %}
+<!DOCTYPE html>
 {% load static %}
-
-{% block title_block %}
-Home Page
-{% endblock %}
-{% load static %}
-    {% block sidebar_block %}
-    <a class="logo" href="{% url 'connectercise:index' %}">
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
+    <title>
+        Connectercise | Home Page
+    </title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+    <!-- Load icon library for search-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <!-- Custom styles for this template -->
+    <link href="{% static 'css/scrolling-nav.css' %}" rel="stylesheet">
+    </head>
+    
+    <body>    
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="footer" href="{% url 'connectercise:index' %}">
         <img src="{% static 'images/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
         <span class="menu-collapsed">Connectercise</span>
     </a>
-    <hr>
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link active" href="{% url 'connectercise:index' %}">
-            <span data-feather="home"></span>
-            Home <span class="sr-only">(current)</span>
-            </a>
-        </li>
-        {% if user.is_authenticated %}
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:show_user' user.username %}">
-            <span data-feather="eye"></span>
-            {{ user.username }}'s activities
-            </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'connectercise:add_request' %}">
-          <span data-feather="plus"></span>
-          Add a Request
-          </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:restricted' %}">
-            <span data-feather="lock"></span>
-            Restricted
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">
-            <span data-feather="log-out"></span>
-            Logout
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'auth_password_change' %}">
-            <span data-feather="lock"></span>
-            Change Password
-            </a>
-        </li>
-        {% else %}   
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-            <a class="nav-link" href="{% url 'auth_login' %}">
-            <span data-feather="log-in"></span>
-            Login
-            </a>
-        </li>
-        {% endif %}
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:about' %}">
-            <span data-feather="aperture"></span>
-            About
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:activity' %}">
-            <span data-feather="activity"></span>
-            Activities
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:search' %}">
-            <span data-feather="search"></span>
-            Search
-            </a>
-        </li>
-    </ul>
-{% endblock %}
-{% block body_block %}
-  <section class="text-white">
+                <a class="nav-link" href="{% url 'connectercise:index' %}">Home</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'connectercise:show_user' user.username %}">{{ user.username }}'s activities</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'connectercise:restricted' %}">Restricted</a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">Logout</a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a>
+            </li>
+            {% else %}
+             <li class="nav-item">
+                <a class="nav-link" href="{% url 'auth_login' %}">Login</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'connectercise:about' %}">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'connectercise:activity' %}">Activities</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'connectercise:search' %}">Search</a>
+            </li>
+            <!-- This menu is hidden in bigger devices with d-sm-none. 
+           The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
+        </ul>
+    </div>
+</nav><!-- NavBar END -->
+{% if user.is_authenticated %}
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                    <div class="wrapper">
+                    <!-- Sidebar -->
+                    <div class="sidebar-sticky">
+                        <a class="logo" href="{% url 'connectercise:index' %}">
+                          <img src="{% static 'images/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+                          <span class="menu-collapsed">Connectercise</span>
+                        </a>
+                        <hr>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{% url 'connectercise:index' %}">
+                                <span data-feather="home"></span>
+                                Home <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'connectercise:show_user' user.username %}">
+                                <span data-feather="eye"></span>
+                                {{ user.username }}'s activities
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="{% url 'connectercise:add_request' %}">
+                              <span data-feather="plus"></span>
+                              Add a Request
+                              </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'connectercise:restricted' %}">
+                                <span data-feather="lock"></span>
+                                Restricted
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">
+                                <span data-feather="log-out"></span>
+                                Logout
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'auth_password_change' %}">
+                                <span data-feather="lock"></span>
+                                Change Password
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'connectercise:about' %}">
+                                <span data-feather="aperture"></span>
+                                About
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'connectercise:activity' %}">
+                                <span data-feather="activity"></span>
+                                Activities
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'connectercise:search' %}">
+                                <span data-feather="search"></span>
+                                Search
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
+                </nav>
+    <main role="main" class="col-md-9  ml-sm-auto col-lg-10 px-4">		
+                      <section class="text-white">
     <div class="container text-center">
       <h1>Welcome to Connectercise</h1>
       <p>Below you'll find some quick access links to help you get started right away:</p>
       <br>
-      {% if user.is_authenticated %}
         <p>You are logged in. Your username is: <br> {{ user.username }}<br>Check out your recent activity below:</p>
-
-      {% else %}
-      <div class="row">
-          <div style="padding: 0px 25px 25px 0px" class="col">
-            <a href="{% url 'auth_login' %}" class="action-button shadow animate green">Login</a>
-          </div>
-          <div class="colo">
-            <div class="container">
-                <form class='search' action="{% url 'connectercise:search' %}" method="get">
-                    <input name="q" type="text" placeholder="Search...">
-                    <button class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-search"></i></button>
-                </form>
-            </div>
-          </div>
-          <div class="col">
-            <a href="{% url 'registration_register' %}" class="action-button shadow animate green">Register</a>
-          </div>
-        </div>
-      {% endif %}
-      <br>
-      <br>
       <hr>
       <br>
       <div class="container">
@@ -195,15 +235,154 @@ Home Page
       </div>
     </div>
   </section>
+            
+            <!-- FOOTER -->
+            <br>
+            <br>
+            <footer>
+            <hr>
+                <p class="float-right"><a class="footer" href="#">Back to top</a></p>
+                <a class="footer" href="{% url 'connectercise:about' %}">About </a><a class="footer" href="#">| Privacy </a><a class="footer" href="#">| Terms</a></p>
+                <p class="footer">&copy; 2020 Connectercise 
+            </footer>
+        </main>
+    </div>
+</div>
+{% else %}
+   <main role="main" class="full-width">		
+    <section class="text-white">
+    <div class="container text-center">
+      <h1>Welcome to Connectercise</h1>
+      <p>Below you'll find some quick access links to help you get started right away:</p>
+      <br>
+      <div class="row">
+          <div class="col">
+            <div class="container">
+                <form class='search' action="{% url 'connectercise:search' %}" method="get">
+                    <input name="q" type="text" placeholder="Search...">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+          </div>
+        </div>
+      <br>
+      <div class="row">
+          <div class="col">
+            <a href="{% url 'auth_login' %}" class="action-button shadow animate green">Login</a>
+          </div>
+      </div>
+      <br>
+      <br>
+      <div class="row">
+          <div class="col">
+            <a style="background-color: #1560BD;border-bottom: 5px solid #1560BD;text-shadow: 0px -2px #1560BD;" href="{% url 'registration_register' %}" class="action-button shadow animate blue">Register</a>
+          </div>
+      </div>
+      <br>
+      <hr>
+      <br>
+    </div>
+  </section>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <section id="about" class="bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2>About Connectercise</h2>
+          <p class="lead">Here at Connectercise we are dedicated to bringing you a new and unimagined experience, that involved a whole lot of burning calories and a whole lot more of making friends! Connectercise features exclusively:</p>
+          <ul>
+            <li>A web application which allows users to meet each other and do sporting activities together</li>
+            <li>Users can create sporting requests which are categorized by sport and location</li>
+            <li>Users can fulfill the sporting requests of other users</li>
+            <li>Users can view the past sporting activity of other users, utilizing the Strava API</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- Plugin JavaScript -->
-  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+  <section id="sports">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+        <h2>Check out some of the sports we support, below:</h2>
+        <p class="lead">Here at Connectercise we support a wide range of different sporting activites. If it's a sport, and it's been done before, we'll support it! Just make an account and add the sport to our list of sports! In no time at all, the requests will start streaming in!</p> 
+          <ul class="nav flex-column">
+            {% if sports %}
+                {% for s in sports %}
+                    <ul class="list">
+                        <li class="list">
+                        <img class="list" src="{% static 'images/about4.jpg' %}" />
+                        <h3 class="list"><a class="nav-link active" href = "{% url 'connectercise:show_sport' s.slug %}">
+                        <span data-feather="archive"></span> {{ s.name }}</a></h3>
+                        <p class="list">Lorem ipsum dolor sit amet...</p>
+                        </li>
+                    </ul>
+                {% endfor %}
+            {% else %}
+                <li class="nav-item">There are no sports present.</li>
+            {% endif %}
+        </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- Custom JavaScript for this theme -->
-  <script src="{% static 'js/scrolling-nav.js' %}"></script>
+  <section id="requests" class="bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2>Check out some of the most recent sporting requests our users hae made:</h2>
+          <p class="lead">What's a sports request? Why do I need to make one? Check out some of the most popular sporting requests which have been made recently. Eager to get out and about in your town? Sick and tired of sitting at home and making way too much use of that Netflix subscription? Get some inspiration right here!</p>
+            <ul class="nav flex-column">
+            {% if requests %}
+                {% for r in requests %}
+                    <ul class="list">
+                        <li class="list">
+                        <img class="list" src="{% static 'images/about4.jpg' %}" />
+                        <h3 class="list"><a href="{% url 'connectercise:show_request' r.sport.slug r.slug %}">
+                        <span data-feather="archive"></span> {{ r.title }}</a></h3>
+                        <p class="list">{{ r.desc }}</p>
+                        </li>
+                    </ul>
+                {% endfor %}
+            {% else %}
+                <li class="nav-item">There are no requests present.</li>
+            {% endif %}
+        </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+            
+            <!-- FOOTER -->
+            <br>
+            <br>
+            <footer>
+            <hr>
+                <p class="float-right"><a class="footer" href="#">Back to top</a></p>
+                <a class="footer" href="{% url 'connectercise:about' %}">About </a><a class="footer" href="#">| Privacy </a><a class="footer" href="#">| Terms</a></p>
+                <p class="footer">&copy; 2020 Connectercise 
+            </footer>
+        </main>
+    </div>
+</div>
+{% endif %}
+        
+        <!-- Bootstrap core JavaScript -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.2/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="https://getbootstrap.com/docs/4.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <script src="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.js"></script>
+          <!-- Bootstrap core JavaScript -->
+          <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+          <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-{% endblock %}
+          <!-- Plugin JavaScript -->
+          <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+          <!-- Custom JavaScript for this theme -->
+          <script src="{% static 'js/scrolling-nav.js' %}"></script>
+    </body>
+</html>

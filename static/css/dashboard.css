@@ -30,6 +30,11 @@ a.logo {
   text-decoration: none;
 }
 
+main.full-width {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
 footer {
   position:relative; 
   bottom:0; 

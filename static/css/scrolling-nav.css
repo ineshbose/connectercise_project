@@ -50,7 +50,7 @@ li:hover.list {
 
 .action-button
 {
-	position: relative;
+	position: center;
 	padding: 10px 40px;
   margin: 0px 10px 10px 0px;
   float: inherit;
@@ -64,9 +64,9 @@ li:hover.list {
 
 .blue
 {
-	background-color: #608AF8;
-	border-bottom: 5px solid #608AF8;
-	text-shadow: 0px -2px #608AF8;
+	background-color: #1560BD;
+	border-bottom: 5px solid #1560BD;
+	text-shadow: 0px -2px #1560BD;
 }
 
 .red
