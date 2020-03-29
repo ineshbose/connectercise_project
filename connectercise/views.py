@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 from connectercise.forms import SportForm, RequestForm, UserForm, UserProfileForm, CommentForm, SportRequestForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
 
 # Create your views here.
 def index(request):
@@ -24,7 +23,6 @@ def about(request):
     sport_list = Sport.objects.order_by('-likes')[:5]
     context_dict = {}
     context_dict['sports'] = sport_list
-    context_dict['visits'] = request.session['visits']
     return render(request, 'connectercise/about.html', context=context_dict)
 
 def activity(request):

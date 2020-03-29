@@ -79,6 +79,11 @@
                         {% block sidebar_block %}     
 
                         {% endblock %}
+                        <footer>
+                            <hr>
+                                <a class="footer" href="{% url 'connectercise:about' %}">About</a> | <a class="footer" href="#">Privacy </a> | <a class="footer" href="#">Terms</a></p>
+                                <p class="footer">&copy; 2020 Connectercise 
+                        </footer>
                         </ul>
                     </div>
                     </div>
@@ -87,15 +92,6 @@
     <main role="main" class="col-md-9  ml-sm-auto col-lg-10 px-4">		
                     {% block body_block %}{% endblock %}
             
-            <!-- FOOTER -->
-            <br>
-            <br>
-            <footer>
-            <hr>
-                <p class="float-right"><a class="footer" href="#">Back to top</a></p>
-                <a class="footer" href="{% url 'connectercise:about' %}">About </a><a class="footer" href="#">| Privacy </a><a class="footer" href="#">| Terms</a></p>
-                <p class="footer">&copy; 2020 Connectercise 
-            </footer>
         </main>
     </div>
 </div>
