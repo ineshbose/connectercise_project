@@ -10,9 +10,9 @@ class RequestAdmin(admin.ModelAdmin):
     list_display = ['title', 'sport', 'desc']
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'body', 'request', 'created_on', 'active')
+    list_display = ('creator', 'body', 'request', 'created_on', 'active')
     list_filter = ('active', 'created_on')
-    search_fields = ('name', 'body')
+    search_fields = ('creator', 'body')
     actions = ['approve_comments']
 
     def approve_comments(self, request, queryset):

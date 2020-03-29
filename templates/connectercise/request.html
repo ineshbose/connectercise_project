@@ -118,7 +118,7 @@
         {% for comment in comments %}
         <div class="comments" style="padding: 10px;">
           <p class="font-weight-bold">
-            {{ comment.name }}
+            <a href = "{% url 'connectercise:show_user' comment.creator.username %}">{{ comment.creator.username }}</a>
             <span class=" text-muted font-weight-normal">
               {{ comment.created_on }}
             </span>
@@ -128,6 +128,7 @@
         {% endfor %}
       </div>
     </div>
+    {% if user.is_authenticated %}
     <div class="col-md-8 card mb-4  mt-3 ">
       <div class="card-body">
         {% if new_comment %}
@@ -144,6 +145,7 @@
         {% endif %}
       </div>
     </div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}

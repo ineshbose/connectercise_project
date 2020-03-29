@@ -53,7 +53,7 @@ class UserProfile(models.Model):
 
 class Comment(models.Model):
     request = models.ForeignKey(SportRequest,on_delete=models.CASCADE,related_name='comments')
-    name = models.CharField(max_length=80)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=False)

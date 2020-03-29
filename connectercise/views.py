@@ -69,6 +69,7 @@ def show_request(request, sport_name_slug, request_name_slug):
                 # Create Comment object but don't save to database yet
                 new_comment = comment_form.save(commit=False)
                 # Assign the current request to the comment
+                new_comment.creator = request.user
                 new_comment.request = s_request
                 # Save the comment to the database
                 new_comment.save()
