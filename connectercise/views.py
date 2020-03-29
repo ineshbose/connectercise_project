@@ -205,4 +205,12 @@ def user_settings(request, user_profile_slug):
             print(form.errors)
     context_dict = {'form': form}
     return render(request, 'connectercise/user_settings.html', context=context_dict)
-    
+
+
+def view_profile(request, pk=None):
+    if pk:
+        user = User.objects.get(pk=pk)
+    else:
+        user = request.user
+    args = {'user': user}
+    return render(request, 'connectercise/view_profile.html', args)
