@@ -173,4 +173,3 @@ def search(request):
 def accept_request(request):
     RequestForm.completed = True
     return HttpResponse('Request has been accepted')
-    
