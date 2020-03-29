@@ -18,4 +18,5 @@ urlpatterns = [
     path('restricted/', views.restricted, name='restricted'),
     path('sport/<slug:sport_name_slug>/<slug:request_name_slug>/accept_request', views.accept_request, name='accept_request'),
     path('view_profile/', views.view_profile, name='view_profile'),
+    path('update_user/', views.update_user, name='update_user'),
 ]

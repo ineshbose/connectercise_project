@@ -1,5 +1,5 @@
 from datetime import datetime
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, render_to_response
 from django.http import HttpResponse
 from django.urls import reverse
 from connectercise.models import Sport, SportRequest, UserProfile
@@ -214,3 +214,34 @@ def view_profile(request, pk=None):
         user = request.user
     args = {'user': user}
     return render(request, 'connectercise/view_profile.html', args)
+
+
+@login_required
+def update_user(request):
+    
+    user_profile = UserProfile.objects.get(user=request.user)
+
+    if request.method == "POST":
+        update_user_form = UserForm(data=request.POST, instance=request.user)
+        update_profile_form = UserProfileForm(data=request.POST, instance=user_profile)
+
+        if update_user_form.is_valid() and update_profile_form.is_valid():
+            user = update_user_form.save()
+            profile = update_profile_form.save(commit=False)
+            profile.user = user
+
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+
+            profile.save()
+
+        else:
+            print(update_user_form.errors, update_profile_form.errors)
+    else:
+        update_user_form = UserForm(instance=request.user)
+        update_profile_form = UserProfileForm(instance=user_profile)
+
+    return render(request,
+            'update_user.html',
+            {'update_user_form': update_user_form, 'update_profile_form': update_profile_form}
+            )
