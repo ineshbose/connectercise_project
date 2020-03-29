@@ -10,59 +10,42 @@
     <meta name="generator" content="Jekyll v3.8.5">
     <link rel="icon" href="{% static 'images/favicon.ico' %}">
     <title>
-        connectercise - {% block title_block %}Connecting People Through Sports{% endblock %}
+        Connectercise | {% block title_block %}Connecting People Through Sports{% endblock %}
     </title>
-    <link href={% static 'css/main.css' %}
     <!-- Bootstrap core CSS -->
-    <link href="https://getbootstrap.com/docs/4.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     
     <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.css" rel="stylesheet">
+    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
     </head>
     
-    <body>
-        <header>
-            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark p-0">
-                <a class="navbar-brand p-2" href="{% url 'connectercise:index' %}">connectercise</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><a class="nav-link" href="{% url 'connectercise:index' %}">Home</a></li>
-                        <li class="nav-item "><a class="nav-link" href="{% url 'connectercise:about' %}">About</a></li>
-                        {% if user.is_authenticated %}
-                        <li class="nav-item "><a class="nav-link" href="{% url 'connectercise:restricted' %}">Restricted</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">Logout</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'connectercise:add_sport' %}">Add Sport</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a></li>
-                        {% else %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'registration_register' %}">Register Here</a></li>
-                        <li class="nav-item "><a class="nav-link" href="{% url 'auth_login' %}">Login</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        
+    <body>    
         <div class="container-fluid">
             <div class="row">
                 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                    <div class="wrapper">
+                    <!-- Sidebar -->
                     <div class="sidebar-sticky">
-                    {% block sidebar_block %}
-                        {% get_sport_list sport %}
-                    {% endblock %}
+                        <ul class="nav flex-column">
+                        {% block sidebar_block %}     
+
+                        {% endblock %}
+                        </ul>
+                    </div>
                     </div>
                 </nav>
+            </div>
+        </div>
                 
                 <main role="main" class="col-md-9  ml-sm-auto col-lg-10 px-4">		
                     {% block body_block %}{% endblock %}
                     
                     <!-- FOOTER -->
+                    <br>
+                    <br>
                     <footer>
-                        <p class="float-right"><a href="#">Back to top</a></p>
-                        <p>&copy; 2020 Connectercise &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+                        <p class="float-right"><a class="footer" href="#">Back to top</a></p>
+                        <p class="footer">&copy; 2020 Connectercise &middot; <a class="footer" href="#">Privacy</a> &middot; <a class="footer" href="#">Terms</a></p>
                     </footer>
                 </main>
             </div>

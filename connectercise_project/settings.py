@@ -41,19 +41,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'main',
-    #'connect',
     'connectercise',
     'registration',
     'django_google_maps',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 RGISTRATION_OPEN = True
 
 # If True, the user will be automatically logged in after registering.
 REGISTRATION_AUTO_LOGIN = True
 # The URL that Django redirects users to after logging in.
-LOGIN_REDIRECT_URL = 'connectercise:index'
+LOGIN_REDIRECT_URL = 'connectercise:activity'
 # The page users are directed to if they are not logged in.
 # This was set in a previous chapter. The registration package uses this, too.
 LOGIN_URL = 'auth_login'
@@ -159,3 +160,14 @@ PASSWORD_HASHERS = [
 ]
 
 GOOGLE_MAPS_API_KEY='AIzaSyBAr4rBDcBTX9AuOS0psmJdcsShDVFp-U4'
+
+# Registration package
+
+#If true, users can register
+REGISTRATION_OPEN = True
+#If true, user will be automatically logged in after registration
+REGISTRATION_AUTO_LOGIN = True
+#The URL that Django redirects the users to after logging in
+LOGIN_REDIRECT_URL = 'connectercise:index'
+#The page users are directed to if they are not logged in
+LOGIN_URL = 'auth_login'

@@ -1,9 +1,10 @@
 from django import forms
 from django.contrib.auth.models import User
-from connectercise.models import SportRequest, Sport, UserProfile
+from connectercise.models import SportRequest, Sport, UserProfile, Comment
 from django_google_maps.widgets import GoogleMapsAddressWidget
 from django_google_maps.fields import AddressField, GeoLocationField
 from django.forms.widgets import TextInput
+
 
 class SportForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Please enter the sport name.")
@@ -17,19 +18,30 @@ class SportForm(forms.ModelForm):
 
 class RequestForm(forms.ModelForm):
     title = forms.CharField(max_length=128, help_text="Please enter the title.")
-    url = forms.URLField(max_length=200, help_text="Please enter the URL.")
+    desc = forms.CharField(help_text="Please enter a description.", widget=forms.Textarea)
+    #suggested_time = forms.DateTimeField(help_text="Enter a suggested time (optional).", required=False)
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
 
     class Meta:
         model = SportRequest
-        exclude = ('sport',)
-
+        exclude = ('creator','slug','request_id','completed')
+    
     def clean(self):
         cleaned_data = self.cleaned_data
-        url = cleaned_data.get('url')
-        if url and not url.startswith('http://'):
-            url = f'http://{url}'
-            cleaned_data['url'] = url
+        return cleaned_data
+
+class SportRequestForm(forms.ModelForm):
+    title = forms.CharField(max_length=128, help_text="Please enter the title.")
+    desc = forms.CharField(help_text="Please enter a description.", widget=forms.Textarea)
+    #suggested_time = forms.DateTimeField(help_text="Enter a suggested time (optional).", required=False)
+    views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+
+    class Meta:
+        model = SportRequest
+        exclude = ('creator','slug','sport','request_id','completed')
+    
+    def clean(self):
+        cleaned_data = self.cleaned_data
         return cleaned_data
 
 class UserForm(forms.ModelForm):
@@ -37,9 +49,17 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password',)
+        fields = ('username', 'email', 'password', 'first_name', 'last_name')
 
 class UserProfileForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=128, help_text="First Name")
+    last_name = forms.CharField(max_length=128, help_text="Last Name")
+
     class Meta:
         model = UserProfile
         fields = ('picture',)
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('name', 'body')
