@@ -5,6 +5,11 @@
     Dashboard
 {% endblock %}
 {% block sidebar_block %}
+<a class="logo" href="{% url 'connectercise:index' %}">
+    <img src="{% static 'images/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+    <span class="menu-collapsed">Connectercise</span>
+</a>
+<hr>
 <ul class="nav flex-column">
     <li class="nav-item">
         <a class="nav-link" href="{% url 'connectercise:index' %}">

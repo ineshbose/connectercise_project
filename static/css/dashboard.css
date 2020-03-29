@@ -23,6 +23,13 @@ body {
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 
+a.logo {
+  color: #608AF8;
+  font-family: helvetica;
+  font-size: 20px;
+  text-decoration: none;
+}
+
 footer {
   position:relative; 
   bottom:0; 
