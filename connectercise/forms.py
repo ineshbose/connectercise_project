@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserChangeForm
 from connectercise.models import SportRequest, Sport, UserProfile, Comment
 
 class SportForm(forms.ModelForm):
@@ -17,11 +18,27 @@ class RequestForm(forms.ModelForm):
     desc = forms.CharField(help_text="Please enter a description.", widget=forms.Textarea)
     #suggested_time = forms.DateTimeField(help_text="Enter a suggested time (optional).", required=False)
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    completed = forms.BooleanField(widget=forms.HiddenInput(), initial=False)
+    suggested_date = forms.DateTimeField(widget=forms.SelectDateWidget(), required=False)
 
     class Meta:
         model = SportRequest
-        exclude = ('creator','slug','sport','request_id')
+        exclude = ('creator','slug','request_id','completed')
+    
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        return cleaned_data
+
+class SportRequestForm(forms.ModelForm):
+    title = forms.CharField(max_length=128, help_text="Please enter the title.")
+    desc = forms.CharField(help_text="Please enter a description.", widget=forms.Textarea)
+    #suggested_time = forms.DateTimeField(help_text="Enter a suggested time (optional).", required=False)
+    views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    suggested_date = forms.DateTimeField(widget=forms.SelectDateWidget(), required=False)
+
+
+    class Meta:
+        model = SportRequest
+        exclude = ('creator','slug','sport','request_id','completed')
     
     def clean(self):
         cleaned_data = self.cleaned_data
@@ -34,7 +51,14 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'password', 'first_name', 'last_name')
 
+class UserForm2(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('email','first_name','last_name')
+
 class UserProfileForm(forms.ModelForm):
+
     class Meta:
         model = UserProfile
         fields = ('picture',)
@@ -42,4 +66,4 @@ class UserProfileForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('name', 'body')
+        fields = ('body',)

@@ -1,8 +1,10 @@
 {% extends 'connectercise/base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
+
 
 {% block title_block %}
-Restricted Page
+    Add A Request
 {% endblock %}
         {% block sidebar_block %}
     <ul class="nav flex-column">
@@ -26,7 +28,7 @@ Restricted Page
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="{% url 'connectercise:restricted' %}">
+            <a class="nav-link" href="{% url 'connectercise:restricted' %}">
             <span data-feather="lock"></span>
             Restricted
             </a>
@@ -66,10 +68,15 @@ Restricted Page
     </ul>
         {% endblock %}
 {% block body_block %}
+<h1>{{ user.username }} Settings</h1>
     <div class="jumbotron p-4">
         <div class="container">
-            <h1 class="jumbotron-heading">Since you're logged in, you can see this text!</h1>
-            <p class="activity">Check out some of the many features Connectercise can offer you! Find a friend to get active with. Find someone who can help you be the best you today, not tomorrow. You know you can do it, so might as well have fun while you're at it!</p>
-        </div>
-    </div>
-{% endblock %}
+<form id="update_user_form" method="POST" action="{% url 'connectercise:user_settings' user.username %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ update_user_form.as_p }}
+    {{ update_profile_form.as_p }}
+    <img src="{{ update_profile_form.instance.picture.url }}" />
+    <br />
+    <input type="SUBMIT" name="submit" value="Update" />
+</form>
+</div></div>{% endblock %}

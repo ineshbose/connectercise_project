@@ -17,38 +17,144 @@
     
     <!-- Custom styles for this template -->
     <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+    <!-- Load icon library for search-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <!-- Custom styles for this template -->
+    <link href="{% static 'css/scrolling-nav.css' %}" rel="stylesheet">
     </head>
     
     <body>    
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="footer" href="{% url 'connectercise:index' %}">
+        <img src="{% static 'images/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+        <span class="menu-collapsed">Connectercise</span>
+    </a>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'connectercise:index' %}">Home</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'connectercise:show_user' user.username %}">{{ user.username }}'s activities</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">Logout</a>
+            </li>
+            {% else %}
+             <li class="nav-item">
+                <a class="nav-link" href="{% url 'auth_login' %}">Login</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'connectercise:about' %}">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'connectercise:activity' %}">Activities</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'connectercise:search' %}">Search</a>
+            </li>
+            <!-- This menu is hidden in bigger devices with d-sm-none. 
+           The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
+        </ul>
+    </div>
+</nav><!-- NavBar END -->
+        {% if user.is_authenticated %}
         <div class="container-fluid">
             <div class="row">
                 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                     <div class="wrapper">
                     <!-- Sidebar -->
+                    
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
-                        {% block sidebar_block %}     
-
-                        {% endblock %}
+                        <a class="logo" href="{% url 'connectercise:index' %}">
+                            <img src="{% static 'images/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+                            <span class="menu-collapsed">Connectercise</span>
+                        </a>
+                        <hr>
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'connectercise:index' %}">
+                                    <span data-feather="home"></span>
+                                    Dashboard <span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'connectercise:activity' %}">
+                                    <span data-feather="activity"></span>
+                                    Activities
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'connectercise:search' %}">
+                                    <span data-feather="search"></span>
+                                    Search
+                                    </a>
+                                </li>
+                                {% if user.is_authenticated %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'connectercise:show_user' user.username %}">
+                                    <span data-feather="eye"></span>
+                                    {{ user.username }}'s activities
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'connectercise:add_request' %}">
+                                    <span data-feather="plus"></span>
+                                    Add a Request
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'auth_password_change' %}">
+                                    <span data-feather="lock"></span>
+                                    Change Password
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">
+                                    <span data-feather="log-out"></span>
+                                    Logout
+                                    </a>
+                                </li>
+                                {% else %}   
+                                    <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'auth_login' %}">
+                                    <span data-feather="log-in"></span>
+                                    Login
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
                         </ul>
                     </div>
                     </div>
                 </nav>
-            </div>
-        </div>
-                
                 <main role="main" class="col-md-9  ml-sm-auto col-lg-10 px-4">		
-                    {% block body_block %}{% endblock %}
-                    
-                    <!-- FOOTER -->
-                    <br>
-                    <br>
-                    <footer>
-                        <p class="float-right"><a class="footer" href="#">Back to top</a></p>
-                        <p class="footer">&copy; 2020 Connectercise &middot; <a class="footer" href="#">Privacy</a> &middot; <a class="footer" href="#">Terms</a></p>
-                    </footer>
-                </main>
+            {% else %}
+            <div class="container text-center">
+            <main role="main" class="col-lg-8 mx-auto">
+            {% endif %}
+                    {% block body_block %}
+                    {% endblock %}
+            <div class="container text-center"
+            <footer>
+                <hr>
+                    <a class="footer" href="{% url 'connectercise:about' %}">About</a> | <a class="footer" href="{% url 'connectercise:privacy_policy' %}">Privacy </a> | <a class="footer" href="{% url 'connectercise:terms_of_service' %}">Terms</a></p>
+                    <p class="footer">&copy; 2020 Connectercise 
+            </footer>
             </div>
+            </main>
+            {% if user.is_authenticated %}
+            </div>
+            {% endif %}
         </div>
         
         <!-- Bootstrap core JavaScript -->

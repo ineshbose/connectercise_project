@@ -1,0 +1,45 @@
+{% extends 'connectercise/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Search
+{% endblock %}
+{% block body_block %}
+<div class="container text-center">
+<div class="jumbotron p-4">
+    <div class="container">
+    <h1 class="jumbotron-heading">Search Connectercise</h1>
+    <h3>Welcome to Connectercise Search! Find requests near you, NOW!</h3>
+    <p>Type location names like 'glasgow', 'edinburgh' or sport names like 'hiking', 'swimming' or search for anything hopeful!</p>
+    </div>
+</div>
+<div class="container">
+    <form class='search' action="{% url 'connectercise:search' %}" method="get">
+        <input name="q" type="text" placeholder="Search...">
+        <button class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-search"></i></button>
+    </form>
+</div>
+<br>
+<div>
+    {% if requests %}
+        <h2>Results for: {{ query }}</h2>
+        <br>
+        <div>
+            <ul>
+            {% for request in requests %}
+                <div class="list-group-item">
+                    <li><h3 class="list-group-item-heading">
+                        <a href="{% url 'connectercise:show_request' request.sport.slug request.slug %}">{{ request.title }}</a>
+                    </h3></li>
+                </div>
+            {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        {% if query %}
+        <h3>We're sorry, we couldn't find any search results for: {{ query }}</h3>
+        {% endif %}
+    {% endif %}
+</div>
+</div>
+{% endblock %}

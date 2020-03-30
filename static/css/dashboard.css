@@ -23,6 +23,18 @@ body {
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 
+a.logo {
+  color: #608AF8;
+  font-family: helvetica;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+main.full-width {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
 footer {
   position:relative; 
   bottom:0; 
@@ -175,4 +187,108 @@ li.list {
 li:hover.list {
   background:rgb(201, 197, 197);
   cursor: pointer;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Style the search field */
+form.search input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+/* Style the submit button */
+form.search button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #608AF8;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+form.search button:hover {
+  background: #608AF8;
+}
+
+/* Clear floats */
+form.search::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
+
+#body-row {
+  margin-left:0;
+  margin-right:0;
+}
+#sidebar-container {
+  min-height: 100vh;   
+  background-color: #333;
+  padding: 0;
+}
+
+/* Sidebar sizes when expanded and expanded */
+.sidebar-expanded {
+  width: 230px;
+}
+.sidebar-collapsed {
+  width: 60px;
+}
+
+/* Menu item*/
+#sidebar-container .list-group a {
+  height: 50px;
+  color: white;
+}
+
+/* Submenu item*/
+#sidebar-container .list-group .sidebar-submenu a {
+  height: 45px;
+  padding-left: 30px;
+}
+.sidebar-submenu {
+  font-size: 0.9rem;
+}
+
+/* Separators */
+.sidebar-separator-title {
+  background-color: #333;
+  height: 35px;
+}
+.sidebar-separator {
+  background-color: #333;
+  height: 25px;
+}
+.logo-separator {
+  background-color: #333;    
+  height: 60px;
+}
+
+/* Closed submenu icon */
+#sidebar-container .list-group .list-group-item[aria-expanded="false"] .submenu-icon::after {
+content: " \f0d7";
+font-family: FontAwesome;
+display: inline;
+text-align: right;
+padding-left: 10px;
+}
+/* Opened submenu icon */
+#sidebar-container .list-group .list-group-item[aria-expanded="true"] .submenu-icon::after {
+content: " \f0da";
+font-family: FontAwesome;
+display: inline;
+text-align: right;
+padding-left: 10px;
 }

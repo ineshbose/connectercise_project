@@ -10,18 +10,18 @@ import random
 
 def populate():
     dummy_users = [
-        {'username': 'helloworld',
-        'password': 'hahahaha123',
-        'email': 'helloworld@wtforms.com'},
-        {'username': 'helloworld2',
-        'password': 'hahahaha1234',
-        'email': 'helloworld2@wtforms.com'},
-        {'username': 'helloworld3',
-        'password': 'hahahaha1231',
-        'email': 'helloworld3@wtforms.com'},
-        {'username': 'helloworld4',
-        'password': 'hahahaha12312',
-        'email': 'helloworld4@wtforms.com'},
+        {'username': 'testusername1',
+        'password': 'connectercise1',
+        'email': 'testuser1@connectercise.com'},
+        {'username': 'testusername2',
+        'password': 'connectercise2',
+        'email': 'testuser2@connectercise.com'},
+        {'username': 'testusername3',
+        'password': 'connectercise3',
+        'email': 'testuser3@connectercise.com'},
+        {'username': 'testusername4',
+        'password': 'connectercise4',
+        'email': 'testuser4@connectercise.com'},
     ]
 
     hike_requests = [
@@ -85,9 +85,7 @@ def get_random_name(case):
         return random.choice(lnames)
 
 def add_request(sport, title, desc, creator, views=0):
-    r = SportRequest.objects.get_or_create(sport=sport, title=title, creator=creator)[0]
-    r.desc = desc
-    r.views = views
+    r = SportRequest.objects.get_or_create(sport=sport, title=title, creator=creator, desc=desc, views=views)[0]
     r.save()
     return r
 
