@@ -57,9 +57,9 @@ def populate():
         'views': 16},
     ]
 
-    sports = {'Hiking': {'requests': hike_requests, 'views': 128, 'likes': 64},
-            'Cycling': {'requests': cycling_requests, 'views': 64, 'likes': 32},
-            'Others': {'requests': other_requests, 'views': 32, 'likes': 16} }
+    sports = {'Hiking': {'requests': hike_requests},
+            'Cycling': {'requests': cycling_requests},
+            'Others': {'requests': other_requests} }
 
     user_list = []
     for u in dummy_users:
@@ -68,10 +68,10 @@ def populate():
         print(f'- Added user {up}')
 
     for sport, sport_data in sports.items():
-        s = add_sport(sport, sport_data['views'], sport_data['likes'])
+        s = add_sport(sport)
         for r in sport_data['requests']:
             add_request(s, r['title'], r['desc'], user_list[random.randint(0,3)], r['views'])
-    
+    print(Sport.objects.all(), SportRequest.objects.all())
     for s in Sport.objects.all():
         for r in SportRequest.objects.filter(sport=s):
             print(f'- {s}: {r}')
@@ -85,12 +85,13 @@ def get_random_name(case):
         return random.choice(lnames)
 
 def add_request(sport, title, desc, creator, views=0):
-    r = SportRequest.objects.get_or_create(sport=sport, title=title, creator=creator, desc=desc, views=views)[0]
+    r = SportRequest.objects.get_or_create(sport=sport, title=title, creator=creator, desc=desc)[0]
+    r.views = views
     r.save()
     return r
 
-def add_sport(name, views=0, likes=0):
-    s = Sport.objects.get_or_create(name=name, views=views, likes=likes)[0]
+def add_sport(name):
+    s = Sport.objects.get_or_create(name=name)[0]
     s.save()
     return s
 

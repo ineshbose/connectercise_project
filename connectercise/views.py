@@ -187,6 +187,7 @@ def user_settings(request, user_profile_slug):
                 profile.picture = request.FILES['picture']
 
             profile.save()
+            return redirect(reverse('connectercise:show_user', kwargs={'user_profile_slug': user_profile_slug}))
 
         else:
             print(update_user_form.errors, update_profile_form.errors)
