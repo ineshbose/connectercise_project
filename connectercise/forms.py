@@ -17,6 +17,7 @@ class RequestForm(forms.ModelForm):
     desc = forms.CharField(help_text="Please enter a description.", widget=forms.Textarea)
     #suggested_time = forms.DateTimeField(help_text="Enter a suggested time (optional).", required=False)
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    suggested_date = forms.DateTimeField(widget=forms.SelectDateWidget(), required=False)
 
     class Meta:
         model = SportRequest
@@ -31,6 +32,8 @@ class SportRequestForm(forms.ModelForm):
     desc = forms.CharField(help_text="Please enter a description.", widget=forms.Textarea)
     #suggested_time = forms.DateTimeField(help_text="Enter a suggested time (optional).", required=False)
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    suggested_date = forms.DateTimeField(widget=forms.SelectDateWidget(), required=False)
+
 
     class Meta:
         model = SportRequest
