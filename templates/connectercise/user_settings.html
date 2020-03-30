@@ -71,11 +71,12 @@
 <h1>{{ user.username }} Settings</h1>
     <div class="jumbotron p-4">
         <div class="container">
-            <form method="post" novalidate>
-                {% csrf_token %}
-                {{ form|crispy }}
-                <button type="submit" class="btn btn-success">Save</button>
-            </form>
+            <form id="update_user_form" method="POST" action="/settings/" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ user_profile_form|crispy }}
+    <br />
+    <button type="submit" class="btn btn-success">Update</button>
+</form>
         </div>
     </div>
 {% endblock %}

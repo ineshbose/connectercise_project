@@ -186,31 +186,88 @@ def accept_request(request):
     RequestForm.completed = True
     return HttpResponse('Request has been accepted')
 
-@login_required
-def user_settings(request, user_profile_slug):
-    form = UserProfileForm()
+# @login_required
+# def user_settings(request, user_profile_slug):
+#     form = UserProfileForm()
 
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST)
-        if form.is_valid():
-            #s_request = form.save(commit=False)
-            user = User.objects.get(username=user_profile_slug)
-            user.first_name = form.first_name
-            user.last_name = form.last_name
-            userp = UserProfile.objects.get(user=user)
-            userp.picture = form.picture
-            #s_request.save()
-            return redirect(reverse('connectercise:show_user', kwargs={'user_profile_slug': user_profile_slug}))
-        else:
-            print(form.errors)
-    context_dict = {'form': form}
-    return render(request, 'connectercise/user_settings.html', context=context_dict)
+#     if request.method == 'POST':
+#         form = UserProfileForm(request.POST)
+#         if form.is_valid():
+#             #s_request = form.save(commit=False)
+#             user = User.objects.get(username=user_profile_slug)
+#             user.first_name = form.first_name
+#             user.last_name = form.last_name
+#             userp = UserProfile.objects.get(user=user)
+#             userp.picture = request.FILES['picture']
+#             #s_request.save()
+#             return redirect(reverse('connectercise:show_user', kwargs={'user_profile_slug': user_profile_slug}))
+#         else:
+#             print(form.errors)
+#     context_dict = {'form': form}
+#     return render(request, 'connectercise/user_settings.html', context=context_dict)
 
 
-def view_profile(request, pk=None):
-    if pk:
-        user = User.objects.get(pk=pk)
-    else:
-        user = request.user
-    args = {'user': user}
-    return render(request, 'connectercise/view_profile.html', args)
+
+# @login_required
+# def user_settings(request, user_profile_slug):
+#     form = EditProfileForm(request.POST, instance=request.user)
+
+#     if request.method == 'POST':
+#         form = UserProfileForm(request.POST)
+#         if form.is_valid():
+#             #s_request = form.save(commit=False)
+#             userp.picture = request.FILES['picture']
+#             form.save()
+#             #s_request.save()
+#             return redirect(reverse('connectercise:show_user', kwargs={'user_profile_slug': user_profile_slug}))
+#         else:
+#             form = EditProfileForm(user = request.user)
+#     context_dict = {'form': form}
+#     return render(request, 'connectercise/user_settings.html', context=context_dict)
+
+
+# @login_required
+# def user_settings(request):
+#     try:
+#         user_profile = UserProfile.objects.get(user=request.user)
+#     except UserProfile.DoesNotExist:
+#         return HttpResponse("invalid user profile")
+
+#     if request.method == "POST":
+#         update_user_form = UserForm(data=request.POST, instance=request.user)
+#         update_profile_form = UserProfileForm(data=request.POST, instance=user_profile)
+
+#         if update_user_form.is_valid() and update_profile_form.is_valid():
+#             user = update_user_form.save()
+#             profile = update_profile_form.save(commit=False)
+#             profile.user = user
+
+#             if 'picture' in request.FILES:
+#                 profile.picture = request.FILES['picture']
+
+#             profile.save()
+
+#         else:
+#             print(update_user_form.errors, update_profile_form.errors)
+#     else:
+#         update_user_form = UserForm(instance=request.user)
+#         update_profile_form = UserProfileForm(instance=user_profile)
+#     return render(request, 'connectercise/settings.html', {'update_user_form': update_user_form, 'update_profile_form': update_profile_form})
+
+
+def user_settings(request):
+    user_form = UserForm(data=request.POST, instance=request.user)
+    user_profile_form = UserProfileForm(instance=request.user)
+    if request.method == "POST":
+        if user_profile_form.is_valid() and user_form.is_valid():
+            user = user_form.save()
+            userp = user_profile_form.save(commit=False)
+            userp.user = user
+
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+
+            userp.save()
+
+    return render(request, 'connectercise/user_settings.html', 
+        {'user_form': user_form, 'user_profile_form': user_profile_form})
