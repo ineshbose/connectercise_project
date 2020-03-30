@@ -26,6 +26,9 @@
         {% if request.suggested_date %}
           <h6>Time: {{ request.suggested_date }}</h6>
         {% endif %}
+        {% if request.picture %}
+          <img src="{{ userp.picture.url }}">
+        {% endif %}
         <h5>Created by <a class="footer" href = "{% url 'connectercise:show_user' request.creator.username %}">{{ request.creator.username }}</a></h5>
     </ul>
     {% else %}
