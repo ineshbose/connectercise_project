@@ -82,15 +82,18 @@ def show_request(request, sport_name_slug, request_name_slug):
 
 @login_required
 def add_sport(request):
-    form = SportForm()
-    if request.method == 'POST':
-        form = SportForm(request.POST)
-        if form.is_valid():
-            form.save(commit=True)
-            return redirect('/')
-        else:
-            print(form.errors)
-    return render(request, 'connectercise/add_sport.html', {'form': form})
+    if request.user.is_superuser:
+        form = SportForm()
+        if request.method == 'POST':
+            form = SportForm(request.POST)
+            if form.is_valid():
+                form.save(commit=True)
+                return redirect('/')
+            else:
+                print(form.errors)
+        return render(request, 'connectercise/add_sport.html', {'form': form})
+    else:
+        return redirect('/')
 
 @login_required
 def add_sport_request(request, sport_name_slug):
@@ -98,12 +101,9 @@ def add_sport_request(request, sport_name_slug):
         sport = Sport.objects.get(slug=sport_name_slug)
     except Sport.DoesNotExist:
         sport = None
-    
     if sport is None:
         return redirect('/')
-    
     form = SportRequestForm()
-
     if request.method == 'POST':
         form = SportRequestForm(request.POST)
         if form.is_valid():
@@ -124,9 +124,7 @@ def add_sport_request(request, sport_name_slug):
 
 @login_required
 def add_request(request):
-
     form = RequestForm()
-
     if request.method == 'POST':
         form = RequestForm(request.POST)
         if form.is_valid():
@@ -164,7 +162,6 @@ def search(request):
     if query != None:
         request_list = SportRequest.objects.filter(Q(title__icontains=query) | Q(desc__icontains=query)) 
         return render(request, 'connectercise/search.html', {'query': query,'requests': request_list}) 
-    
     return render(request, 'connectercise/search.html', {'query': query, 'requests': request_list}) 
     
 @login_required
@@ -187,35 +184,25 @@ def delete_request(request, sport_name_slug, request_name_slug):
 
 @login_required
 def user_settings(request, user_profile_slug):
-    
     if user_profile_slug == request.user.username:
         user_profile = UserProfile.objects.get(user=request.user)
-
         if request.method == "POST":
             update_user_form = UserForm2(data=request.POST, instance=request.user)
             update_profile_form = UserProfileForm(data=request.POST, instance=user_profile)
-
             if update_user_form.is_valid() and update_profile_form.is_valid():
                 user = update_user_form.save()
                 profile = update_profile_form.save(commit=False)
                 profile.user = user
-
                 if 'picture' in request.FILES:
                     profile.picture = request.FILES['picture']
-
                 profile.save()
                 return redirect(reverse('connectercise:show_user', kwargs={'user_profile_slug': user_profile_slug}))
-
             else:
                 print(update_user_form.errors, update_profile_form.errors)
         else:
             update_user_form = UserForm2(instance=request.user)
             update_profile_form = UserProfileForm(instance=user_profile)
-
-        return render(request,
-                'connectercise/user_settings.html',
-                {'update_user_form': update_user_form, 'update_profile_form': update_profile_form}
-                )
+        return render(request, 'connectercise/user_settings.html', {'update_user_form': update_user_form, 'update_profile_form': update_profile_form})
     else:
         return render(request, 'connectercise/user_settings.html', {'user':None})
 

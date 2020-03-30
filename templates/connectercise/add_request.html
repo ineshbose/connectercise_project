@@ -14,10 +14,14 @@
         </div>
         <hr><br /><br />
         <div class="container">
-            <form method="post" novalidate>
+            {% if sport %}
+            <form id="add_request_form" method="POST" action="{% url 'connectercise:add_sport_request' sport.slug %}" enctype="multipart/form-data">
+            {% else %}
+            <form id="add_request_form" method="POST" action="{% url 'connectercise:add_request' %}" enctype="multipart/form-data">
+            {% endif %}
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button type="submit" class="btn btn-success">Save Request</button>
+                <button type="submit" class="btn btn-success">Create Request</button>
             </form>
         </div>
     </div>
