@@ -30,6 +30,7 @@ class SportRequest(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     desc = models.CharField(max_length=1024)
     completed = models.BooleanField(default=False)
+    picture = models.ImageField(upload_to='requests', blank=True)
 
     def save(self, *args, **kwargs):
         self.request_id = str(uuid.uuid4().int)
