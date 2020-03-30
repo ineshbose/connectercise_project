@@ -170,8 +170,20 @@ def search(request):
 @login_required
 def accept_request(request, sport_name_slug, request_name_slug):
     s_request = SportRequest.objects.get(slug=request_name_slug)
-    SportRequest.objects.filter(slug=request_name_slug).update(completed=True)
-    return redirect(reverse('connectercise:show_user', kwargs={'user_profile_slug': s_request.creator.username}))
+    if s_request.creator != request.user:
+        SportRequest.objects.filter(slug=request_name_slug).update(completed=True)
+        return redirect(reverse('connectercise:show_user', kwargs={'user_profile_slug': s_request.creator.username}))
+    else:
+        return redirect(reverse('connectercise:show_request', kwargs={'sport_name_slug': s_request.sport, 'request_name_slug': s_request.request_id}))
+
+@login_required
+def delete_request(request, sport_name_slug, request_name_slug):
+    s_request = SportRequest.objects.get(slug=request_name_slug)
+    if s_request.creator == request.user:
+        SportRequest.objects.filter(slug=request_name_slug).delete()
+        return redirect(reverse('connectercise:show_user', kwargs={'user_profile_slug': s_request.creator.username}))
+    else:
+        return redirect(reverse('connectercise:show_request', kwargs={'sport_name_slug': s_request.sport, 'request_name_slug': s_request.request_id}))
 
 @login_required
 def user_settings(request, user_profile_slug):

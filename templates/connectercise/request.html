@@ -32,7 +32,7 @@
         <h6><span data-feather="eye"></span> {{ request.views }}</h6>
         <h6>{{ request.desc }}</h6>
         {% if request.picture %}
-          <img src="{{ userp.picture.url }}">
+          <img src="{{ request.picture.url }}">
         {% endif %}
         <h5>Created by <a class="footer" href = "{% url 'connectercise:show_user' request.creator.username %}">{{ request.creator.username }}</a></h5>
     </ul>
@@ -40,7 +40,11 @@
         <strong>404</strong>
     {% endif %}
     {% if user.is_authenticated and request.completed == False %}
+      {% if request.creator != user %}
         <h5><a class="footer" href = "{% url 'connectercise:accept_request' request.sport.slug request.slug %}"> Accept Request </a></h5>
+      {% else %}
+        <h5><a class="footer" href = "{% url 'connectercise:delete_request' request.sport.slug request.slug %}"> Delete Request </a></h5>
+      {% endif %}
     {% endif %}
 {% if user.is_authenticated %}
 <div class="container">
