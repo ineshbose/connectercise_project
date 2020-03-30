@@ -10,9 +10,7 @@ Register
         <div class="container">
              <h1 class="jumbotron-heading">Register Here</h1>
         </div>
-    </div>
-</div>
-<div class="container">
+        <hr><br /><br />
         <form class="form-registration_register" role="form" method="post" action=".">
         {% csrf_token %}
             {{ form|crispy }}
@@ -21,4 +19,5 @@ Register
             <br>
         </form>
     </div>
+</div>
 {% endblock %}

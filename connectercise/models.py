@@ -2,6 +2,8 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from registration.signals import *
+#from django.shortcuts import render, redirect, get_object_or_404
+#from django.urls import reverse
 import uuid
 
 # Create your models here.
@@ -22,7 +24,7 @@ class SportRequest(models.Model):
     views = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
     request_id = models.CharField(max_length=128,primary_key=True)
-    suggested_date = models.DateTimeField(null=True, blank=True, help_text='MM/DD/YY (optional HH:MM)')
+    suggested_date = models.DateField(null=True, blank=True, help_text='MM/DD/YY (optional HH:MM)')
     location_choices = [('England', 'England'),('Scotland', 'Scotland'),('Wales', 'Wales'),('Northern Ireland','Northern Ireland'),]
     location = models.CharField(max_length=128, choices=location_choices)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -65,5 +67,6 @@ class Comment(models.Model):
 
 def createUserProfile(sender, user, request, **kwargs):
     UserProfile.objects.get_or_create(user=user)
+    #return redirect(reverse('connectercise:user_settings', kwargs={'user_profile_slug': user}))
 
 user_registered.connect(createUserProfile)

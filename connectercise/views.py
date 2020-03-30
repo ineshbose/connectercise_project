@@ -21,13 +21,11 @@ def index(request):
     return render(request, 'connectercise/index.html', context=context_dict)
 
 def about(request):
-    sport_list = Sport.objects.order_by('-likes')[:5]
     context_dict = {}
-    context_dict['sports'] = sport_list
     return render(request, 'connectercise/about.html', context=context_dict)
 
 def activity(request):
-    sport_list = Sport.objects.order_by('-likes')[:5]
+    sport_list = Sport.objects.all()[:5]
     request_list = SportRequest.objects.order_by('-views')[:5]
     context_dict = {}
     context_dict['sports'] = sport_list
@@ -35,7 +33,7 @@ def activity(request):
     return render(request, 'connectercise/activity.html', context=context_dict)
 
 def sports(request):
-    sport_list = Sport.objects.order_by('-likes')[:5]
+    sport_list = Sport.objects.all()[:5]
     context_dict = {}
     context_dict['sports'] = sport_list
     return render(request, 'connectercise/sports.html', context=context_dict)
@@ -172,33 +170,36 @@ def accept_request(request):
 @login_required
 def user_settings(request, user_profile_slug):
     
-    user_profile = UserProfile.objects.get(user=request.user)
+    if user_profile_slug == request.user.username:
+        user_profile = UserProfile.objects.get(user=request.user)
 
-    if request.method == "POST":
-        update_user_form = UserForm2(data=request.POST, instance=request.user)
-        update_profile_form = UserProfileForm(data=request.POST, instance=user_profile)
+        if request.method == "POST":
+            update_user_form = UserForm2(data=request.POST, instance=request.user)
+            update_profile_form = UserProfileForm(data=request.POST, instance=user_profile)
 
-        if update_user_form.is_valid() and update_profile_form.is_valid():
-            user = update_user_form.save()
-            profile = update_profile_form.save(commit=False)
-            profile.user = user
+            if update_user_form.is_valid() and update_profile_form.is_valid():
+                user = update_user_form.save()
+                profile = update_profile_form.save(commit=False)
+                profile.user = user
 
-            if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
+                if 'picture' in request.FILES:
+                    profile.picture = request.FILES['picture']
 
-            profile.save()
-            return redirect(reverse('connectercise:show_user', kwargs={'user_profile_slug': user_profile_slug}))
+                profile.save()
+                return redirect(reverse('connectercise:show_user', kwargs={'user_profile_slug': user_profile_slug}))
 
+            else:
+                print(update_user_form.errors, update_profile_form.errors)
         else:
-            print(update_user_form.errors, update_profile_form.errors)
-    else:
-        update_user_form = UserForm2(instance=request.user)
-        update_profile_form = UserProfileForm(instance=user_profile)
+            update_user_form = UserForm2(instance=request.user)
+            update_profile_form = UserProfileForm(instance=user_profile)
 
-    return render(request,
-            'connectercise/user_settings.html',
-            {'update_user_form': update_user_form, 'update_profile_form': update_profile_form}
-            )
+        return render(request,
+                'connectercise/user_settings.html',
+                {'update_user_form': update_user_form, 'update_profile_form': update_profile_form}
+                )
+    else:
+        return render(request, 'connectercise/user_settings.html', {'user':None})
 
 def privacy_policy(request):
     return render(request, 'connectercise/policy.html')

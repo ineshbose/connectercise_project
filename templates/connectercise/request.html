@@ -20,12 +20,14 @@
     </div>
     <ul>
     {% if request %}
-        <h6>{{ request.location }}</h6>
-        <h6>{{ request.desc }}</h6>
-        <h6>Views: {{ request.views }}</h6>
-        {% if request.suggested_date %}
-          <h6>Time: {{ request.suggested_date }}</h6>
+        {% if request.location %}
+          <h6><span data-feather="map-pin"></span>{{ request.location }}</h6>
         {% endif %}
+        {% if request.suggested_date %}
+          <h6><span data-feather="calendar"></span>{{ request.suggested_date }}</h6>
+        {% endif %}
+        <h6><span data-feather="eye"></span>{{ request.views }}</h6>
+        <h6>{{ request.desc }}</h6>
         {% if request.picture %}
           <img src="{{ userp.picture.url }}">
         {% endif %}

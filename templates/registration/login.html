@@ -9,11 +9,11 @@ Login
         <div class="container">
              <h1 class="jumbotron-heading">Login</h1>
         </div>
-    </div>
-    <div class="container">
+        <hr><br /><br />
         <form class="form-signin" role="form" method="post" action=".">
         {% csrf_token %}
             {{ form|crispy }}
+            <br />
             <button class="btn btn-lg btn-primary btn-block" type="submit"
             value="Submit">Sign in</button>
             <br>
