@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.urls import reverse
 from connectercise.models import Sport, SportRequest, UserProfile
+from django.db.models import F
 from django.contrib.auth.models import User
 from connectercise.forms import SportForm, RequestForm, UserForm, UserProfileForm, CommentForm, SportRequestForm
 from django.contrib.auth import authenticate, login, logout
@@ -54,7 +55,8 @@ def show_sport(request, sport_name_slug):
 def show_request(request, sport_name_slug, request_name_slug):
     context_dict = {}
     try:
-        s_request = get_object_or_404(SportRequest,slug=request_name_slug)
+        s_request = SportRequest.objects.get(slug=request_name_slug)
+        SportRequest.objects.filter(slug=request_name_slug).update(views=s_request.views+1)
         context_dict['request'] = s_request
         comments = s_request.comments.filter(active=True)
         new_comment = None
