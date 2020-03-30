@@ -17,7 +17,7 @@
              <strong class="activity">Check out some of the latest requests for {{ sport.name }}</strong>
              <br>
              {% if user.is_authenticated %}
-             <a style="font-size:25px" href ="{% url 'connectercise:add_request'%}">Add a request here</a><br />
+             <a style="font-size:25px" href ="{% url 'connectercise:add_sport_request' sport.slug %}">Add a request here</a><br />
              {% endif %}
         {% else %}
             The specified sport does not exist.
@@ -31,6 +31,7 @@
         <div class="col-lg-8 mx-auto">
             {% if requests %}
                 {% for request in requests %}
+                    {% if request.completed == False %}
                     <ul class="list">
                         <li class="list">
                         <img class="list" src="{% static 'images/about4.jpg' %}" />
@@ -39,14 +40,12 @@
                         <p class="list">{{ request.desc }}</p>
                         </li>
                     </ul>
+                    {% endif %}
                 {% endfor %}
             {% else %}
                 <li class="nav-item">There are no requests present.</li>
             {% endif %}
         <br>
-        {% if user.is_authenticated %}
-            <a style="font-size:25px" href ="{% url 'connectercise:add_request'%}">Add Request</a><br />
-        {% endif %}
         </div>
       </div>
     </div>

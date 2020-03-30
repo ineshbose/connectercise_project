@@ -20,13 +20,16 @@
     </div>
     <ul>
     {% if request %}
+        {% if request.completed %}
+        <h4>This request has been closed.</h4>
+        {% endif %}
         {% if request.location %}
-          <h6><span data-feather="map-pin"></span>{{ request.location }}</h6>
+          <h6><span data-feather="map-pin"></span> {{ request.location }}</h6>
         {% endif %}
         {% if request.suggested_date %}
-          <h6><span data-feather="calendar"></span>{{ request.suggested_date }}</h6>
+          <h6><span data-feather="calendar"></span> {{ request.suggested_date }}</h6>
         {% endif %}
-        <h6><span data-feather="eye"></span>{{ request.views }}</h6>
+        <h6><span data-feather="eye"></span> {{ request.views }}</h6>
         <h6>{{ request.desc }}</h6>
         {% if request.picture %}
           <img src="{{ userp.picture.url }}">
@@ -36,22 +39,8 @@
     {% else %}
         <strong>404</strong>
     {% endif %}
-    {% if user.is_authenticated %}
-        <button onclick="accept()" class="btn btn-primary  btn-lg"> Accept Request </button>
-        <script type = "text/javascript">
-          $.ajax({
-            url: '/accept_request/',
-            method: 'POST',
-            success: function(respose){
-              alert('Request has been accepted')
-            }
-          });
-        </script>
-        <script>
-            function accept(){
-              request.completed = True;
-            }
-        </script>
+    {% if user.is_authenticated and request.completed == False %}
+        <h5><a class="footer" href = "{% url 'connectercise:accept_request' request.sport.slug request.slug %}"> Accept Request </a></h5>
     {% endif %}
 {% if user.is_authenticated %}
 <div class="container">

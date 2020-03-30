@@ -12,9 +12,8 @@ class SportForm(forms.ModelForm):
         fields = ('name',)
 
 class RequestForm(forms.ModelForm):
-    title = forms.CharField(max_length=128, help_text="Please enter the title.")
-    desc = forms.CharField(help_text="Please enter a description.", widget=forms.Textarea)
-    #suggested_time = forms.DateTimeField(help_text="Enter a suggested time (optional).", required=False)
+    title = forms.CharField(max_length=128)
+    desc = forms.CharField(widget=forms.Textarea)
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     suggested_date = forms.DateTimeField(widget=forms.SelectDateWidget(), required=False)
 
@@ -27,9 +26,8 @@ class RequestForm(forms.ModelForm):
         return cleaned_data
 
 class SportRequestForm(forms.ModelForm):
-    title = forms.CharField(max_length=128, help_text="Please enter the title.")
-    desc = forms.CharField(help_text="Please enter a description.", widget=forms.Textarea)
-    #suggested_time = forms.DateTimeField(help_text="Enter a suggested time (optional).", required=False)
+    title = forms.CharField(max_length=128)
+    desc = forms.CharField(widget=forms.Textarea)
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     suggested_date = forms.DateTimeField(widget=forms.SelectDateWidget(), required=False)
 

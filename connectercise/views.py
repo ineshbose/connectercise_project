@@ -112,6 +112,8 @@ def add_sport_request(request, sport_name_slug):
                 s_request.sport = sport
                 s_request.views = 0
                 s_request.creator = request.user
+                if 'picture' in request.FILES:
+                    s_request.picture = request.FILES['picture']
                 s_request.completed = False
                 s_request.save()
                 return redirect(reverse('connectercise:show_request', kwargs={'sport_name_slug': sport_name_slug, 'request_name_slug': s_request.request_id}))
@@ -131,6 +133,8 @@ def add_request(request):
             s_request = form.save(commit=False)
             s_request.views = 0
             s_request.creator = request.user
+            if 'picture' in request.FILES:
+                    s_request.picture = request.FILES['picture']
             s_request.completed = False
             s_request.save()
             return redirect(reverse('connectercise:show_request', kwargs={'sport_name_slug': s_request.sport, 'request_name_slug': s_request.request_id}))
@@ -163,9 +167,11 @@ def search(request):
     
     return render(request, 'connectercise/search.html', {'query': query, 'requests': request_list}) 
     
-def accept_request(request):
-    RequestForm.completed = True
-    return HttpResponse('Request has been accepted')
+@login_required
+def accept_request(request, sport_name_slug, request_name_slug):
+    s_request = SportRequest.objects.get(slug=request_name_slug)
+    SportRequest.objects.filter(slug=request_name_slug).update(completed=True)
+    return redirect(reverse('connectercise:show_user', kwargs={'user_profile_slug': s_request.creator.username}))
 
 @login_required
 def user_settings(request, user_profile_slug):
