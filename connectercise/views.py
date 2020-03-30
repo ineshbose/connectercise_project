@@ -24,13 +24,13 @@ def about(request):
     context_dict = {}
     return render(request, 'connectercise/about.html', context=context_dict)
 
-def activity(request):
+def explore(request):
     sport_list = Sport.objects.all()[:5]
     request_list = SportRequest.objects.order_by('-views')[:5]
     context_dict = {}
     context_dict['sports'] = sport_list
     context_dict['requests'] = request_list
-    return render(request, 'connectercise/activity.html', context=context_dict)
+    return render(request, 'connectercise/explore.html', context=context_dict)
 
 def sports(request):
     sport_list = Sport.objects.all()[:5]
