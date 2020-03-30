@@ -15,6 +15,8 @@ urlpatterns = [
     path('user/<slug:user_profile_slug>/', views.show_user, name='show_user'),
     path('user/<slug:user_profile_slug>/settings/', views.user_settings, name='user_settings'),
     path('add_request/', views.add_request, name='add_request'),
-    path('restricted/', views.restricted, name='restricted'),
+    path('search/', views.search, name='search'),
     path('sport/<slug:sport_name_slug>/<slug:request_name_slug>/accept_request', views.accept_request, name='accept_request'),
+    path('privacy_policy/', views.privacy_policy, name='privacy_policy'),
+    path('terms_of_service', views.terms_of_service, name='terms_of_service'),
 ]

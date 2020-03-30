@@ -8,83 +8,27 @@
         Unknown Sport
     {% endif %}
 {% endblock %}
-        {% block sidebar_block %}
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:index' %}">
-            <span data-feather="home"></span>
-            Home <span class="sr-only">(current)</span>
-            </a>
-        </li>
-        {% if user.is_authenticated %}
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:show_user' user.username %}">
-            <span data-feather="eye"></span>
-            {{ user.username }}'s activities
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:add_sport' %}">
-            <span data-feather="plus"></span>
-            Add Sport
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:restricted' %}">
-            <span data-feather="lock"></span>
-            Restricted
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">
-            <span data-feather="log-out"></span>
-            Logout
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'auth_password_change' %}">
-            <span data-feather="lock"></span>
-            Change Password
-            </a>
-        </li>
-        {% else %}   
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'auth_login' %}">
-            <span data-feather="log-in"></span>
-            Login
-            </a>
-        </li>
-        {% endif %}
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:about' %}">
-            <span data-feather="aperture"></span>
-            About
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:activity' %}">
-            <span data-feather="activity"></span>
-            Activities
-            </a>
-        </li>
-    </ul>
-        {% endblock %}
 {% block body_block %}
+<div class="container text-center">
     <div class="jumbotron p-4">
         <div class="container">
         {% if sport %}
              <h1 class="jumbotron-heading">{{ sport.name }}</h1>
              <strong class="activity">Check out some of the latest requests for {{ sport.name }}</strong>
+             <br>
+             {% if user.is_authenticated %}
+             <a style="font-size:25px" href ="{% url 'connectercise:add_request'%}">Add a request here</a><br />
+             {% endif %}
         {% else %}
             The specified sport does not exist.
         {% endif %}
         </div>
     </div>
-    <section>
-        <div class="container">
+</div>
+    <section id="requests" class="bg-light">
+    <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
-          <ul class="nav flex-column">
             {% if requests %}
                 {% for request in requests %}
                     <ul class="list">
@@ -96,13 +40,13 @@
                         </li>
                     </ul>
                 {% endfor %}
-                {% if user.is_authenticated %}
-                    <a href ="{% url 'connectercise:add_sport_request' sport.slug %}">Add Request</a><br />
-                {% endif %}
             {% else %}
                 <li class="nav-item">There are no requests present.</li>
             {% endif %}
-        </ul>
+        <br>
+        {% if user.is_authenticated %}
+            <a style="font-size:25px" href ="{% url 'connectercise:add_request'%}">Add Request</a><br />
+        {% endif %}
         </div>
       </div>
     </div>
