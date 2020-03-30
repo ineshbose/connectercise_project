@@ -71,12 +71,12 @@
 <h1>{{ user.username }} Settings</h1>
     <div class="jumbotron p-4">
         <div class="container">
-            <form id="update_user_form" method="POST" action="/settings/" enctype="multipart/form-data">
+<form id="update_user_form" method="POST" action="{% url 'connectercise:user_settings' user.username %}" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ user_profile_form|crispy }}
+    {{ update_user_form.as_p }}
+    {{ update_profile_form.as_p }}
+    <img src="{{ update_profile_form.instance.picture.url }}" />
     <br />
-    <button type="submit" class="btn btn-success">Update</button>
+    <input type="SUBMIT" name="submit" value="Update" />
 </form>
-        </div>
-    </div>
-{% endblock %}
+</div></div>{% endblock %}

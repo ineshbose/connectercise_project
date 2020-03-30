@@ -48,9 +48,13 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'password', 'first_name', 'last_name')
 
+class UserForm2(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('email','first_name','last_name')
+
 class UserProfileForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=128, help_text="First Name")
-    last_name = forms.CharField(max_length=128, help_text="Last Name")
 
     class Meta:
         model = UserProfile
