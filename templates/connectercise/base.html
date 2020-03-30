@@ -41,11 +41,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'connectercise:show_user' user.username %}">{{ user.username }}'s activities</a>
             </li>
-             <li class="nav-item">
-                <a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">Logout</a>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a>
             </li>
              <li class="nav-item">
-                <a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a>
+                <a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">Logout</a>
             </li>
             {% else %}
              <li class="nav-item">
@@ -113,15 +113,15 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">
-                                    <span data-feather="log-out"></span>
-                                    Logout
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link" href="{% url 'auth_password_change' %}">
                                     <span data-feather="lock"></span>
                                     Change Password
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">
+                                    <span data-feather="log-out"></span>
+                                    Logout
                                     </a>
                                 </li>
                                 {% else %}   
