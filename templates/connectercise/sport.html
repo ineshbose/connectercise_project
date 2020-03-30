@@ -24,11 +24,11 @@
         {% endif %}
         </div>
     </div>
+</div>
     <section id="requests" class="bg-light">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
-          <ul class="nav flex-column">
             {% if requests %}
                 {% for request in requests %}
                     <ul class="list">
@@ -43,7 +43,6 @@
             {% else %}
                 <li class="nav-item">There are no requests present.</li>
             {% endif %}
-        </ul>
         <br>
         {% if user.is_authenticated %}
             <a style="font-size:25px" href ="{% url 'connectercise:add_request'%}">Add Request</a><br />
@@ -52,5 +51,4 @@
       </div>
     </div>
     </section>
-</div>
 {% endblock %}

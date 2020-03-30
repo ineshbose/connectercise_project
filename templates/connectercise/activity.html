@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-
+</div>
     <section id="requests" class="bg-light">
     <div class="container">
         <div class="row">
@@ -22,7 +22,6 @@
             <h2>Most Popular Sports</h2><br>
                         <p class="card-text">
                         {% if sports %}
-                        <ul class="nav flex-column">
                         {% for s in sports %}
                             <ul class="list">
                                 <li class="list">
@@ -48,11 +47,8 @@
         <div class="row">
             <div class="col-lg-8 mx-auto">
             <h2>Most Viewed Requests</h2><br>
-                <div class="card mb-6">
-                    <div class="card-body">
                         <p class="card-text">
                         {% if requests %}
-                        <ul class="nav flex-column">
                             {% for r in requests %}
                                 <ul class="list">
                                     <li class="list">
@@ -68,8 +64,6 @@
                         {% endif %}
                         </ul>
                         </p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
