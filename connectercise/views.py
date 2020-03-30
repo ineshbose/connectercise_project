@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
-    sport_list = Sport.objects.order_by('-likes')[:5]
+    sport_list = Sport.objects.all()[:5]
     request_list = SportRequest.objects.order_by('-views')[:5]
     context_dict = {}
     context_dict['boldmessage'] = 'lorem ipsum?'

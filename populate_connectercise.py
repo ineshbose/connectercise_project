@@ -85,9 +85,7 @@ def get_random_name(case):
         return random.choice(lnames)
 
 def add_request(sport, title, desc, creator, views=0):
-    r = SportRequest.objects.get_or_create(sport=sport, title=title, creator=creator, desc=desc)[0]
-    r.views = views
-    r.save()
+    r = SportRequest.objects.get_or_create(sport=sport, title=title, creator=creator, desc=desc, views=views)[0]
     return r
 
 def add_sport(name):
