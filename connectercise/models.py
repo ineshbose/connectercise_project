@@ -24,7 +24,7 @@ class SportRequest(models.Model):
     views = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
     request_id = models.CharField(max_length=128,primary_key=True)
-    #suggested_time = models.DateTimeField(blank=True)
+    suggested_time = models.DateTimeField(blank=True)
     #location_choices = [('Finnieston'),('Kelvinhaugh'),('Maryhill'),('City Centre'),('Govan'),]
     #location = models.CharField(blank=True, choices=location_choices)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -78,16 +78,7 @@
         <div class="row">
         <form role="form" id="sport_form" method="post" action="{% url 'connectercise:add_sport' %}">
         {% csrf_token %}
-        {% for hidden in form.hidden_fields %}
-            {{ hidden }}
-        {% endfor %}
-        {% for field in form.visible_fields %}
-            {{ field.errors }}
-            {{ field.help_text }}<br />
-            {{ field }}<br />
-            <div class="p-2"></div>
-        {% endfor %}
-            <br />
+        {{ form|crispy }}
             <button class="btn btn-primary" type="submit" name="submit">
             Create Sport
             </button>
