@@ -29,7 +29,7 @@ SECRET_KEY = '&@hh0=o-1244(g^d@y_m&_$oqp@i6!-&(#5iih5dlb1wyny%%%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','connectercise.pythonanywhere.com']
 
 
 # Application definition
@@ -141,7 +141,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR, ]
-
+STATIC_ROOT = '/home/connectercise/static'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
