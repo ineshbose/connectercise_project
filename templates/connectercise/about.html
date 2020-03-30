@@ -2,82 +2,26 @@
 {% load static %}
 
 {% block title_block %}
-    About
-{% endblock %}
-{% block sidebar_block %}
-<ul class="nav flex-column">
-<li class="nav-item">
-    <a class="nav-link" href="{% url 'connectercise:index' %}">
-    <span data-feather="home"></span>
-    Home <span class="sr-only">(current)</span>
-    </a>
-</li>
-{% if user.is_authenticated %}
-<li class="nav-item">
-    <a class="nav-link" href="{% url 'connectercise:show_user' user.username %}">
-    <span data-feather="eye"></span>
-    {{ user.username }}'s activities
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{% url 'connectercise:add_sport' %}">
-    <span data-feather="plus"></span>
-    Add Sport
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{% url 'connectercise:restricted' %}">
-    <span data-feather="lock"></span>
-    Restricted
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">
-    <span data-feather="log-out"></span>
-    Logout
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{% url 'auth_password_change' %}">
-    <span data-feather="lock"></span>
-    Change Password
-    </a>
-</li>
-{% else %}   
-    <li class="nav-item">
-    <a class="nav-link" href="{% url 'auth_login' %}">
-    <span data-feather="log-in"></span>
-    Login
-    </a>
-</li>
-{% endif %}
-<li class="nav-item">
-    <a class="nav-link active" href="{% url 'connectercise:about' %}">
-    <span data-feather="aperture"></span>
-    About
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{% url 'connectercise:activity' %}">
-    <span data-feather="activity"></span>
-    Activities
-    </a>
-</li>
-</ul>
+    About Connectercise
 {% endblock %}
 {% block body_block %}
-<div class="jumbotron p-4">
-    <div class="container">
-          <h1 class="activity">About Connectercise</h2>
-          <strong class="activity">Here at Connectercise we are dedicated to bringing you a new and unimagined experience, that involved a whole lot of burning calories and a whole lot more of making friends! Connectercise features exclusively:</strong>
-          <br>
-          <br>
-          <ul>
-            <li>A web application which allows users to meet each other and do sporting activities together</li>
-            <li>Users can create sporting requests which are categorized by sport and location</li>
-            <li>Users can fulfill the sporting requests of other users</li>
-            <li>Users can view the past sporting activity of other users, utilizing the Strava API</li>
-          </ul>
+<div class="container text-center">
+    <div class="jumbotron p-4">
+        <div class="container">
+            <h2>About Connectercise</h2>
+        </div>
     </div>
+    <section id="about" class="bg-light">
+    <div class="container">
+        <strong class="activity">Here at Connectercise we are dedicated to bringing you a new and unimagined experience, that involved a whole lot of burning calories and a whole lot more of making friends! Connectercise features exclusively:</strong>
+          <br>
+          <br>
+            - A web application which allows users to meet each other and do sporting activities together <br>
+            - Users can create sporting requests which are categorized by sport and location <br>
+            - Users can fulfill the sporting requests of other users <br>
+            - Users can view the past sporting activity of other users, utilizing the Strava API <br>
+          
+    </div>
+    </section>
 </div>
 {% endblock %}

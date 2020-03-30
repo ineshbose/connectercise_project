@@ -8,72 +8,28 @@
         Unknown User
     {% endif %}
 {% endblock %}
-        {% block sidebar_block %}
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:index' %}">
-            <span data-feather="home"></span>
-            Home <span class="sr-only">(current)</span>
-            </a>
-        </li>
-        {% if user.is_authenticated %}
-        <li class="nav-item">
-            <a class="nav-link active" href="{% url 'connectercise:show_user' user.username %}">
-            <span data-feather="eye"></span>
-            {{ user.username }}'s activities
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:add_sport' %}">
-            <span data-feather="plus"></span>
-            Add Sport
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:restricted' %}">
-            <span data-feather="lock"></span>
-            Restricted
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'connectercise:index' %}">
-            <span data-feather="log-out"></span>
-            Logout
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'auth_password_change' %}">
-            <span data-feather="lock"></span>
-            Change Password
-            </a>
-        </li>
-        {% else %}   
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'auth_login' %}">
-            <span data-feather="log-in"></span>
-            Login
-            </a>
-        </li>
-        {% endif %}
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:about' %}">
-            <span data-feather="aperture"></span>
-            About
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:activity' %}">
-            <span data-feather="activity"></span>
-            Activities
-            </a>
-        </li>
-    </ul>
-        {% endblock %}
 {% block body_block %}
+<div class="container text-center">
     <div class="jumbotron p-4">
         <div class="container">
         {% if userp %}
-             <h1 class="jumbotron-heading">{{ userp.user.first_name }} {{ userp.user.last_name }}</h1>
+        <style type="text/css">
+            .tg  {border-collapse:collapse;border-spacing:0;border:none;}
+            .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
+            .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
+            .tg .tg-cly1{text-align:left;vertical-align:middle}
+            </style>
+            <table class="tg">
+              <tr>
+                <th class="tg-cly1">
+                    <img src="{{ userp.picture.url }}" width="90" height="100">
+                </th>
+                <th class="tg-cly1">
+                    <h1 class="jumbotron-heading">{{ userp.user.first_name }} {{ userp.user.last_name }}</h1>
+                    <h6>{{ userp.user.username }}</h6>
+                </th>
+              </tr>
+            </table>
         {% else %}
             The specified user does not exist.
         {% endif %}
@@ -81,24 +37,37 @@
     </div>
     <ul>
     {% if userp %}
-        <h6>{{ userp.user.username }}</h6>
-        <img src="{{ userp.picture.url }}" width="90" height="100">
-        <h2>User's requests</h2>
-        {% if requests %}
-            <ul>
-            {% for request in requests %}
-                <li><a href="{% url 'connectercise:show_request' request.sport.slug request.slug %}">{{ request.title }}</a>
-                    <br />{{ request.desc }}<br />Views: {{ request.views }}</li>    
-            {% endfor %}
-            </ul>
-        {% else %}
-        User has made no requests.<br />
-        {% endif %}
+    <section id="requests" class="bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                <h2>User's requests</h2>
+                <ul class="nav flex-column">
+                    {% if requests %}
+                        {% for request in requests %}
+                            <ul class="list">
+                                <li class="list">
+                                <img class="list" src="{% static 'images/about4.jpg' %}" />
+                                <h3 class="list"><a class="nav-link active" href = "{% url 'connectercise:show_request' request.sport.slug request.slug %}">
+                                <span data-feather="archive"></span> {{ request.title }}</a></h3>
+                                <p class="list">{{ request.desc }}<br>Views: {{ request.views }}</p>
+                                </li>
+                            </ul>
+                        {% endfor %}
+                    {% else %}
+                        <li class="nav-item">There are no requests present.</li>
+                    {% endif %}
+                </ul>
+                </div>
+            </div>
+        </div>
+    {% else %}
+    User has made no requests.<br />
+    {% endif %}
+    </section>
     </ul>
     {% if user.is_authenticated %}
-        <a href ="{% url 'connectercise:index' %}">Message?</a><br />
+        <a class="footer" href ="{% url 'connectercise:index' %}">Message?</a><br />
     {% endif %}
-    {% else %}
-        <strong>404</strong>
-    {% endif %}
+</div>
 {% endblock %}

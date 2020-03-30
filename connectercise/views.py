@@ -1,5 +1,6 @@
 from datetime import datetime
-from django.shortcuts import render, redirect, get_object_or_404, render_to_response
+from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Q
 from django.http import HttpResponse
 from django.urls import reverse
 from connectercise.models import Sport, SportRequest, UserProfile
@@ -23,7 +24,6 @@ def about(request):
     sport_list = Sport.objects.order_by('-likes')[:5]
     context_dict = {}
     context_dict['sports'] = sport_list
-    context_dict['visits'] = request.session['visits']
     return render(request, 'connectercise/about.html', context=context_dict)
 
 def activity(request):
@@ -141,13 +141,6 @@ def add_request(request):
     context_dict = {'form': form}
     return render(request, 'connectercise/add_request.html', context=context_dict)
 
-@login_required
-def restricted(request):
-    context_dict = {}
-    sport_list = Sport.objects.order_by('-likes')[:5]
-    context_dict['sports'] = sport_list
-    return render(request, 'connectercise/restricted.html', context=context_dict)
-
 def show_user(request, user_profile_slug):
     context_dict = {}
     try:
@@ -163,6 +156,15 @@ def show_user(request, user_profile_slug):
         context_dict['userp'] = None
     return render(request, 'connectercise/user.html', context=context_dict)
 
+def search(request):
+    query = request.GET.get('q')
+    request_list = None
+    if query != None:
+        request_list = SportRequest.objects.filter(Q(title__icontains=query) | Q(desc__icontains=query)) 
+        return render(request, 'connectercise/search.html', {'query': query,'requests': request_list}) 
+    
+    return render(request, 'connectercise/search.html', {'query': query, 'requests': request_list}) 
+    
 def accept_request(request):
     RequestForm.completed = True
     return HttpResponse('Request has been accepted')
@@ -196,3 +198,9 @@ def user_settings(request, user_profile_slug):
             'connectercise/user_settings.html',
             {'update_user_form': update_user_form, 'update_profile_form': update_profile_form}
             )
+
+def privacy_policy(request):
+    return render(request, 'connectercise/policy.html')
+
+def terms_of_service(request):
+    return render(request, 'connectercise/terms.html')

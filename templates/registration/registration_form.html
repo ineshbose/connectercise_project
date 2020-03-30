@@ -1,8 +1,14 @@
 {% extends 'connectercise/base.html' %}
+{% load static %}
 {% block title_block %}
 Register
 {% endblock %}
-        {% block sidebar_block %}
+{% block sidebar_block %}
+<a class="logo" href="{% url 'connectercise:index' %}">
+    <img src="{% static 'images/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+    <span class="menu-collapsed">Connectercise</span>
+</a>
+<hr>
     <ul class="nav flex-column">
         <li class="nav-item">
             <a class="nav-link" href="{% url 'connectercise:index' %}">
@@ -18,9 +24,9 @@ Register
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'connectercise:add_sport' %}">
+            <a class="nav-link" href="{% url 'connectercise:add_request' %}">
             <span data-feather="plus"></span>
-            Add Sport
+            Add a Request
             </a>
         </li>
         <li class="nav-item">
@@ -59,6 +65,12 @@ Register
             <a class="nav-link" href="{% url 'connectercise:activity' %}">
             <span data-feather="activity"></span>
             Activities
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'connectercise:search' %}">
+            <span data-feather="search"></span>
+            Search
             </a>
         </li>
     </ul>
