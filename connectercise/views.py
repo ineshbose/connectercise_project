@@ -1,5 +1,5 @@
 from datetime import datetime
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, render_to_response
 from django.http import HttpResponse
 from django.urls import reverse
 from connectercise.models import Sport, SportRequest, UserProfile
@@ -207,6 +207,7 @@ def accept_request(request):
 #     return render(request, 'connectercise/user_settings.html', context=context_dict)
 
 
+<<<<<<< HEAD
 
 # @login_required
 # def user_settings(request, user_profile_slug):
@@ -263,11 +264,50 @@ def user_settings(request):
             user = user_form.save()
             userp = user_profile_form.save(commit=False)
             userp.user = user
+=======
+def view_profile(request, pk=None):
+    if pk:
+        user = User.objects.get(pk=pk)
+    else:
+        user = request.user
+    args = {'user': user}
+    return render(request, 'connectercise/view_profile.html', args)
+
+
+@login_required
+def update_user(request):
+    
+    user_profile = UserProfile.objects.get(user=request.user)
+
+    if request.method == "POST":
+        update_user_form = UserForm(data=request.POST, instance=request.user)
+        update_profile_form = UserProfileForm(data=request.POST, instance=user_profile)
+
+        if update_user_form.is_valid() and update_profile_form.is_valid():
+            user = update_user_form.save()
+            profile = update_profile_form.save(commit=False)
+            profile.user = user
+>>>>>>> 384d9ddb8a0cec58add9abd86d7afe7cb0045068
 
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
 
+<<<<<<< HEAD
             userp.save()
 
     return render(request, 'connectercise/user_settings.html', 
         {'user_form': user_form, 'user_profile_form': user_profile_form})
+=======
+            profile.save()
+
+        else:
+            print(update_user_form.errors, update_profile_form.errors)
+    else:
+        update_user_form = UserForm(instance=request.user)
+        update_profile_form = UserProfileForm(instance=user_profile)
+
+    return render(request,
+            'update_user.html',
+            {'update_user_form': update_user_form, 'update_profile_form': update_profile_form}
+            )
+>>>>>>> 384d9ddb8a0cec58add9abd86d7afe7cb0045068
