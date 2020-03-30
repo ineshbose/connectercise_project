@@ -133,11 +133,6 @@
                                 </li>
                                 {% endif %}
                             </ul>
-                        <footer>
-                            <hr>
-                                <a class="footer" href="{% url 'connectercise:about' %}">About</a> | <a class="footer" href="#">Privacy </a> | <a class="footer" href="#">Terms</a></p>
-                                <p class="footer">&copy; 2020 Connectercise 
-                        </footer>
                         </ul>
                     </div>
                     </div>
@@ -149,6 +144,13 @@
             {% endif %}
                     {% block body_block %}
                     {% endblock %}
+            <div class="container text-center"
+            <footer>
+                <hr>
+                    <a class="footer" href="{% url 'connectercise:about' %}">About</a> | <a class="footer" href="{% url 'connectercise:privacy_policy' %}">Privacy </a> | <a class="footer" href="{% url 'connectercise:terms_of_service' %}">Terms</a></p>
+                    <p class="footer">&copy; 2020 Connectercise 
+            </footer>
+            </div>
             </main>
             {% if user.is_authenticated %}
             </div>

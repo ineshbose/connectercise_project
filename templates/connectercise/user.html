@@ -9,6 +9,7 @@
     {% endif %}
 {% endblock %}
 {% block body_block %}
+<div class="container text-center">
     <div class="jumbotron p-4">
         <div class="container">
         {% if userp %}
@@ -36,6 +37,7 @@
     </div>
     <ul>
     {% if userp %}
+    <section id="requests" class="bg-light">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
@@ -62,8 +64,10 @@
     {% else %}
     User has made no requests.<br />
     {% endif %}
+    </section>
     </ul>
     {% if user.is_authenticated %}
         <a class="footer" href ="{% url 'connectercise:index' %}">Message?</a><br />
     {% endif %}
+</div>
 {% endblock %}

@@ -5,6 +5,7 @@
     Dashboard
 {% endblock %}
 {% block body_block %}
+<div class="container text-center">
     <div class="jumbotron p-4">
         <div class="container">
             <h1 class="activity">Welcome to the activity feed!</h1>
@@ -13,12 +14,12 @@
             </div>
         </div>
     </div>
+
+    <section id="requests" class="bg-light">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <div class="card mb-6">
-                    <div class="card-body">
-                        <h2>Most Popular Sports</h2>
+            <h2>Most Popular Sports</h2><br>
                         <p class="card-text">
                         {% if sports %}
                         <ul class="nav flex-column">
@@ -36,19 +37,19 @@
                         <li class="nav-item">There are no sports present.</li>
                     {% endif %}
                     </ul>
-                        </p>
-                    </div>
-                </div>
+                    </p>
             </div>
         </div>
     </div>
+    </section>
     <br>
+    <section id="requests" class="bg-light">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
+            <h2>Most Viewed Requests</h2><br>
                 <div class="card mb-6">
                     <div class="card-body">
-                        <h2>Most Viewed Requests</h2>
                         <p class="card-text">
                         {% if requests %}
                         <ul class="nav flex-column">
@@ -72,4 +73,5 @@
             </div>
         </div>
     </div>
+    </section>
 {% endblock %}

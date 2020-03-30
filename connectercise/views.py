@@ -166,3 +166,9 @@ def search(request):
 def accept_request(request):
     RequestForm.completed = True
     return HttpResponse('Request has been accepted')
+
+def privacy_policy(request):
+    return render(request, 'connectercise/policy.html')
+
+def terms_of_service(request):
+    return render(request, 'connectercise/terms.html')

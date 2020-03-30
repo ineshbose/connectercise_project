@@ -10,7 +10,7 @@
 {% endblock %}
 {% block body_block %}
     <div class="jumbotron p-4">
-        <div class="container">
+        <div class="container text-center">
         {% if request %}
              <h1 class="jumbotron-heading">{{ request.title }}</h1>
         {% else %}
@@ -26,7 +26,7 @@
         {% if request.suggested_date %}
           <h6>Time: {{ request.suggested_date }}</h6>
         {% endif %}
-        <h5>Created by <a href = "{% url 'connectercise:show_user' request.creator.username %}">{{ request.creator.username }}</a></h5>
+        <h5>Created by <a class="footer" href = "{% url 'connectercise:show_user' request.creator.username %}">{{ request.creator.username }}</a></h5>
     </ul>
     {% else %}
         <strong>404</strong>

@@ -12,16 +12,20 @@ Home
 {% block body_block %}
 {% if user.is_authenticated %}
 <div class="container text-center">
-  <h1>Oh hello, 
-    {% if user.first_name %}
-    {{ user.first_name }} {{ user.last_name }}!
-    {% else %}
-    {{ user.username }}!
-    {% endif %}
-  </h1>
+    <div class="jumbotron p-4">
+        <div class="container">
+              <h1>Oh hello, 
+                {% if user.first_name %}
+                {{ user.first_name }} {{ user.last_name }}!
+                {% else %}
+                {{ user.username }}!
+                {% endif %}
+                </h1>
+        </div>
+    </div>
   <br>
 
-<section id="sports">
+<section id="sports" class="bg-light">
 <div class="container">
   <div class="row">
     <div class="col-lg-8 mx-auto">
@@ -46,7 +50,7 @@ Home
   </div>
 </div>
 </section>
-
+<br>
 <section id="requests" class="bg-light">
 <div class="container">
   <div class="row">
