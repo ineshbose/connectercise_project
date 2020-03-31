@@ -30,17 +30,25 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="footer" href="{% url 'connectercise:index' %}">
-        <img src="{% static 'images/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
-        <span class="menu-collapsed">Connectercise</span>
+        <span class="nav-item">Connectercise</span>
     </a>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'connectercise:index' %}">Home</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'connectercise:about' %}">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'connectercise:explore' %}">Explore</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'connectercise:search' %}">Search</a>
+            </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'connectercise:show_user' user.username %}">{{ user.username }}'s activities</a>
+                <a class="nav-link" href="{% url 'connectercise:show_user' user.username %}">{{ user.username }}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a>
@@ -53,15 +61,6 @@
                 <a class="nav-link" href="{% url 'auth_login' %}">Login</a>
             </li>
             {% endif %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'connectercise:about' %}">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'connectercise:explore' %}">Explore</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'connectercise:search' %}">Search</a>
-            </li>
             <!-- This menu is hidden in bigger devices with d-sm-none. 
            The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
         </ul>
@@ -77,8 +76,7 @@
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                         <a class="logo" href="{% url 'connectercise:index' %}">
-                            <img src="{% static 'images/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
-                            <span class="menu-collapsed">Connectercise</span>
+                            <span class="menu-collapsed">CONNECTERCISE</span>
                         </a>
                         <hr>
                             <ul class="nav flex-column">
