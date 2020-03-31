@@ -37,10 +37,10 @@
                         {% if request.picture %}
                         <img class="list" src="{{ request.picture.url }}" />
                         {% else %}
-                        <img class="list" src="{% static 'images/about4.jpg' %}" />
+                        <img class="list" src="{{ request.sport.picture.url }}" />
                         {% endif %}
-                        <h3 class="list"><a class="nav-link active" href = "{% url 'connectercise:show_request' request.sport.slug request.slug %}">
-                        <span data-feather="archive"></span> {{ request.title }}</a></h3>
+                        <h3 class="list"><a href="{% url 'connectercise:show_request' request.sport.slug request.slug %}">
+                        {{ request.title }}</a></h3>
                         <p class="list">{{ request.desc }}</p>
                         </li>
                     </ul>

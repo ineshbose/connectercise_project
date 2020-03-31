@@ -52,14 +52,18 @@
                 <ul class="nav flex-column">
                     {% if requests %}
                         {% for request in requests %}
-                            <ul class="list">
-                                <li class="list">
-                                <img class="list" src="{% static 'images/about4.jpg' %}" />
-                                <h3 class="list"><a class="nav-link active" href = "{% url 'connectercise:show_request' request.sport.slug request.slug %}">
-                                <span data-feather="archive"></span> {{ request.title }}</a></h3>
-                                <p class="list">{{ request.desc }}<br>Views: {{ request.views }}</p>
-                                </li>
-                            </ul>
+                        <ul class="list">
+                            <li class="list">
+                            {% if request.picture %}
+                            <img class="list" src="{{ request.picture.url }}" />
+                            {% else %}
+                            <img class="list" src="{{ request.sport.picture.url }}" />
+                            {% endif %}
+                            <h3 class="list"><a href="{% url 'connectercise:show_request' request.sport.slug request.slug %}">
+                            {{ request.title }}</a></h3>
+                            <p class="list">{{ request.desc }}</p>
+                            </li>
+                        </ul>
                         {% endfor %}
                     {% else %}
                         <li class="nav-item">There are no requests present.</li>

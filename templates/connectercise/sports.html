@@ -4,13 +4,13 @@
             {% if s == current_sport %}
                 <li class="nav-item">
                 <a class="nav-link active" href = "{% url 'connectercise:show_sport' s.slug %}">
-                    <span data-feather="archive"></span>{{ s.name }}
+                    {{ s.name }}
                 </a>
                 </li>
             {% else %}
                 <li class="nav-item">
                 <a class="nav-link" href = "{% url 'connectercise:show_sport' s.slug %}">
-                    <span data-feather="archive"></span>{{ s.name }}
+                    {{ s.name }}
                 </a>
                 </li>
             {% endif %}
