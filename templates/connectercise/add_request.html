@@ -6,6 +6,10 @@
 {% block title_block %}
     Add A Request
 {% endblock %}
+{% block head_block %}
+<script src="{% static 'jQuery/jQuery.js' %}"></script>
+{{ form.media }}
+{% endblock %}
 {% block body_block %}
 <div class="container text-center">
     <div class="jumbotron p-4">

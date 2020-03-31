@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'connectercise',
     'registration',
     'crispy_forms',
+    'location_field.apps.DefaultConfig',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -102,6 +103,10 @@ DATABASES = {
     }
 }
 
+LOCATION_FIELD = {
+    'map.provider': 'openstreetmap',
+    'search.provider': 'nominatim',
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

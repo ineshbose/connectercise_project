@@ -23,8 +23,7 @@ class SportRequest(models.Model):
     slug = models.SlugField(unique=True)
     request_id = models.CharField(max_length=128,primary_key=True)
     suggested_date = models.DateField(null=True, blank=True, help_text='MM/DD/YY (optional HH:MM)')
-    location_choices = [('England', 'England'),('Scotland', 'Scotland'),('Wales', 'Wales'),('Northern Ireland','Northern Ireland'),]
-    location = models.CharField(max_length=128, choices=location_choices)
+    location = models.CharField(max_length=512)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     desc = models.CharField(max_length=1024)
     completed = models.BooleanField(default=False)

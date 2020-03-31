@@ -51,14 +51,20 @@
                         <p class="card-text">
                         {% if requests %}
                             {% for r in requests %}
+                            {% if r.completed == False %}
                                 <ul class="list">
                                     <li class="list">
+                                    {% if r.picture %}
+                                    <img class="list" src="{{ request.picture.url }}" />
+                                    {% else %}
                                     <img class="list" src="{% static 'images/about4.jpg' %}" />
+                                    {% endif %}
                                     <h3 class="list"><a href="{% url 'connectercise:show_request' r.sport.slug r.slug %}">
                                     <span data-feather="archive"></span> {{ r.title }}</a></h3>
                                     <p class="list">{{ r.desc }}</p>
                                     </li>
                                 </ul>
+                                {% endif %}
                             {% endfor %}
                         {% else %}
                             <li class="nav-item">There are no requests present.</li>

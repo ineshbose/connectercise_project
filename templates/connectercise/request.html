@@ -24,7 +24,7 @@
         <h4>This request has been closed.</h4>
         {% endif %}
         {% if request.location %}
-          <h6><span data-feather="map-pin"></span> {{ request.location }}</h6>
+          <h6><span data-feather="map-pin"></span><a class="footer" href="https://maps.google.com?q={{ request.location }}"> Open Google Maps </a></h6>
         {% endif %}
         {% if request.suggested_date %}
           <h6><span data-feather="calendar"></span> {{ request.suggested_date }}</h6>
