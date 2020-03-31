@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from connectercise import forms
 from django.urls import reverse, resolve
 from django.conf import settings
-from populate_connectercise import populate
 from django.db import models
 from django.forms import fields as django_fields
 from django.forms import models as django_field_models
@@ -123,3 +122,52 @@ class FormTests(TestCase):
             expected_field = expected_fields_profile[expected_field_name]
             self.assertTrue(expected_field_name in fields.keys(), f"The field {expected_field_name} was not found in the User Settings Form.")
             self.assertEqual(expected_field, type(fields[expected_field_name]), f"The field {expected_field_name} in User Settings Form was not of the correct type; (expected {expected_field}, got {type(fields[expected_field_name])})")
+
+class PopulationScriptTests(TestCase):
+
+    def setUp(self):
+        try:
+            import populate_connectercise
+        except ImportError:
+            raise ImportError("Could not import populate_connectercise")
+        
+        if 'populate' not in dir(populate_connectercise):
+            raise NameError('The populate() function does not exist in the populate_connectercise module.')
+        
+        populate_connectercise.populate()
+
+    def test_sports(self):
+        sports = connectercise.models.Sport.objects.filter()
+        sports_len = len(sports)
+        sports_strs = map(str, sports)
+
+        self.assertEqual(sports_len, 3, "Expected 3 sports.")
+        self.assertTrue('Hiking' in sports_strs, "The sport 'Hiking' was expected, but not created.")
+        self.assertTrue('Cycling' in sports_strs, "The sport 'Cycling' was expected, but not created.")
+        self.assertTrue('Others' in sports_strs, "The sport 'Others' was expected, but not created.")
+        
+    def test_requests(self):
+        details = {
+            'Hiking': ['HIKING BUDDY NEEDED!!', 'A Hike Across The Country', 'The Highland Hike'],
+            'Cycling': ['Looking to start a club!','Glasgow - Dumfries Ride','Edinburgh Cyclothon Buddies?'],
+            'Others': ['Online Chess?','C***fighting!!! ^_^ '],
+        }
+        for sport in details:
+            req_titles = details[sport]
+            self.check_sport_requests(sport, req_titles)
+
+    def check_sport_requests(self, sport, req_titles):
+        sport = connectercise.models.Sport.objects.get(name=sport)
+        requests = connectercise.models.SportRequest.objects.filter(sport=sport)
+        req_len = len(requests)
+        req_title_len = len(req_titles)
+
+        self.assertEqual(req_len, len(req_titles), f"Expected {req_title_len} requests, but got {req_len}.")
+
+        for title in req_titles:
+            try:
+                req = connectercise.models.SportRequest.objects.get(title=title)
+            except connectercise.models.SportRequest.DoesNotExist:
+                raise ValueError(f"The request {title} belonging to sport {sport} was not found.")
+
+            self.assertEqual(req.sport, sport)
