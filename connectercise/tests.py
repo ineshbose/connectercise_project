@@ -8,6 +8,8 @@ from django.conf import settings
 from populate_connectercise import populate
 from django.db import models
 from django.forms import fields as django_fields
+from django.forms import models as django_field_models
+from location_field.forms.plain import PlainLocationField
 
 # Create your tests here.
 def create_user_object():
@@ -76,3 +78,48 @@ class ModelTests(TestCase):
         req = connectercise.models.SportRequest.objects.get(title='Random Request')
         self.assertEqual(str(sport_sp), 'Random Sport', "__str__() method of Sport model failed.")
         self.assertEqual(str(req), 'Random Request', "__str__() method of SportRequest model failed.")
+
+class FormTests(TestCase):
+    
+    def test_request_form(self):
+        self.assertTrue('RequestForm' in dir(forms))
+        request_form = forms.RequestForm()
+        fields = request_form.fields
+        expected_fields = {
+            'sport': django_field_models.ModelChoiceField,
+            'title': django_fields.CharField,
+            'desc': django_fields.CharField,
+            'views': django_fields.IntegerField,
+            'suggested_date' : django_fields.DateTimeField,
+            'city': django_fields.CharField,
+            'location': PlainLocationField,
+        }
+        for expected_field_name in expected_fields:
+            expected_field = expected_fields[expected_field_name]
+            self.assertTrue(expected_field_name in fields.keys(), f"The field {expected_field_name} was not found in the RequestForm.")
+            self.assertEqual(expected_field, type(fields[expected_field_name]), f"The field {expected_field_name} in RequestForm was not of the correct type; (expected {expected_field}, got {type(fields[expected_field_name])})")
+    
+    def test_user_settings_form(self):
+        self.assertTrue('UserForm2' in dir(forms))
+        self.assertTrue('UserProfileForm' in dir(forms))
+        user_form = forms.UserForm2()
+        user_profile_form = forms.UserProfileForm()
+        expected_fields_user = {
+            'email': django_fields.EmailField,
+            'first_name': django_fields.CharField,
+            'last_name': django_fields.CharField,
+        }
+        expected_fields_profile = {
+            'picture': django_fields.ImageField,
+        }
+        fields = user_form.fields
+        for expected_field_name in expected_fields_user:
+            expected_field = expected_fields_user[expected_field_name]
+            self.assertTrue(expected_field_name in fields.keys(), f"The field {expected_field_name} was not found in the User Settings Form.")
+            self.assertEqual(expected_field, type(fields[expected_field_name]), f"The field {expected_field_name} in User Settings Form was not of the correct type; (expected {expected_field}, got {type(fields[expected_field_name])})")
+
+        fields = user_profile_form.fields
+        for expected_field_name in expected_fields_profile:
+            expected_field = expected_fields_profile[expected_field_name]
+            self.assertTrue(expected_field_name in fields.keys(), f"The field {expected_field_name} was not found in the User Settings Form.")
+            self.assertEqual(expected_field, type(fields[expected_field_name]), f"The field {expected_field_name} in User Settings Form was not of the correct type; (expected {expected_field}, got {type(fields[expected_field_name])})")
