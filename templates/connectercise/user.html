@@ -30,6 +30,13 @@
                 </th>
               </tr>
             </table>
+            {% if user.is_authenticated %}
+            {% if userp.user.username == request.user.username %}
+            <a style="font-size:25px" href="{% url 'connectercise:user_settings' userp.user.username %}">Settings</a><br />
+            {% else %}
+            <a style="font-size:25px" href ="mailto: {{ userp.user.email }}">Mail</a><br />
+            {% endif %}
+        {% endif %}
         {% else %}
             The specified user does not exist.
         {% endif %}
@@ -66,12 +73,5 @@
     {% endif %}
     </section>
     </ul>
-    {% if user.is_authenticated %}
-        {% if userp.user.username == request.user.username %}
-        <a class="footer" href="{% url 'connectercise:user_settings' userp.user.username %}">Settings</a><br />
-        {% else %}
-        <a class="footer" href ="{% url 'connectercise:index' %}">Message?</a><br />
-        {% endif %}
-    {% endif %}
 </div>
 {% endblock %}
