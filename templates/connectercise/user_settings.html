@@ -19,6 +19,8 @@
     <br />
     <input type="submit" class="btn btn-success" name="submit" value="Update" />
 </form>
+<br /><br />
+<h5><a href = "{% url 'connectercise:user_delete' user.username %}"> Delete Account </a></h5>
 </div></div>
 {% else %}
 <h1>Invalid URL.</h1>

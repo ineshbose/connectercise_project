@@ -1,4 +1,5 @@
-from datetime import datetime
+from datetime import datetime, timedelta
+from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.http import HttpResponse
@@ -9,9 +10,15 @@ from django.contrib.auth.models import User
 from connectercise.forms import SportForm, RequestForm, UserForm, UserProfileForm, CommentForm, SportRequestForm, UserForm2
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.dispatch import receiver
 
 # Create your views here.
 def index(request):
+    
+    if request.user.is_authenticated:
+        if timezone.now() - request.user.date_joined < timedelta(seconds=5):
+            return redirect(reverse('connectercise:user_settings', kwargs={'user_profile_slug': request.user}))
+
     sport_list = Sport.objects.all()[:5]
     request_list = SportRequest.objects.order_by('-views')[:5]
     context_dict = {}
@@ -204,7 +211,15 @@ def user_settings(request, user_profile_slug):
             update_profile_form = UserProfileForm(instance=user_profile)
         return render(request, 'connectercise/user_settings.html', {'update_user_form': update_user_form, 'update_profile_form': update_profile_form})
     else:
-        return render(request, 'connectercise/user_settings.html', {'user':None})
+        return redirect(reverse('connectercise:show_user', kwargs={'user_profile_slug': user_profile_slug}))
+
+@login_required
+def user_delete(request, user_profile_slug):
+    if user_profile_slug == request.user.username:
+        User.objects.filter(username=user_profile_slug).delete()
+        return redirect("connectercise:index")
+    else:
+        return redirect(reverse('connectercise:show_user', kwargs={'user_profile_slug': user_profile_slug}))
 
 def privacy_policy(request):
     return render(request, 'connectercise/policy.html')

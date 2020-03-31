@@ -1,9 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
-from registration.signals import *
-#from django.shortcuts import render, redirect, get_object_or_404
-#from django.urls import reverse
+from registration.signals import user_registered
 import uuid
 
 # Create your models here.
@@ -67,6 +65,5 @@ class Comment(models.Model):
 
 def createUserProfile(sender, user, request, **kwargs):
     UserProfile.objects.get_or_create(user=user)
-    #return redirect(reverse('connectercise:user_settings', kwargs={'user_profile_slug': user}))
 
 user_registered.connect(createUserProfile)
