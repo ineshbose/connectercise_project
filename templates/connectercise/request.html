@@ -12,12 +12,12 @@
     <div class="jumbotron p-4">
         <div class="container text-center">
         {% if request %}
-             <h1 class="jumbotron-heading">{{ request.title }}</h1>
+             <h1 class="jumbotron-heading">{{ request.title }}</h1><hr>
         {% else %}
             The specified sporting request does not exist.
         {% endif %}
         </div>
-    </div>
+    
     <ul>
     {% if request %}
         {% if request.completed %}
@@ -46,6 +46,7 @@
         <h5><a class="footer" href = "{% url 'connectercise:delete_request' request.sport.slug request.slug %}"> Delete Request </a></h5>
       {% endif %}
     {% endif %}
+  </div>
 {% if user.is_authenticated %}
 <div class="container">
     <div class="col-md-8 card mb-4  mt-3 ">
