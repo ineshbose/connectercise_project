@@ -8,6 +8,7 @@ import uuid
 class Sport(models.Model):
     name = models.CharField(max_length=128, unique=True)
     slug = models.SlugField(unique=True)
+    picture = models.ImageField(upload_to='sports', default='sports/default.jpg')
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)

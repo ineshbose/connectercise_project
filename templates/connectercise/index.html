@@ -35,10 +35,9 @@ Home
             {% for s in sports %}
                 <ul class="list">
                     <li class="list">
-                    <img class="list" src="{% static 'images/about4.jpg' %}" />
+                    <img class="list" src="{{ s.picture.url }}" />
                     <h3 class="list"><a class="nav-link active" href = "{% url 'connectercise:show_sport' s.slug %}">
-                    <span data-feather="archive"></span> {{ s.name }}</a></h3>
-                    <p class="list">Lorem ipsum dolor sit amet...</p>
+                    {{ s.name }}</a></h3>
                     </li>
                 </ul>
             {% endfor %}
@@ -61,9 +60,13 @@ Home
             {% for r in requests %}
                 <ul class="list">
                     <li class="list">
-                    <img class="list" src="{% static 'images/about4.jpg' %}" />
+                    {% if r.picture %}
+                    <img class="list" src="{{ r.picture.url }}" />
+                    {% else %}
+                    <img class="list" src="{{ r.sport.picture.url }}" />
+                    {% endif %}
                     <h3 class="list"><a href="{% url 'connectercise:show_request' r.sport.slug r.slug %}">
-                    <span data-feather="archive"></span> {{ r.title }}</a></h3>
+                    {{ r.title }}</a></h3>
                     <p class="list">{{ r.desc }}</p>
                     </li>
                 </ul>
@@ -139,10 +142,9 @@ Home
               {% for s in sports %}
                   <ul class="list">
                       <li class="list">
-                      <img class="list" src="{% static 'images/about4.jpg' %}" />
+                      <img class="list" src="{{ s.picture.url }}" />
                       <h3 class="list"><a class="nav-link active" href = "{% url 'connectercise:show_sport' s.slug %}">
-                      <span data-feather="archive"></span> {{ s.name }}</a></h3>
-                      <p class="list">Lorem ipsum dolor sit amet...</p>
+                      {{ s.name }}</a></h3>
                       </li>
                   </ul>
               {% endfor %}
@@ -166,9 +168,13 @@ Home
               {% for r in requests %}
                   <ul class="list">
                       <li class="list">
-                      <img class="list" src="{% static 'images/about4.jpg' %}" />
+                      {% if r.picture %}
+                      <img class="list" src="{{ r.picture.url }}" />
+                      {% else %}
+                      <img class="list" src="{{ r.sport.picture.url }}" />
+                      {% endif %}
                       <h3 class="list"><a href="{% url 'connectercise:show_request' r.sport.slug r.slug %}">
-                      <span data-feather="archive"></span> {{ r.title }}</a></h3>
+                      {{ r.title }}</a></h3>
                       <p class="list">{{ r.desc }}</p>
                       </li>
                   </ul>
