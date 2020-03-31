@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'registration',
     'crispy_forms',
     'location_field.apps.DefaultConfig',
+    'django_extensions',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
