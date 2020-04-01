@@ -12,7 +12,7 @@ $ cd connectercise_project
 ```
 
 ### Virtual Environment
-If you haven't already created a virtual environment, you can do using using Anaconda.
+If you haven't already created a virtual environment, you can do using Anaconda.
 
 ```
 $ conda create -n connectercise python=3.8.0
