@@ -1,8 +1,6 @@
 from django.contrib import admin
 from connectercise.models import Sport, SportRequest, UserProfile, Comment
 
-# Register your models here.
-
 class SportAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}
 

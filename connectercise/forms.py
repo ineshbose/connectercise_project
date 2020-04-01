@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserChangeForm
 from connectercise.models import SportRequest, Sport, UserProfile, Comment
 from location_field.forms.plain import PlainLocationField
 
+# Adding a Sport (Only for Superusers)
 class SportForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Please enter the sport name.")
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
@@ -12,6 +13,7 @@ class SportForm(forms.ModelForm):
         model = Sport
         fields = ('name',)
 
+# Adding a Request specifying a sport
 class RequestForm(forms.ModelForm):
     title = forms.CharField(max_length=128)
     desc = forms.CharField(widget=forms.Textarea)
@@ -30,6 +32,7 @@ class RequestForm(forms.ModelForm):
 
     field_order = ['sport','title', 'desc', 'views','suggested_date','city','location','picture']
 
+# Adding a Request corresponding to a Sport (i.e. sport is pre-filled because of URL)
 class SportRequestForm(forms.ModelForm):
     title = forms.CharField(max_length=128)
     desc = forms.CharField(widget=forms.Textarea)
@@ -48,7 +51,7 @@ class SportRequestForm(forms.ModelForm):
 
     field_order = ['title', 'desc', 'views','suggested_date','city','location','picture']
 
-
+# User Registration Form
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget = forms.PasswordInput())
 
@@ -56,18 +59,21 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'password', 'first_name', 'last_name')
 
+# User Settings Form
 class UserForm2(forms.ModelForm):
 
     class Meta:
         model = User
         fields = ('email','first_name','last_name')
 
+# UserProfile Settings Form
 class UserProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
         fields = ('picture',)
 
+# Comment Form
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment

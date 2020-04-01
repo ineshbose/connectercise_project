@@ -9,6 +9,8 @@ from django.contrib.auth.hashers import make_password
 import random
 
 def populate():
+
+    # Creates Users to assign as Creators
     dummy_users = [
         {'username': 'testusername1',
         'password': 'connectercise1',
@@ -23,6 +25,8 @@ def populate():
         'password': 'connectercise4',
         'email': 'testuser4@connectercise.com'},
     ]
+
+
 
     hike_requests = [
         {'title': 'HIKING BUDDY NEEDED!!',
@@ -57,9 +61,13 @@ def populate():
         'views': 16},
     ]
 
+
+
     sports = {'Hiking': {'requests': hike_requests, 'picture': 'sports/hiking.jpg'},
             'Cycling': {'requests': cycling_requests, 'picture': 'sports/cycling.jpg'},
             'Others': {'requests': other_requests, 'picture': 'sports/default.jpg'} }
+
+
 
     user_list = []
     for u in dummy_users:
@@ -67,15 +75,20 @@ def populate():
         user_list.append(up)
         print(f'- Added user {up}')
 
+
     for sport, sport_data in sports.items():
         s = add_sport(sport, sport_data['picture'])
         for r in sport_data['requests']:
             add_request(s, r['title'], r['desc'], user_list[random.randint(0,3)], r['views'])
 
+
     for s in Sport.objects.all():
         for r in SportRequest.objects.filter(sport=s):
             print(f'- {s}: {r}')
 
+
+
+# Returns a Random Name to use as 'auth_user' first_name and last_name
 def get_random_name(case):
     if case == "first":
         fnames = ['Marc','Martin','Marvin','Peter','Angela','Clive','Megan','Fiona','Sky','Randy','Miranda','Gemma','Andrew']
@@ -84,14 +97,17 @@ def get_random_name(case):
         lnames = ['Smith','Doe','Murphy','Jacobs','Steinwien','Galoppa']
         return random.choice(lnames)
 
+
 def add_request(sport, title, desc, creator, views=0):
     r = SportRequest.objects.get_or_create(sport=sport, title=title, creator=creator, desc=desc, views=views)[0]
     return r
+
 
 def add_sport(name, picture):
     s = Sport.objects.get_or_create(name=name, picture=picture)[0]
     s.save()
     return s
+
 
 def add_user(username, password, email):
     user_to_add = User(username=username, email=email, password=make_password(password), first_name=get_random_name("first"), last_name=get_random_name("last"))
@@ -99,6 +115,8 @@ def add_user(username, password, email):
     up = UserProfile.objects.get_or_create(user=user_to_add)[0]
     up.save()
     return user_to_add
+
+
 
 if __name__ == '__main__':
     print('Starting Connectercise population script...')

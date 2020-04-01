@@ -10,11 +10,10 @@ from django.contrib.auth.models import User
 from connectercise.forms import SportForm, RequestForm, UserForm, UserProfileForm, CommentForm, SportRequestForm, UserForm2
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.dispatch import receiver
 
-# Create your views here.
 def index(request):
     
+    # If user recently registered, redirect them to User Settings to fill in their full name and picture
     if request.user.is_authenticated:
         if timezone.now() - request.user.date_joined < timedelta(seconds=5):
             return redirect(reverse('connectercise:user_settings', kwargs={'user_profile_slug': request.user}))
@@ -22,15 +21,20 @@ def index(request):
     sport_list = Sport.objects.all()[:5]
     request_list = SportRequest.objects.order_by('-views')[:5]
     context_dict = {}
-    context_dict['boldmessage'] = 'lorem ipsum?'
     context_dict['sports'] = sport_list
     context_dict['requests'] = request_list
     return render(request, 'connectercise/index.html', context=context_dict)
 
+
+
+# Render About Page
 def about(request):
     context_dict = {}
     return render(request, 'connectercise/about.html', context=context_dict)
 
+
+
+# Render Explore Page
 def explore(request):
     sport_list = Sport.objects.all()[:5]
     request_list = SportRequest.objects.order_by('-views')[:5]
@@ -39,12 +43,18 @@ def explore(request):
     context_dict['requests'] = request_list
     return render(request, 'connectercise/explore.html', context=context_dict)
 
+
+
+# Render Sports Page
 def sports(request):
     sport_list = Sport.objects.all()[:5]
     context_dict = {}
     context_dict['sports'] = sport_list
     return render(request, 'connectercise/sports.html', context=context_dict)
 
+
+
+# Show Requests of a Specified Sport
 def show_sport(request, sport_name_slug):
     context_dict = {}
     try:
@@ -57,14 +67,19 @@ def show_sport(request, sport_name_slug):
         context_dict['requests'] = None
     return render(request, 'connectercise/sport.html', context=context_dict)
 
+
+
+# Show details of a SportRequest
 def show_request(request, sport_name_slug, request_name_slug):
     context_dict = {}
+    
     try:
         s_request = SportRequest.objects.get(slug=request_name_slug)
         SportRequest.objects.filter(slug=request_name_slug).update(views=s_request.views+1)
         context_dict['request'] = s_request
         comments = s_request.comments.filter(active=True)
         new_comment = None
+        
         # Comment posted
         if request.method == 'POST':
             comment_form = CommentForm(data=request.POST)
@@ -83,14 +98,20 @@ def show_request(request, sport_name_slug, request_name_slug):
             
             context_dict['comment_form'] = comment_form
         context_dict['comments'] = comments
+    
     except SportRequest.DoesNotExist:
         context_dict['request'] = None
+    
     return render(request, 'connectercise/request.html', context=context_dict)
 
+
+
+# Add Sport only for Superusers
 @login_required
 def add_sport(request):
     if request.user.is_superuser:
         form = SportForm()
+    
         if request.method == 'POST':
             form = SportForm(request.POST)
             if form.is_valid():
@@ -98,131 +119,186 @@ def add_sport(request):
                 return redirect('/')
             else:
                 print(form.errors)
+    
         return render(request, 'connectercise/add_sport.html', {'form': form})
+    
     else:
         return redirect('/')
 
+
+
+# Add Request with Sport Specified
 @login_required
 def add_sport_request(request, sport_name_slug):
     try:
         sport = Sport.objects.get(slug=sport_name_slug)
     except Sport.DoesNotExist:
         sport = None
+    
     if sport is None:
         return redirect('/')
+    
     form = SportRequestForm()
+    
     if request.method == 'POST':
         form = SportRequestForm(request.POST)
+    
         if form.is_valid():
             if sport:
                 s_request = form.save(commit=False)
                 s_request.sport = sport
                 s_request.views = 0
                 s_request.creator = request.user
+    
                 if 'picture' in request.FILES:
                     s_request.picture = request.FILES['picture']
+    
                 s_request.completed = False
                 s_request.save()
                 return redirect(reverse('connectercise:show_request', kwargs={'sport_name_slug': sport_name_slug, 'request_name_slug': s_request.request_id}))
         else:
             print(form.errors)
+    
     context_dict = {'form': form, 'sport': sport}
     return render(request, 'connectercise/add_request.html', context=context_dict)
 
+
+
+# Add Request mentioning the Sport
 @login_required
 def add_request(request):
     form = RequestForm()
+    
     if request.method == 'POST':
         form = RequestForm(request.POST)
+    
         if form.is_valid():
             s_request = form.save(commit=False)
             s_request.views = 0
             s_request.creator = request.user
+    
             if 'picture' in request.FILES:
                     s_request.picture = request.FILES['picture']
+    
             s_request.completed = False
             s_request.save()
             return redirect(reverse('connectercise:show_request', kwargs={'sport_name_slug': s_request.sport, 'request_name_slug': s_request.request_id}))
+    
         else:
             print(form.errors)
     context_dict = {'form': form}
     return render(request, 'connectercise/add_request.html', context=context_dict)
 
+
+
+# Shows User Profile and Requests they've created
 def show_user(request, user_profile_slug):
     context_dict = {}
     try:
         user = User.objects.get(username=user_profile_slug)
         userp = UserProfile.objects.get(user=user)
         context_dict['userp'] = userp
+        
         try:
             user_requests = SportRequest.objects.filter(creator=user)
             context_dict['requests'] = user_requests
         except SportRequest.DoesNotExist:
             context_dict['requests'] = None
+    
     except User.DoesNotExist:
         context_dict['userp'] = None
+    
     return render(request, 'connectercise/user.html', context=context_dict)
 
+
+
+# Use Bing Search
 def search(request):
     query = request.GET.get('q')
     request_list = None
+    
     if query != None:
         request_list = SportRequest.objects.filter(Q(title__icontains=query) | Q(desc__icontains=query)) 
         return render(request, 'connectercise/search.html', {'query': query,'requests': request_list}) 
-    return render(request, 'connectercise/search.html', {'query': query, 'requests': request_list}) 
     
+    return render(request, 'connectercise/search.html', {'query': query, 'requests': request_list}) 
+
+
+
 @login_required
 def accept_request(request, sport_name_slug, request_name_slug):
     s_request = SportRequest.objects.get(slug=request_name_slug)
+    # Creators cannot accept their own request
     if s_request.creator != request.user:
         SportRequest.objects.filter(slug=request_name_slug).update(completed=True)
         return redirect(reverse('connectercise:show_user', kwargs={'user_profile_slug': s_request.creator.username}))
     else:
         return redirect(reverse('connectercise:show_request', kwargs={'sport_name_slug': s_request.sport, 'request_name_slug': s_request.request_id}))
 
+
+
 @login_required
 def delete_request(request, sport_name_slug, request_name_slug):
     s_request = SportRequest.objects.get(slug=request_name_slug)
+    # Only the User should be able to delete their own request, and not anyone who goes to the URL
     if s_request.creator == request.user:
         SportRequest.objects.filter(slug=request_name_slug).delete()
         return redirect(reverse('connectercise:show_user', kwargs={'user_profile_slug': s_request.creator.username}))
     else:
         return redirect(reverse('connectercise:show_request', kwargs={'sport_name_slug': s_request.sport, 'request_name_slug': s_request.request_id}))
 
+
+
 @login_required
 def user_settings(request, user_profile_slug):
+    # Only the User should be able to go to settings of their own account, and not anyone who goes to the URL
     if user_profile_slug == request.user.username:
         user_profile = UserProfile.objects.get(user=request.user)
+        
         if request.method == "POST":
             update_user_form = UserForm2(data=request.POST, instance=request.user)
             update_profile_form = UserProfileForm(data=request.POST, instance=user_profile)
+        
             if update_user_form.is_valid() and update_profile_form.is_valid():
                 user = update_user_form.save()
                 profile = update_profile_form.save(commit=False)
                 profile.user = user
+        
                 if 'picture' in request.FILES:
                     profile.picture = request.FILES['picture']
+        
                 profile.save()
                 return redirect(reverse('connectercise:show_user', kwargs={'user_profile_slug': user_profile_slug}))
             else:
                 print(update_user_form.errors, update_profile_form.errors)
+        
         else:
             update_user_form = UserForm2(instance=request.user)
             update_profile_form = UserProfileForm(instance=user_profile)
         return render(request, 'connectercise/user_settings.html', {'update_user_form': update_user_form, 'update_profile_form': update_profile_form})
+    
     else:
         return redirect(reverse('connectercise:show_user', kwargs={'user_profile_slug': user_profile_slug}))
 
+
+
 @login_required
 def user_delete(request, user_profile_slug):
+    # Only the User should be able to delete their own account, and not anyone who goes to the URL
     if user_profile_slug == request.user.username:
         User.objects.filter(username=user_profile_slug).delete()
         return redirect("connectercise:index")
     else:
         return redirect(reverse('connectercise:show_user', kwargs={'user_profile_slug': user_profile_slug}))
 
+
+
+# Render Privacy Page
 def privacy_policy(request):
     return render(request, 'connectercise/policy.html')
 
+
+
+# Render Terms Page
 def terms_of_service(request):
     return render(request, 'connectercise/terms.html')
