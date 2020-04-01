@@ -32,7 +32,7 @@
         <h6><span data-feather="eye"></span> {{ request.views }}</h6>
         <h6>{{ request.desc }}</h6>
         {% if request.picture %}
-          <img src="{{ request.picture.url }}">
+          <img class="request" src="{{ request.picture.url }}">
         {% endif %}
         <div class="row">
           <div class="col">

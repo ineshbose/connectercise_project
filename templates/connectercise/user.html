@@ -22,7 +22,7 @@
             <table class="tg">
               <tr>
                 <th class="tg-cly1">
-                    <img src="{{ userp.picture.url }}" width="90" height="100">
+                    <img class="profile" src="{{ userp.picture.url }}">
                 </th>
                     {% if user.is_authenticated %}
                     {% if userp.user.username == request.user.username %}

@@ -172,6 +172,16 @@ li img.list {
   float: left;
   margin: 0 15px 0 0;
   background: rgb(255, 255, 255);
+  max-height: 100px;
+}
+
+img.request {
+  background: rgb(255, 255, 255);
+  max-height: 200px;
+}
+
+img.profile {
+  background: rgb(255, 255, 255);
   max-height: 200px;
 }
  
