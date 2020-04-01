@@ -24,18 +24,18 @@
                 <th class="tg-cly1">
                     <img src="{{ userp.picture.url }}" width="90" height="100">
                 </th>
+                    {% if user.is_authenticated %}
+                    {% if userp.user.username == request.user.username %}
+                    <a style="float:right;" class="action-button shadow animate blue" href="{% url 'connectercise:user_settings' userp.user.username %}">Settings</a><br />
+                    {% else %}
+                    <a style="float:right;" class="action-button shadow animate blue" href ="mailto: {{ userp.user.email }}">Mail</a><br />
+                    {% endif %}
                 <th class="tg-cly1">
                     <h1 class="jumbotron-heading">{{ userp.user.first_name }} {{ userp.user.last_name }}</h1>
                     <h6>{{ userp.user.username }}</h6>
                 </th>
               </tr>
             </table>
-            {% if user.is_authenticated %}
-            {% if userp.user.username == request.user.username %}
-            <a style="font-size:25px" href="{% url 'connectercise:user_settings' userp.user.username %}">Settings</a><br />
-            {% else %}
-            <a style="font-size:25px" href ="mailto: {{ userp.user.email }}">Mail</a><br />
-            {% endif %}
         {% endif %}
         {% else %}
             The specified user does not exist.

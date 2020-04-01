@@ -19,7 +19,7 @@
     <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
     <!-- Load icon library for search-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <!-- Custom styles for this template -->
+    <!-- Custom styles for this template -->
     <link href="{% static 'css/scrolling-nav.css' %}" rel="stylesheet">
     {% block head_block %}{% endblock %}
     </head>
@@ -29,8 +29,8 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="footer" href="{% url 'connectercise:index' %}">
-        <span class="nav-item">Connectercise</span>
+    <a style="color: rgb(236, 234, 234);" class="logo" href="{% url 'connectercise:index' %}">
+        <span class="menu-collapsed">CONNECTERCISE</span>
     </a>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
@@ -76,7 +76,7 @@
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                         <a class="logo" href="{% url 'connectercise:index' %}">
-                            <span class="menu-collapsed">CONNECTERCISE</span>
+                            <span style="margin-left:5%" class="menu-collapsed">CONNECTERCISE</span>
                         </a>
                         <hr>
                             <ul class="nav flex-column">

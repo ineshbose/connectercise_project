@@ -9,7 +9,11 @@
 
 {% block body_block %}
 {% if user %}
-<h1>{{ user.username }} Settings</h1>
+    <div class="jumbotron p-4">
+        <div class="container text-center">
+            <h1 class="jumbotron-heading">{{ user.username }} Settings</h1>
+        </div>
+    </div>
     <div class="jumbotron p-4">
         <div class="container">
 <form id="update_user_form" method="POST" action="{% url 'connectercise:user_settings' user.username %}" enctype="multipart/form-data">
@@ -17,10 +21,16 @@
     {{ update_user_form|crispy }}
     {{ update_profile_form|crispy }}
     <br />
-    <input type="submit" class="btn btn-success" name="submit" value="Update" />
+    <div class="row">
+        <div class="col">
+            <input type="submit" class="btn btn-success" name="submit" value="Update" />
+        </div>
+        <div class="col">
+            <a style="float:right;" class="btn btn-danger" href = "{% url 'connectercise:user_delete' user.username %}"> Delete Account </a>
+        </div>
+    </div>
 </form>
 <br /><br />
-<h5><a href = "{% url 'connectercise:user_delete' user.username %}"> Delete Account </a></h5>
 </div></div>
 {% else %}
 <h1>Invalid URL.</h1>

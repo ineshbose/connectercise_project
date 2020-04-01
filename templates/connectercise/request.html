@@ -24,7 +24,7 @@
         <h4>This request has been closed.</h4>
         {% endif %}
         {% if request.location %}
-          <h6><span data-feather="map-pin"></span><a class="footer" href="https://maps.google.com?q={{ request.location }}"> Open Google Maps </a></h6>
+          <h6><span data-feather="map-pin"></span><a class="logo" href="https://maps.google.com?q={{ request.location }}"> Open Google Maps </a></h6>
         {% endif %}
         {% if request.suggested_date %}
           <h6><span data-feather="calendar"></span> {{ request.suggested_date }}</h6>
@@ -34,17 +34,23 @@
         {% if request.picture %}
           <img src="{{ request.picture.url }}">
         {% endif %}
-        <h5>Created by <a class="footer" href = "{% url 'connectercise:show_user' request.creator.username %}">{{ request.creator.username }}</a></h5>
+        <div class="row">
+          <div class="col">
+          <h5>Created by <a class="logo" href = "{% url 'connectercise:show_user' request.creator.username %}">{{ request.creator.username }}</a></h5>
+          </div>
+          <div class="col">
+          {% if user.is_authenticated and request.completed == False %}
+            {% if request.creator != user %}
+              <h5><a style="float:right" class="btn btn-success" href = "{% url 'connectercise:accept_request' request.sport.slug request.slug %}"> Accept Request </a></h5>
+            {% else %}
+              <h5><a style="float:right" class="btn btn-danger" href = "{% url 'connectercise:delete_request' request.sport.slug request.slug %}"> Delete Request </a></h5>
+            {% endif %}
+          {% endif %}    
+          </div>
+        </div>
     </ul>
     {% else %}
         <strong>404</strong>
-    {% endif %}
-    {% if user.is_authenticated and request.completed == False %}
-      {% if request.creator != user %}
-        <h5><a class="footer" href = "{% url 'connectercise:accept_request' request.sport.slug request.slug %}"> Accept Request </a></h5>
-      {% else %}
-        <h5><a class="footer" href = "{% url 'connectercise:delete_request' request.sport.slug request.slug %}"> Delete Request </a></h5>
-      {% endif %}
     {% endif %}
   </div>
 {% if user.is_authenticated %}
