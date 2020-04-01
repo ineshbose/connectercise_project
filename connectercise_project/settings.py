@@ -104,6 +104,7 @@ DATABASES = {
     }
 }
 
+# Used for Request Form Map
 LOCATION_FIELD = {
     'map.provider': 'openstreetmap',
     'search.provider': 'nominatim',
@@ -149,8 +150,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR, ]
 STATIC_ROOT = '/home/connectercise/static'
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
+# Media files (Images)
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
