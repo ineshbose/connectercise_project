@@ -13,30 +13,30 @@
     <div class="jumbotron p-4">
         <div class="container">
         {% if userp %}
-        <style type="text/css">
-            .tg  {border-collapse:collapse;border-spacing:0;border:none;}
-            .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
-            .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
-            .tg .tg-cly1{text-align:left;vertical-align:middle}
+            <style type="text/css">
+                .tg  {border-collapse:collapse;border-spacing:0;border:none;}
+                .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
+                .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
+                .tg .tg-cly1{text-align:left;vertical-align:middle}
             </style>
             <table class="tg">
               <tr>
                 <th class="tg-cly1">
                     <img class="profile" src="{{ userp.picture.url }}">
                 </th>
-                    {% if user.is_authenticated %}
+                {% if user.is_authenticated %}
                     {% if userp.user.username == request.user.username %}
-                    <a style="float:right;" class="action-button shadow animate blue" href="{% url 'connectercise:user_settings' userp.user.username %}">Settings</a><br />
+                        <a style="float:right;" class="action-button shadow animate blue" href="{% url 'connectercise:user_settings' userp.user.username %}">Settings</a><br />
                     {% else %}
-                    <a style="float:right;" class="action-button shadow animate blue" href ="mailto: {{ userp.user.email }}">Mail</a><br />
+                        <a style="float:right;" class="action-button shadow animate blue" href ="mailto: {{ userp.user.email }}">Mail</a><br />
                     {% endif %}
+                {% endif %}
                 <th class="tg-cly1">
                     <h1 class="jumbotron-heading">{{ userp.user.first_name }} {{ userp.user.last_name }}</h1>
                     <h6>{{ userp.user.username }}</h6>
                 </th>
               </tr>
-            </table>
-        {% endif %}
+            </table>  
         {% else %}
             The specified user does not exist.
         {% endif %}
