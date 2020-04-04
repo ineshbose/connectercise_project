@@ -1,5 +1,10 @@
+# Cached Files
 __pycache__
+
+# Migrations (except __init__.py)
 migrations/*
 !migrations/__init__.py
+
+# Database and Keys
 *.key
 db.sqlite3
